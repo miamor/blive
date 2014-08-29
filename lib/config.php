@@ -15,8 +15,8 @@ $db_select = mysql_select_db(DB_NAME, $con);
 
 define('MAIN_PATH', '/var/lib/tomcat6/webapps/ROOT/blive');
 // define('HOST_URL', 'http://192.168.93.101');
-define('HOST_NAME', 'localhost');
- define('HOST_URL', 'http://localhost:8080/blive');
+// define('HOST_NAME', 'localhost');
+define('HOST_URL', 'http://localhost:8080/blive');
 define('MAIN_URL', HOST_URL);
 // define('COMPILE_URL', 'http://localhost:8080/goodbooks');
 define('LIB', MAIN_URL.'/lib');
