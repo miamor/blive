@@ -36,7 +36,7 @@ if ($_GET['do']) {
 	if ($do == 'public') {
 		changeValue('promise', "`id` = '$iid' ", "`privacy` = 'public' ");
 		changeValue('activity', "`type` = 'new-promise' AND `iid` = '$iid' ", "`privacy` = 'public' ");
-	} else if ($do == 'public') {
+	} else if ($do == 'draff') {
 		changeValue('promise', "`id` = '$iid' ", "`privacy` = 'draff' ");
 		changeValue('activity', "`type` = 'new-promise' AND `iid` = '$iid' ", "`privacy` = 'draff' ");
 	}

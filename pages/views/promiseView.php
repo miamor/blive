@@ -57,10 +57,13 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 			
 			<div class="one-good-info">
 				<div class="one-good-buttons"><? bButton($gdi['id']) ?></div>
-<!--				<div class="one-good-time right gensmall">
-					<span class="fa fa-clock-o"></span> <? echo timeFormat($gdi['time']) ?>
-				</div>
--->				<div class="clearfix"></div>
+				<div class="clearfix"></div>
+<?	if ($gdi['lock'] != 'yes' && $gdi['uid'] == $u) { ?>
+		<div class="votes-and-lock hide-on-list gensmall">
+			<a class="btn btn-danger lock-it" data-content="By locking this item, everyone who voted before will not be able to change their votes anymore (This won't effect to those who vote after this is locked) Remember, this can't be undone" data-href="#!promise?i=<? echo $iid ?>&do=lock"><span class="fa fa-lock"></span> Lock</a>
+		</div>
+<?	} ?>
+				<div class="clearfix"></div>
 			</div>
 
 		<? if ($gdi['uid'] == $u && !$gdi['did']) { ?>
@@ -112,21 +115,24 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 -->				</div>
 			</div>
 		<? } ?>
-	</span></div>
-		
+
 	<div class="gensmall one-good-code">#p<? echo $iid ?></div>
 
 	<div class="hide small-board-fixed"></div>
 	<div class="hide small-board sb-like-list"></div>
 
-<?	toolPost('promise', $iid);
-	echo '<div class="static-post">';
-		likeStatic('promise', $iid);
+<?	toolPost('promise', $iid); ?>
+	</span></div>
+
+<?	echo '<div class="static-post">';
+		likeStatic($pag, $iid);
 	echo '</div>';
 	echo '<div class="cmts-post">';
-		cmtListPost('promise', $iid);
+		cmtListPost($pag, $iid);
 	echo '</div>';
-	cmtFormPost('promise', $iid); ?>
+	cmtFormPost($pag, $iid); ?>
 </div>
+
+<style>#tool{margin-top:5px!important}</style>
 
 <script src="<? echo JS ?>/promiseView.js"></script>

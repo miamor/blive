@@ -6,7 +6,7 @@
 <div class="gensmall">Deprecated</div>
 
 <? // $goodDidList = $getRecord -> GET ('promise', "`did` != 'yes' ");
-$goodDidList = $getRecord -> GET ('promise', $condition);
+$goodDidList = $getRecord -> GET ('help', $condition);
 if (count($goodDidList) <= 0) echo '<div class="rows">Empty data</div>';
 else {
 	foreach ($goodDidList as $gdl) {

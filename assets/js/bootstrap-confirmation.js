@@ -259,7 +259,7 @@
 				'</div><div class="clearfix"></div>' +
 				'</div>' +
 				'</div>'
-		, btnOkClass:  'btn-info'
+		, btnOkClass:  'btn-primary'
 		, btnCancelClass:  'btn-default'
 		, btnOkLabel: '<i class="icon-ok-sign icon-white"></i> Yes'
 		, btnCancelLabel: '<i class="icon-remove-sign"></i> No'

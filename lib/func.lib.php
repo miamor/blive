@@ -620,7 +620,7 @@ function bButton ($iid) {
 			<div class="b-button know-button plus-before left <? if (in_array($u, $gdlKnowAr)) echo 'active' ?>" id="know" alt="<? echo $gdl['id'] ?>" title="I know <? echo vocative($gdi['uid']) ?> did">Know <b><? echo $gdlKnow ?></b></div>
 			<div class="b-button know-not-button minus-before left <? if (in_array($u, $gdlKnowNotAr)) echo 'active' ?>" id="know-not" alt="<? echo $gdl['id'] ?>" title="I know <? echo vocative($gdi['uid']) ?> didn't"><? echo $gdlKnowNot ?></div>
 		</div>
-		<div class="clearfix"></div>
+<!--		<div class="clearfix"></div> -->
 <?	if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes') { ?>
 		<div class="votes-sta hide-on-list">
 			This item is locked by <a class="votes-sta-details"><b><? echo $gdi['believe_lock'] + $gdi['believe_not_lock'] + $gdi['know_lock'] + $gdi['know_not_lock'] ?></b> first votes</a>
@@ -630,11 +630,6 @@ function bButton ($iid) {
 				<li><b><? echo $gdi['know_lock'] ?></b> know +</li>
 				<li><b><? echo $gdi['know_not_lock'] ?></b> know -</li>
 			</ul>
-		</div>
-<?	}
-	if ($gdi['lock'] != 'yes' && $gdi['uid'] == $u) { ?>
-		<div class="votes-and-lock hide-on-list gensmall">
-			<a class="btn btn-danger lock-it" data-content="By locking this item, everyone who voted before will not be able to change their votes anymore (This won't effect to those who vote after this is locked) Remember, this can't be undone" data-href="#!promise?i=<? echo $iid ?>&do=lock"><span class="fa fa-lock"></span> Lock</a>
 		</div>
 <?	}
 }

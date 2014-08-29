@@ -4,6 +4,7 @@ var ASSETS = MAIN_URL + '/assets',
 	JS = ASSETS + '/js',
 	PLUGINS = ASSETS + '/plugins',
 	path = window.location.href.split('#')[0];
+var pl_page;
 // MAIN_URL is set in /jquery/jquery-1.7.2.js
 
 jQuery.fx.interval = 50;
@@ -133,7 +134,7 @@ function smallBoard (id) {
 	}
 	a.find('.sb-close').click(function () {
 		a.hide().prev('.small-board-fixed').hide();
-		a.closest('.sidebar-nicescroller').css('z-index', 200)
+		a.closest('.sidebar-nicescroller').removeAttr('style');
 		$('.nicescroll-rails').show();
 	});
 	setTimeout(function () {
@@ -156,9 +157,10 @@ function unavailable (date) {
 function refreshScripts () {
 //	tipsy();
 //	fancyboxLoad();
+	pl_page = $('.page-content').attr('data-p');
 	pagination();
 //	flatApp();
-//	sce('content');
+	sce('content');
 	$('.main-content .top-section .toggle-form').click(function () {
 		$(this).closest('.top-section').find('.top-form').slideDown().attr('style', 'display:block')
 	});
@@ -207,34 +209,29 @@ function scrollToContent (file, v) {
 		success: function (data) {
 			title = data.split(/<!--|-->/)[1];
 			display = data.split(/<!--{|}-->/)[1];
-/*			if (display == 'left-content') {
-				displayLeft(data);
-				if (!$('#content').find('*').length) {
-					$('#content').show().next('.loading-screen').remove();
-					loadMain('feed', '')
-				} else $('#content').show().next('.loading-screen').hide()
-			} else {
-				if (!$('#left-content').find('*').length) loadLeft('promise', 'show=open');
-*/				displayMain(data)
-/*			} */
+			displayMain(data)
 		},
 		error: function (xhr) {
-//			setTimeout(function () {
+			setTimeout(function () {
 				$('#content').html('This page does not exist or being under constructions or something\'s broken.');
-//			}, 100)
+			}, 100)
 		}
 	})
 }
 
-function firstScroll () {
-	if (window.location.href.indexOf('#!') > 0) {
-		if (window.location.href.split('#!')[1].length) {
+function loadFromUrl (url) {
+	if (url.indexOf('#!') > 0) {
+		if (url.split('#!')[1].length) {
 			lo = location.hash.replace('#!', '');
-			if (window.location.href.indexOf('?') > 0) {
+			if (url.indexOf('?') > 0) {
 				scrollToContent(lo.split('?')[0], lo.split('?')[1])
 			} else scrollToContent(lo, '')
 		} else scrollToContent('feed', '')
-	} else if (window.location.href == MAIN_URL + '/') scrollToContent('feed', '');
+	} else if (url == MAIN_URL + '/') scrollToContent('feed', '');
+}
+
+function firstScroll () {
+	loadFromUrl(window.location.href)
 }
 
 function alert_tip (content) {
@@ -516,7 +513,6 @@ function ajaxSCommentCmtOne (i, id) {
 	})
 }
 function submitChildCommment (id, i) {
-	alert(i + '~~' + id);
 	$('.the' + id + ' .one-cmt.cmt-' + i).find('#cmt' + i + '-' + id).find('.sceditor-container iframe').contents().bind("keydown", function (e) {
 		if (e.keyCode == 13 && !e.shiftKey) {
 			e.preventDefault();
@@ -659,20 +655,10 @@ $(function () {
 			cache: false,
 			processData: false,
 			success: function (data, textStatus, jqXHR) {
-				$bigDiv.children('.overflow-scroll').html('<div class="spinner"><div></div><div></div><div></div></div>');
-				$bigDiv.find('.top-section textarea').each(function () {
+				$bigDiv.find('.the-form textarea').each(function () {
 					$(this).next('.sceditor-container').find('iframe').contents().find('body').html('')
 				});
-//				alert(url);
-				if (page == 'feed') {
-					scrollToContent('feed', '');
-//					firstScroll();
-					ajaxS();
-					$('#content').prev('.top-section').find('.top-form').slideUp(170)
-				} else {
-//					firstLeft();
-					$('#left-content').prev('.top-section').find('.top-form').slideUp(170)
-				}
+				firstScroll()
 			},
 			error: function (xhr) {
 				mtip('', 'error', '', 'Your message can\'t be sent.');
@@ -743,15 +729,8 @@ $(function () {
 */
 })
 
-$(window).on('hashchange', function(e) {
+$(window).on('hashchange', function (e) {
 	var origEvent = e.originalEvent
 	newUrl = origEvent.newURL;
-	if (newUrl.indexOf('#!') > -1) {
-		file = newUrl.replace(MAIN_URL + '/#!', '');
-		if (newUrl.indexOf('?') > 0) {
-			file = file.split('?')[0];
-			v = newUrl.split('?')[1];
-			scrollToContent(file, v)
-		} else scrollToContent(file, '')
-	} else scrollToContent('feed', '')
+	loadFromUrl(newUrl)
 });

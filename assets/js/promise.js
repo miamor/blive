@@ -1,4 +1,3 @@
-var pl_page = $('.page-content').attr('data-p');
 function promise () {
 //	flatApp();
 //	sce();

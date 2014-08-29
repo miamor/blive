@@ -5,8 +5,8 @@
 	<div class="clearfix"></div>
 </div>
 
-<div class="the-form form-update-request hide">
-	<form class="status-form top-form" data-p="request" data-a="mode=new">
+<div class="the-form form-update-promise hide" style="display:block">
+	<form class="status-form top-form" data-p="promise" data-a="mode=new">
 		<textarea name="p-status" class="no-toolbar"></textarea>
 		<div class="form-custom">
 			<div class="custom">
@@ -27,16 +27,18 @@
 	</form>
 </div>
 
-<div class="the-form form-update-promise hide" style="display:block">
-	<form class="status-form top-form" data-p="promise" data-a="mode=new">
+<div class="the-form form-update-request hide">
+	<form class="status-form top-form" data-p="request" data-a="mode=new">
 		<textarea name="p-status" class="no-toolbar"></textarea>
 		<div class="form-custom">
 			<div class="custom">
-				<input type="number" name="p-money" class="p-money" placeholder="Bet some coins?"/>
-				<div class="p-money-type">
-					<img class="money-type-select selected" id="coin" src="<? echo IMG ?>/coins.png"/>
-					<img class="money-type-select" id="gold" src="<? echo IMG ?>/dollar_coin.png"/>
-					<input type="hidden" name="p-money-type" value="coin">
+				<div class="p-type-div">
+					<div class="left">You're: </div>
+					<select name="p-type" class="p-type right">
+						<option value="need">Needing help</option>
+						<option value="add">Adding a favor</option>
+					</select>
+					<div class="clearfix"></div>
 				</div>
 				<select name="p-privacy" class="p-privacy">
 					<option value="public">Public</option>

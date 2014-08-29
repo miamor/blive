@@ -39,6 +39,11 @@ if ($_GET['do']) {
 			$likeAr = explode(', ', $gdi['likes']);
 			if (!in_array($u, $likeAr)) pushToCol('promise', 'id', $gdi['id'], 'likes');
 			else rmFromCol('promise', 'id', $gdi['id'], 'likes');
+		} else if ($pS['type'] == 'new-request') {
+			$gdi = getRecord('help^id,likes', "`id` = '{$pS['iid']}'");
+			$likeAr = explode(', ', $gdi['likes']);
+			if (!in_array($u, $likeAr)) pushToCol('help', 'id', $gdi['id'], 'likes');
+			else rmFromCol('help', 'id', $gdi['id'], 'likes');
 		}
 		if ( countRecord('activity', "`iid` = '$id' AND `type` = 'like' AND `uid` = '$u'") <= 0 ) {
 			$inlike = insert('activity', "`uid`, `type`, `iid`, `time`", "'$u', 'like', '$id', '$curint' ");

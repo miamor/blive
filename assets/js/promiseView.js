@@ -1,6 +1,6 @@
 function confirmDid (e) {
 	if (e == 'yes') {
-		confirmSwitchHTML = '<a id="no" class="no did-it btn" onclick="confirmDid(\'no\')"><span class="failure-sign"> I failed</span></a>';
+		confirmSwitchHTML = '<a id="no" class="no did-it btn btn-none" onclick="confirmDid(\'no\')"><span class="failure-sign"> I failed</span></a>';
 		confirmHTML = '<span class="success-sign bold"> Congratulation! You\'ve made it!</span>';
 		$('.confirm-lock-option').show();
 		$('.confirm-select-people').append('<div class="gensmall success-select-announce">* People from list above will have to make a word to complete with a bet at least as yours. </div>').find('select').attr('disabled', false).next('.chosen-container').show().prev().prev('.fail-select-announce').remove();
@@ -96,7 +96,8 @@ $(function () {
 				type: 'post',
 				datatype: 'json',
 				success: function (data) {
-					loadLeft(pl_page, 'i=' + id)
+//					loadLeft(pl_page, 'i=' + id)
+					firstScroll()
 				}
 			});
 			return false
@@ -105,17 +106,6 @@ $(function () {
 	$('.view-all-vote').click(function () {
 		bigId = $(this).closest('.sidebar-nicescroller').children('.overflow-scroll').attr('id')
 		i = $(this).closest('.one-good-big, .one-good-feed').attr('id');
-		if (bigId == 'left-content') {
-			loadLeft(pl_page, 'i=' + i + '&show=votes');
-			$('#left-content').prev('.top-section').find('.s-title').find('.back-to-list').remove();
-			$('#left-content').prev('.top-section').find('.toggle-form').before('<a class="fa fa-reply back-to-item" id="' + i + '"></a>');
-			$('.left-menu-column .back-to-item').click(function () {
-				id = $(this).attr('id');
-				loadLeft(pl_page, 'i=' + id);
-				$('#left-content').prev('.top-section').find('.s-title').find('.back-to-item').remove();
-				$('#left-content').prev('.top-section').find('.toggle-form').before('<a class="fa fa-reply back-to-list"></a>')
-			})
-		} else {
 			$.ajax({
 				url: MAIN_URL + '/pages/promise.php?i=' + i + '&show=votes',
 				type: "get",
@@ -125,8 +115,6 @@ $(function () {
 					tab()
 				}
 			})
-//			loadMain('promise', 'i=' + i + '&show=votes')
-		}
 	});
 //	$('#left-content').prev('.top-section').find('.toggle-form').before('<a class="fa fa-reply back-to-list" href="javascript:history.go(-1)"></a>');
 	$('.confirm-textarea').submit(function () {
@@ -143,16 +131,8 @@ $(function () {
 			data: formData,
 			datatype: 'json',
 			success: function (data) {
-				loadLeft(pl_page, 'i=' + id)
-/*				$.ajax({
-					url: url,
-					type: 'get',
-					success: function (display) {
-						$('#left-content').html(display);
-						flatApp(); sce()
-					}
-				})
-*/			}
+				firstScroll()
+			}
 		});
 		return false
 	})

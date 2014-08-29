@@ -156,7 +156,8 @@ function loadmore (i) {
 				}
 			});
 			if ($('#load-more'+i).find('.loading-status').length) {
-				$('#load-more'+i).html('<div class="statu follow">No more data to show.</div>')
+//				$('#load-more'+i).html('<div class="statu follow">No more data to show.</div>')
+				$('#load-more'+i).html('')
 			}
 			$('#load-more'+i+':hidden').fadeIn(800)
 		}
