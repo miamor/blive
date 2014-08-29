@@ -227,6 +227,14 @@ function timeFormat ($timeInt) {
 	return "$d-$m-$y $h:$i";
 }
 
+function tagsList ($tag) {
+	$tagAr = explode(', ', $tag);
+	for ($i = 0; $i < count($tagAr); $i++)
+		$tagShow[] = '<a href="#!tag?i='.$tagAr[$i].'" class="tag">'.$tagAr[$i].'</a>';
+	$tagChar = implode(', ', $tagShow);
+	return $tagChar;
+}
+
 function tag ($content) {
 	global $u, $frArN, $member;
 	$content = str_replace(array('&nbsp;', '@', '<p><br></p>'), array(' ', '+', ''), _content($content));

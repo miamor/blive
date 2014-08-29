@@ -4,12 +4,12 @@ Install
 -------
 Extract .zip file to your web folder (htdocs, www, ...)
 Open ./lib/config.php, find and edit these values matching yours:
-	* `DB_SERVER`		->		Database server
-	* `DB_USER`		->		Root username
-	* `DB_PASS`		->		Root password
-	* `DB_NAME`		->		Database name
-	* `/var/lib/tomcat6/webapps/ROOT/blive`		->		Path to your ./blive folder
-	* `http://localhost:8080/blive`		->		Your page url
+	* `DB_SERVER`		->		Database server <br/>
+	* `DB_USER`		->		Root username <br/>
+	* `DB_PASS`		->		Root password <br/>
+	* `DB_NAME`		->		Database name <br/>
+	* `/var/lib/tomcat6/webapps/ROOT/blive`		->		Path to your ./blive folder <br/>
+	* `http://localhost:8080/blive`		->		Your page url <br/>
 2. __Create database__
 -------
 Go to phpMyAdmin, import __blive.sql__ (located in ./lib/ folder)

@@ -14,6 +14,9 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 			<div class="one-good-content">
 				<? echo tag($gdi['content']) ?>
 			</div>
+			<div class="tags-list">
+				<? echo tagsList($gdi['tags']) ?>
+			</div>
 	</span></div>
 	
 	<div class="gensmall one-good-code">#r<? echo $iid ?></div>
