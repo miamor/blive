@@ -2,8 +2,8 @@ Install
 ====
 1. __Configuration__
 -------
-Extract .zip file to your web folder (htdocs, www, ...)<br/>
-1. Rename root folder to __blive__
+Extract .zip file to your web folder (htdocs, www, ...)<br/><br/>
+1. Rename root folder to __blive__<br/>
 2. Open ./lib/config.php, find and replace these values matching yours: <br/>
 - `DB_SERVER`		->		Database server <br/>
 - `DB_USER`		->		Root username <br/>
