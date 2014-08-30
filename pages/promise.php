@@ -1,4 +1,5 @@
 <? include '../lib/config.php';
+
 $pag = 'promise';
 if ($mode == 'new') include 'system/promiseNew.php';
 if ($iid) {
@@ -40,7 +41,6 @@ if ($iid) {
 
 <script>$('.page-content').attr('data-p', 'promise')</script>
 <? if (!$iid) { ?>
-<style>.main-content{box-shadow:none;background:transparent;border:0;padding:0}
-.box-feed{padding:15px 20px 10px;margin:10px 0 20px 15px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px;clear:both;position:relative}</style>
+<style>.box-feed{padding:15px 20px 10px;margin:10px 0 20px 15px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px;clear:both;position:relative}</style>
 <? } ?>
 <!--<script src="<? echo JS ?>/promise.js"></script>-->

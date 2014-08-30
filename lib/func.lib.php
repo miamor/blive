@@ -231,7 +231,7 @@ function tagsList ($tag) {
 	$tagAr = explode(', ', $tag);
 	for ($i = 0; $i < count($tagAr); $i++)
 		$tagShow[] = '<a href="#!tag?i='.$tagAr[$i].'" class="tag">'.$tagAr[$i].'</a>';
-	$tagChar = implode(', ', $tagShow);
+	$tagChar = implode(' ', $tagShow);
 	return $tagChar;
 }
 

@@ -1,32 +1,19 @@
-<? if ($_GET['didit'] == 'submit' && $gdi['uid'] == $u) {
-	$didop = $_POST['did-option'];
-	$didcontent = _content($_POST['did-content']);
-	$lockOption = $_POST['confirm-lock'];
-	$numToLock = $_POST['num-to-lock'];
-	if ($didop == 'no') $lock = 'yes';
-	else $lock = '';
-	foreach ($_POST['select-people'] as $per)
-		$peopleAr[] = $per;
-	foreach ($_POST['select-suborner'] as $subornerOne)
-		$subornerAr[] = $subornerOne;
-	if ($didop == 'yes') {
-		$peopleStr = implode(', ', $peopleAr);
-		$subornerStr = implode(', ', $subornerAr);
-	} else $peopleStr = $subornerStr = '';
-	if ($didop) changeValue('help', "`id` = '$iid'", "`did` = '$didop', `lock` = '$lock' ");
-}
-
-if ($_GET['do']) {
+<? if ($_GET['do']) {
 	$do = $_GET['do'];
-	$encourageAr = explode(', ', $gdi['encourage']);
-	$gdlBelieveAr = explode(', ', $gdid['believe']);
-	$gdlBelieveNotAr = explode(', ', $gdid['believe_not']);
-	$gdlKnowAr = explode(', ', $gdid['know_did']);
-	$gdlKnowNotAr = explode(', ', $gdid['know_didnot']);
 	$gdlLikesAr = explode(', ', $gdi['likes']);
 	if ($do == 'help') {
-		activityAdd('new-request', $iid);
-		sendNoti('help-your-request', $iid, '', $rH['uid']);
+		$hcontent = $_POST['help-content'];
+		if ($hcontent) {
+			if (countRecord('help', "`type` = 'do' AND `uid` = '$u' AND `iid` = '$iid' ") <= 0) {
+				$dohelp = insert('help', "`type`, `content`, `iid`, `uid`, `time`", "'do', '$hcontent', '$iid', '$u', '$curint' ");
+				if ($dohelp) {
+					$new = getRecord('help', "`type` = 'do' AND `uid` = '$u' AND `iid` = '$iid' ");
+					activityAdd('new-request', $new['id']);
+					sendNoti('help-your-request', $iid, '', $gdi['uid']);
+					echo '<!--[type][success] [content][Your form has been sent. Thanks for your support!]-->';
+				} else echo '<!--[type][error] [content][Oops! Something went wrong. Please contact the administrators for help.]-->';
+			} else echo '<!--[type][error] [content][You\'ve already sent a request of help.]-->';
+		} else echo '<!--[type][error] [content][Please fill in your form.]-->';
 	}
 	if ($do == 'public') {
 		changeValue('help', "`id` = '$iid' ", "`privacy` = 'public' ");
@@ -35,15 +22,7 @@ if ($_GET['do']) {
 		changeValue('help', "`id` = '$iid' ", "`privacy` = 'draff' ");
 		changeValue('activity', "`type` = 'new-request' AND `iid` = '$iid' ", "`privacy` = 'draff' ");
 	}
-	if ($do == 'lock') {
-		if ($gdid['believe']) $pBelieve = count(explode(', ', $gdid['believe']));
-		else $pBelieve = 0;
-		if ($gdid['believe_not']) $pBelieveNot = count(explode(', ', $gdid['believe_not']));
-		else $pBelieveNot = 0;
-		if ($gdid['know']) $pKnow = count(explode(', ', $gdid['know']));
-		else $pKnow = 0;
-		if ($gdid['know_not']) $pKnowNot = count(explode(', ', $gdid['know_not']));
-		else $pKnowNot = 0;
-		changeValue('promise', "`id` = '$iid' ", "`lock` = 'yes', `believe_lock` = '$pBelieve', `believe_not_lock` = '$pBelieveNot', `know_lock` = '$pKnow', `know_not_lock` = '$pKnowNot' ");
+	if ($do == 'lock' && $gdi['uid'] == $u) {
+		changeValue('help', "`id` = '$iid' ", "`lock` = 'yes' ");
 	}
 } ?>

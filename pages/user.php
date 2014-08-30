@@ -28,5 +28,6 @@ $uid = $uIn['id']; ?>
 </div>
 
 <script src="<?php echo JS ?>/community.js"></script>
-<style>.sceditor-container{margin:-1px;width:100%!important;border:1px solid #ededed}
-.pagination{display:none}</style>
+<style>.pagination{display:none}
+.main-content{margin-left:0}
+.statu{margin:10px 10px 20px 62px}</style>

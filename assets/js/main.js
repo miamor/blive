@@ -270,7 +270,7 @@ function displayMain (data) {
 	titlez = data.split(/<!--|-->/)[1];
 	displayz = data.split(/<!--{|}-->/)[1];
 	setTimeout(function () {
-		$('#content').next('.loading-screen').hide();
+		$('#content').next('.loading-screen').remove();
 //		$('#content').prev('.top-section').find('.toggle-form').html(titlez);
 		$('#content').show().html(data).slideDown(100, function () {
 			clearTimeout(interval);

@@ -5,8 +5,8 @@ if ($iid) {
 	$gdi = getRecord('help', "`id` = '$iid' ");
 	$gdiLikes = explode(', ', $gdi['likes']);
 	$auth = getRecord('members^username,avatar,gender', "id = {$gdi['uid']}");
-//	$checkDid = countRecord('help', "iid = $iid");
-//	$gdid = getRecord('help', "iid = $iid");
+	$checkDid = countRecord('help', "`type` = 'do' AND `iid` = '$iid' ");
+	$gdid = $getRecord -> GET('help', "`type` = 'do' AND `iid` = '$iid' ");
 	if ($_GET['display']) {
 		$dis = $_GET['display'];
 		echo '<h3>'.count($gdiLikes).' following people liked this</h3>';
@@ -40,7 +40,6 @@ if ($iid) {
 
 <script>$('.page-content').attr('data-p', 'help')</script>
 <? if (!$iid) { ?>
-<style>.main-content{box-shadow:none;background:transparent;border:0;padding:0}
-.box-feed{padding:15px 20px 10px;margin:10px 0 20px 15px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px;clear:both;position:relative}</style>
+<style>.box-feed{padding:15px 20px 10px;margin:10px 0 20px 15px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px;clear:both;position:relative}</style>
 <? } ?>
 <script src="<? echo JS ?>/help.js"></script>

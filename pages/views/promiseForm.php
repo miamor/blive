@@ -35,7 +35,7 @@
 				<div class="p-type-div">
 					<div class="left">You're: </div>
 					<select name="p-type" class="p-type right">
-						<option value="need">Needing help</option>
+						<option value="need" selected>Needing help</option>
 						<option value="add">Adding a favor</option>
 					</select>
 					<div class="clearfix"></div>
