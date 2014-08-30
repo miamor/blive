@@ -7,6 +7,14 @@ if ($iid) {
 	$auth = getRecord('members^username,avatar,gender', "id = {$gdi['uid']}");
 	$checkDid = countRecord('help', "`type` = 'do' AND `iid` = '$iid' ");
 	$gdid = $getRecord -> GET('help', "`type` = 'do' AND `iid` = '$iid' ");
+	$searchWithTags = '';
+	if ($gdi['tags']) {
+		$tagAr = explode(', ', $gdi['tags']);
+		foreach ($tagAr as $tagOne) {
+			$searchWithTags .= "AND `tags` LIKE '%".$tagOne."%' ";
+		}
+	}
+	$related = $getRecord -> GET('help', "(`type` = 'add' OR `type` = 'do') $searchWithTags");
 	if ($_GET['display']) {
 		$dis = $_GET['display'];
 		echo '<h3>'.count($gdiLikes).' following people liked this</h3>';
@@ -17,7 +25,7 @@ if ($iid) {
 		}
 	} else if ($_GET['show'] == 'votes') include 'views/helpVotes.php';
 	else {
-		if ($gdi && ($gdi['privacy'] != 'draff' || $gdi['uid'] == $u)) {
+		if ($gdi && $gdi['type'] != 'do' && ($gdi['privacy'] != 'draff' || $gdi['uid'] == $u)) {
 			include 'system/helpView.php';
 			include 'views/helpView.php';
 		} else echo '<div class="alerts alert-warning">You\'re attempting to access a non-exist promise or this promise\'s owner has set this to private.</div>';

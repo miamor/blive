@@ -33,50 +33,57 @@ require_once 'lib/config.php' ?>
 				<li class="active"><a>Home</a></li>
 				<li><a>Resources</a></li>
 			</div>
-			<div class="user-right-bar">
-				<ul class="nav-user navbar-right">
-					<li class="dropdown">
-						  <a class="dropdown-toggle" data-toggle="dropdown">
-							<img src="<? echo $member['avatar'] ?>" class="avatar img-circle">
-							Hi, <strong><? echo $member['username'] ?></strong>
-						</a>
-						<ul class="head-dropdown dropdown-menu square primary margin-list-rounded with-triangle">
-							<li class="one-account current-account">
-								<img class="head-info-ava left" src="http://localhost:8080/8dot/assets/img/fm.jpg">
-								<div class="account-info">
-									<span style="margin-top:6px" class="right label label-default">Elita</span>
-									<div style="height:31px">
-										<a href="#!user?u=3"><h3 class="text-primary left">abc</h3></a>
-										<div class="left" style="margin:-4px 5px"><a class="gensmall" href="#!information"><i class="fa fa-edit"></i></a></div>
-									</div>
-									<div title="Exp: 0%" class="progress progress-sm progress-striped active">
-										<div class="progress-bar progress-bar-default" style="width: 0%">
-											<div class="small"></div>
-										</div>
-									</div>
-									<div class="exp-coin">
-										<div class="left" style="width:120px"><img style="margin-top:-2px" src="http://localhost:8080/8dot/assets/img/dollar_coin.png"> 0</div>
-										<div class="left"><img style="margin-top:-3px" src="http://localhost:8080/8dot/assets/img/famfamfam/silk/coins.png"> 0</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</li>
-							<div class="head-dropdown-bottom">
-								<a class="head-dropdown-button btn-primary left" href="#!newaccount"><span class="fa fa-plus"></span> New account</a>
-								<a class="head-dropdown-button btn-danger right" href="#!logout"><span class="fa fa-sign-out"></span> Log out</a>
-								<a class="head-dropdown-button btn-warning right" style="margin-right:5px" href="#!lock"><span class="fa fa-lock"></span> Lock screen</a>
-								<div class="clearfix"></div>
-							</div>
-						</ul>
-					</li>
-				</ul>
-			</div>
 		</div>
+				
+			<div class="user-info-fixed">
+				<div class="user-right-bar">
+<!--					<div class="btn btn-square btn-primary"><span class="fa fa-bell"></span></div>
+					<div class="btn btn-square btn-info"><span class="fa fa-bell"></span></div>
+					<div class="btn btn-square btn-success"><span class="fa fa-bell"></span></div>
+					<div class="btn btn-square btn-warning"><span class="fa fa-bell"></span></div>
+					<div class="btn btn-square btn-danger"><span class="fa fa-bell"></span></div> -->
+					<a class="one-square"><span class="fa fa-bell"></span> <? if ($notiNum) echo '<span class="badge badge-primary">'.$notiNum.'</span>' ?></a>
+					<div class="leftPopup left-caret dark-caret notificationPopup">
+						<div class="popTop">Notifications <a class="popClose">x</a></div>
+						<div class="popContainer notiContainer">
+							<? include 'pages/views/notification.php' ?>
+						</div>
+					</div>
 
-<div class="page-content">
-		<div class="left-menu-column sidebar-nicescroller" id="left-sidebar">
-			<? include 'pages/views/promiseForm.php' ?>
+					<a class="one-square"><span class="fa fa-comments"></span> <span class="badge badge-danger">2</span></a>
+					<div class="leftPopup left-caret dark-caret messagePopup">
+						<div class="popTop">Messages <a class="popClose">x</a></div>
+						<div class="popContainer notiContainer">
+							<li>
+							</li>
+						</div>
+					</div>
+
+					<a class="one-square last-square"><span class="fa fa-user"></span> <span class="badge badge-info">2</span></a>
+					<div class="leftPopup left-caret dark-caret frRequestPopup">
+						<div class="popTop">Friend requests <a class="popClose">x</a></div>
+						<div class="popContainer notiContainer">
+							<li>
+							</li>
+						</div>
+					</div>
+
+					<a class="one-square cog-square last active"><span class="fa fa-cog"></span></a>
+					<div class="leftPopup up-caret dark-caret profilePopup">
+						<div class="popTop"><? echo $glob_displayName ?> <a class="popClose">x</a></div>
+						<div class="popContainer">
+							<li><a href="#!user?u=<? echo $u ?>">View profile</a></li>
+							<li><a href="#!profile">Edit profile</a></li>
+						</div>
+					</div>
+				</div>
+				<img class="user-avatar" src="<? echo $member['avatar'] ?>"/>
+				<div class="user-name">
+					<? echo $glob_displayName ?>
+				</div>
+			</div>
+
+		<div class="left-sidebar sidebar-nicescroller no-width">
 			<div class="switch-menu">
 				<li id="promise" class="active" title="Promise" data-placement="right"><span class="fa fa-cloud"></span></li>
 				<li id="ask" title="Ask" data-placement="right"><span class="fa fa-cloud"></span></li>
@@ -96,6 +103,13 @@ require_once 'lib/config.php' ?>
 				<li id="unanswered" class="last" title="Unanswered" data-placement="right"><span class="fa fa-tags"></span> Unanswered <? if ($uAsk > 0) echo '<span class="badge badge-warning">'.$uAsk.'</span>' ?></li>
 			</div>
 		</div>
+
+<div class="page-content">
+		<div class="left-menu-column sidebar-nicescroller" id="left-sidebar">
+			<? include 'pages/views/promiseForm.php' ?>
+<!--			<div class="overflow-scroll" id="left-content">
+			</div>
+-->		</div>
 
 		<div class="right-sidebar sidebar-nicescroller">
 			<div class="top-section">

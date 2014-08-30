@@ -22,6 +22,10 @@ $.fn.digits = function(){
     })
 }
 
+function alert_tip (content) {
+	$('body').append('<div class="alert-tip">' + content + ' <div class="close-alert-tip"></div></div>')
+}
+
 function checkChat () {
 	setInterval(function () {
 		$.ajax({
@@ -159,7 +163,7 @@ function refreshScripts () {
 //	fancyboxLoad();
 	pl_page = $('.page-content').attr('data-p');
 	pagination();
-//	flatApp();
+	flatApp();
 	sce('content');
 	$('.main-content .top-section .toggle-form').click(function () {
 		$(this).closest('.top-section').find('.top-form').slideDown().attr('style', 'display:block')
@@ -234,38 +238,6 @@ function firstScroll () {
 	loadFromUrl(window.location.href)
 }
 
-function alert_tip (content) {
-	$('body').append('<div class="alert-tip">' + content + ' <div class="close-alert-tip"></div></div>')
-}
-
-function loadLeft (page, v) {
-	$('#left-content').html('<div class="spinner"><div></div><div></div><div></div></div>');
-	if (v.length > 0) url = MAIN_URL + '/pages/' + page + '.php?' + v;
-	else url = MAIN_URL + '/pages/' + page + '.php';
-	$.ajax({
-		url: url,
-		type: 'get',
-		success: function (data) {
-			displayLeft(data)
-		}
-	});
-}
-
-function displayLeft (data) {
-	titles = data.split(/<!--|-->/)[1];
-	displays = data.split(/<!--{|}-->/)[1];
-	setTimeout (function () {
-		$('#left-content').next('.loading-screen').hide();
-		$('#left-content').html(data).prev('.top-section').find('.toggle-form').html(titles);
-		if (titles == ' What you said ') $('#left-content').prev('.top-section').find('.toggle-form .back-to-list').remove();
-		flatApp();
-		tab();
-		sce('left-content');
-		promise();
-		oneGoodBig('left-content')
-	}, 100)
-}
-
 function displayMain (data) {
 	titlez = data.split(/<!--|-->/)[1];
 	displayz = data.split(/<!--{|}-->/)[1];
@@ -274,17 +246,11 @@ function displayMain (data) {
 //		$('#content').prev('.top-section').find('.toggle-form').html(titlez);
 		$('#content').show().html(data).slideDown(100, function () {
 			clearTimeout(interval);
-			flatApp();
 			refreshScripts();
 			if ($(this).find('.one-good-big').length) oneGoodBig('content')
 		})
 	}, 100)
 }
-
-function firstLeft () {
-//	loadLeft('promise', 'show=open');
-}
-
 
 function flatApp() {
 //	$('.alerts, .alert').addClass('alert-square alert-bold-border');
@@ -298,6 +264,7 @@ function flatApp() {
 	$(':checkbox').not('[data-toggle="switch"], .onoffswitch-checkbox').checkbox();
 	$(':radio').radio();
 	choosen();
+	$(".tagsinput").tagsInput();
 	$('.tooltips').tooltip({
 		selector: '*:not(".sceditor-dropdown img, #ui-datepicker-div a, #fancybox-buttons li a, #fancybox-buttons li, .fancybox-overlay li, .fancybox-overlay span, .fancybox-overlay div, .fancybox-overlay a")',
 		container: "body"
@@ -637,33 +604,40 @@ $(function () {
 	});
 
 	$('.status-form').submit(function () {
+		var checkSend = true;
 		$bigDiv = $(this).closest('.sidebar-nicescroller');
 		page = $(this).attr('data-p');
 		act = $(this).attr('data-a');
 		url = MAIN_URL + '/pages/' + page + '.php';
-		$(this).find('textarea').each(function () {
+		$(this).children('textarea').each(function () {
 			val = $(this).next('.sceditor-container').find('iframe').contents().find('body').html();
 			$(this).val(val);
+			if (!val || val == '<p><br></p>') {
+				checkSend = false;
+				mtip('.form-alerts', 'warning', '', 'Please fill in the required fields.')
+			} else checkSend = true;
 		});
-		formData = new FormData($(this)[0]);
-		$.ajax({
-			url: url + '?' + act,
-			type: 'post',
-			data: formData,
-			mimeType: "multipart/form-data",
-			contentType: false,
-			cache: false,
-			processData: false,
-			success: function (data, textStatus, jqXHR) {
-				$bigDiv.find('.the-form textarea').each(function () {
-					$(this).next('.sceditor-container').find('iframe').contents().find('body').html('')
-				});
-				firstScroll()
-			},
-			error: function (xhr) {
-				mtip('', 'error', '', 'Your message can\'t be sent.');
-			}
-		});
+		if (checkSend == true) {
+			formData = new FormData($(this)[0]);
+			$.ajax({
+				url: url + '?' + act,
+				type: 'post',
+				data: formData,
+				mimeType: "multipart/form-data",
+				contentType: false,
+				cache: false,
+				processData: false,
+				success: function (data, textStatus, jqXHR) {
+					$bigDiv.find('.the-form textarea').each(function () {
+						$(this).next('.sceditor-container').find('iframe').contents().find('body').html('')
+					});
+					firstScroll()
+				},
+				error: function (xhr) {
+					mtip('', 'error', '', 'Your message can\'t be sent.');
+				}
+			})
+		}
 		return false
 	});
 

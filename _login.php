@@ -11,7 +11,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo IMG ?>/8dot.png"/>
 
 		<!-- BOOTSTRAP CSS (REQUIRED ALL PAGE)-->
-		<link rel="stylesheet" href="assets/css/_bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/plugins/flat-ui/css/flat-ui.css"/>
 		<!-- MAIN CSS (REQUIRED ALL PAGE)-->
 		<link rel="stylesheet" href="assets/css/style.css">
@@ -24,7 +24,7 @@
  
 	<body class="tooltips">
 
-<? if ( !$u ) {
+<?php if ( !$u ) {
 	if ( $_GET['act'] == "login" ) {
 		// Dùng hàm addslashes() để tránh SQL injection, dùng hàm md5() để mã hóa password
 		$username = addslashes( $_POST['username'] );
@@ -48,44 +48,48 @@
 		echo $_SESSION['user_id'];
 	} else { ?>
 
-<div class="page-content">
-	<div class="row full-width full">
-		<div class="col-sm-4 right social-login">
-			<a class="btn btn-twitter btn-block" href="./login?login&oauth_provider=twitter"><i class="fa fa-twitter"></i> Login using twitter</a>
-			<a class="btn btn-facebook btn-block" href="./login?login&oauth_provider=facebook"><i class="fa fa-facebook"></i> Login with facebook</a>
-		</div>
-		<div class="col-sm-8">
-			<div class="front-login front-signin statu">
-				<h2>Already a member?</h2>
-				<form id="login" method="post" action="./login.php?act=login">
-					<input type="text" name="username" tabindex="1" class="text text-input" placeholder="Username" style="width:100%;margin-bottom:5px"><br/>
-					<input type="submit" name="submit" tabindex="3" class="btn btn-primary login-button" value="Login" style="float:right;margin:2px">
-					<input type="password" name="password" tabindex="2" class="text text-input" placeholder="Password" style="width:67%;margin-bottom:10px">
-				</form>
-				<div class="form-bottom">
-					<a class="forgot-password">Forgot password?</a>
-					<a class="btn btn-warning right">Register</a>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
+<img class="front-bg" src="<?php echo LIB ?>/bg/<?php echo rand(4, 17)?>.jpg" width="100%" height="100%"/>
+
+<div class="front-up">
+	<div class="welcome_text">
+		<div id="check"></div>
+		<h1>Welcome to <span style="color:#14ccb3">8</span><span style="color:#75bfff">d</span><span style="color:#ff8b85">o</span><span style="color:#85c6ff">t</span>.</h1>
+		<p>Top fashion site.</p>
+		<div>More than just fashion. It's passion.</div>
 	</div>
-	<div class="front-copyright statu">
+	
+	<div class="front-side">
+	<div class="front-login front-signin">
+		<h2>Already a member?</h2>
+		<form id="login" method="post" action="./login.php?act=login">
+			<input type="text" name="username" tabindex="1" class="text text-input" placeholder="Username" style="width:100%;margin-bottom:5px"><br/>
+			<input type="submit" name="submit" tabindex="3" class="btn btn-primary" value="Login" style="float:right;margin:2px">
+			<input type="password" name="password" tabindex="2" class="text text-input" placeholder="Password" style="width:67%;margin-bottom:10px">
+		</form>
+	</div>
+	<div class="front-signup">
+		<h2>New to Monaic? <span class="small">- Signup now</span></h2>
+		<form action="<?php echo MAIN_URL ?>/#!register?act=submit" id="signup" method="post">
+			<input type="text" name="username" tabindex="4" class="text text-input" placeholder="Username" style="width:100%;margin-bottom:5px"><br/>
+			<input type="email" name="email" tabindex="5" class="text text-input" placeholder="Email" style="width:100%;margin-bottom:5px">
+			<input type="submit" name="submit" tabindex="7" class="btn btn-warning button-orange" value="Register" style="float:right;margin:2px">
+			<input type="password" name="password" tabindex="6" class="text text-input" placeholder="Password" style="width:60%;margin-bottom:10px">
+		</form>
+	</div>
+	<div class="front-copyright">
 		<div class="copyright">
-			<div class="c-info">© 2013 blive. All rights reserved.
-			<div class="c-links right">
-				<a href="<?php echo MAIN_URL ?>/about">About</a> <a href="<?php echo MAIN_URL ?>/help">Help</a> <a href="<?php echo MAIN_URL ?>/terms">Terms</a> <a href="<?php echo MAIN_URL ?>/privacy">Privacy</a>
-				<a href="<?php echo MAIN_URL ?>/advertise">Advertise</a> <a href="<?php echo MAIN_URL ?>/resource">Resources</a> <a href="<?php echo MAIN_URL ?>/developers">Developers</a>
-				</div>
+			<div class="c-info">© 2013 8dot. All rights reserved.<br/>
+			<a href="<?php echo MAIN_URL ?>/about">About</a> <a href="<?php echo MAIN_URL ?>/help">Help</a> <a href="<?php echo MAIN_URL ?>/terms">Terms</a> <a href="<?php echo MAIN_URL ?>/privacy">Privacy</a>
+			<a href="<?php echo MAIN_URL ?>/advertise">Advertise</a> <a href="<?php echo MAIN_URL ?>/resource">Resources</a> <a href="<?php echo MAIN_URL ?>/developers">Developers</a>
 			</div>
 			<div class="developer"><a href="<?php echo MAIN_URL ?>/user.php?u=1">Miamor West</a></div>
 		</div>
 	</div>
+	</div>
 </div>
 
 <?php }
- } else {
+} else {
 	echo '<script>window.location.href = "./"</script>';
 } ?>
 

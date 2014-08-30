@@ -14,6 +14,7 @@
 		<!-- CHOOSEN (SELECT) -->
 		<script src="assets/plugins/chosen/chosen.jquery.min.js"></script>
 		<!-- FLAT UI -->
+		<script src="assets/plugins/flat-ui/js/jquery.tagsinput.js"></script>
 		<script src="assets/plugins/flat-ui/js/flatui-checkbox.js"></script>
 		<script src="assets/plugins/flat-ui/js/flatui-radio.js"></script>
 		<!-- PLUGINS -->

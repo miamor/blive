@@ -40,6 +40,10 @@
 					</select>
 					<div class="clearfix"></div>
 				</div>
+				<div class="p-tags">
+					<input type="text" name="tags" id="tagsinput" class="tagsinput"/>
+					<div class="clearfix"></div>
+				</div>
 				<select name="p-privacy" class="p-privacy">
 					<option value="public">Public</option>
 					<option value="draff">Draff</option>
@@ -72,3 +76,5 @@
 		</div>
 	</form>
 </div>
+
+<div class="form-alerts"></div>

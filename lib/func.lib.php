@@ -218,21 +218,38 @@ function _GET ($string) {
 }
 
 function timeFormat ($timeInt) {
+	global $curint;
 	$timeAr = str_split($timeInt, 2);
 	$y = 2000 + $timeAr[0];
 	$m = $timeAr[1];
 	$d = $timeAr[2];
 	$h = $timeAr[3];
 	$i = $timeAr[4];
-	return "$d-$m-$y $h:$i";
+	$ms = $curint - $timeInt;
+	if ($ms < 1000) {
+		$agoH = (int)($ms/100);
+		$agoMin = $ms - $agoH * 100;
+		if ($agoH > 1) $hr = 'hours';
+		else $hr = 'hour';
+		$timeDisplay = "$agoH $hr $agoMin mins ago";
+	} else if ($ms >= 1000) {
+		$agoH = (int)($ms/1000);
+		if ($agoH > 1) $hr = 'hours';
+		else $hr = 'hour';
+		$timeDisplay = "1 day $agoH $hr ago";
+	} else if ($ms >= 2000) $timeDisplay = '2 days ago';
+	else $timeDisplay = "$d-$m-$y $h:$i";
+	return $timeDisplay;
 }
 
 function tagsList ($tag) {
-	$tagAr = explode(', ', $tag);
-	for ($i = 0; $i < count($tagAr); $i++)
-		$tagShow[] = '<a href="#!tag?i='.$tagAr[$i].'" class="tag">'.$tagAr[$i].'</a>';
-	$tagChar = implode(' ', $tagShow);
-	return $tagChar;
+	if ($tag) {
+		$tagAr = explode(', ', $tag);
+		for ($i = 0; $i < count($tagAr); $i++)
+			$tagShow[] = '<a href="#!tag?i='.$tagAr[$i].'" class="tag">'.$tagAr[$i].'</a>';
+		$tagChar = implode(' ', $tagShow);
+		return $tagChar;
+	}
 }
 
 function tag ($content) {
