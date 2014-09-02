@@ -1,3 +1,4 @@
+
 function confirmDid (e) {
 	if (e == 'yes') {
 		confirmSwitchHTML = '<a id="no" class="no did-it btn btn-none" onclick="confirmDid(\'no\')"><span class="failure-sign"> I failed</span></a>';
@@ -44,7 +45,7 @@ function confirmDid (e) {
 }*/
 
 function bButton (id) {
-	$('.one-good-big.the'+id+' .b-buttons:not(".disabled, .dis") .b-button, .one-good-big.the'+id+' .b-buttons:not(".dis") .b-button.active, .one-good-big.the'+id+' .encourage-button').click(function () {
+	$('.one-good-big.the'+id+' .b-buttons:not(".disabled, .dis") .b-button, .one-good-big.the'+id+' .b-buttons:not(".disabled, .dis") .b-button.active, .one-good-big.the'+id+' .encourage-button').click(function () {
 		act = $(this).attr('id');
 		url = MAIN_URL + '/pages/' + pl_page + '.php?i=' + id;
 		$.ajax({
@@ -52,6 +53,7 @@ function bButton (id) {
 			type: 'post',
 			datatype: 'json',
 			success: function (data) {
+				if (act == '.know-button') $('.confirm-know-it').toggle(100)
 				$('.one-good-big.the'+id+' .one-good-buttons').load(url + ' .one-good-big.the'+id+' .one-good-buttons > div', function () {
 					bButton(id)
 				})
@@ -66,7 +68,7 @@ function oneGoodBig (id) {
 		bButton($(this).attr('id'));
 		cmtPost($(this).attr('id'));
 		votePost($(this).attr('id'));
-		showLikeList($(this).attr('id'))
+//		showLikeList($(this).attr('id'))
 	})
 }
 
@@ -86,6 +88,13 @@ $(function () {
 			}
 		}
 	});
+	$('.button-generate').click(function () {
+		if ($('.form-lock').is(':hidden')) 
+			$('.form-lock').slideDown(200, function () {
+				$(this).attr('style', 'display:block');
+			})
+		else $('.form-lock').slideUp(200)
+	});
 	$('.lock-it').confirmation({
 		placement: 'right',
 		onConfirm: function () {
@@ -96,7 +105,6 @@ $(function () {
 				type: 'post',
 				datatype: 'json',
 				success: function (data) {
-//					loadLeft(pl_page, 'i=' + id)
 					firstScroll()
 				}
 			});

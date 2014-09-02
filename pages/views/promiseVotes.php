@@ -30,4 +30,28 @@
 			</div>
 		<? } ?>
 	</div>
+	<div class="hide tab-index bnot">
+		<? for ($j = 0; $j < $gdlBelieveNot; $j++) {
+			$up = $gdlBelieveNotAr[$j]; ?>
+			<div class="one-votes">
+				<a href="#!user?u=<? echo $up ?>"><? echo $frArN[$up] ?></a>
+			</div>
+		<? } ?>
+	</div>
+	<div class="hide tab-index know">
+		<? for ($j = 0; $j < $gdlKnow; $j++) {
+			$up = $gdlKnowAr[$j]; ?>
+			<div class="one-votes">
+				<a href="#!user?u=<? echo $up ?>"><? echo $frArN[$up] ?></a>
+			</div>
+		<? } ?>
+	</div>
+	<div class="hide tab-index knot">
+		<? for ($j = 0; $j < $gdlKnowNot; $j++) {
+			$up = $gdlKnowNotAr[$j]; ?>
+			<div class="one-votes">
+				<a href="#!user?u=<? echo $up ?>"><? echo $frArN[$up] ?></a>
+			</div>
+		<? } ?>
+	</div>
 </div>

@@ -5,7 +5,8 @@ if ($iid) {
 	$gdi = getRecord('help', "`id` = '$iid' ");
 	$gdiLikes = explode(', ', $gdi['likes']);
 	$auth = getRecord('members^username,avatar,gender', "id = {$gdi['uid']}");
-	$checkDid = countRecord('help', "`type` = 'do' AND `uid` = '$u' AND `iid` = '$iid' ");
+	$checkHelp = countRecord('help', "`type` = 'do' AND `iid` = '$iid' ");
+	$checkMyHelp = countRecord('help', "`type` = 'do' AND `uid` = '$u' AND `iid` = '$iid' ");
 	$gdid = getRecord('help', "`type` = 'do' AND `uid` = '$u' AND `iid` = '$iid' ");
 	if ($_GET['display']) {
 		$dis = $_GET['display'];

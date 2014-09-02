@@ -28,6 +28,6 @@ $uid = $uIn['id']; ?>
 </div>
 
 <script src="<?php echo JS ?>/community.js"></script>
-<style>.pagination{display:none}
-.main-content{margin-left:0}
+<script>$('.left-menu-column').remove()</script>
+<style>.main-content{margin-left:0}
 .statu{margin:10px 10px 20px 62px}</style>

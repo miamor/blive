@@ -16,7 +16,6 @@ if ($_GET['display']) {
 } ?>
 
 <script src="<?php echo JS ?>/community.js"></script>
-<style>.pagination{display:none}</style>
 <? if (!$id) { ?>
 <style>.box-feed{padding:15px 20px 10px;margin:10px 0 20px 65px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px;clear:both;position:relative}</style>
 <? } ?>

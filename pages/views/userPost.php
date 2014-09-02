@@ -8,5 +8,4 @@
 $cond = "`uid` = '$u' AND (`privacy` = 'public' OR (`privacy` = 'draff' AND `uid` = '$u') OR (`privacy` = 'include' AND `available_list` LIKE '%$u%') OR (`privacy` = 'exclude' AND `available_list` NOT LIKE '%$u%') )";
 if ($mconn) $cond = "$mconn AND $cond";
 
-include 'views/feedListDisplay.php'
-?>
+include 'views/feedListDisplay.php' ?>

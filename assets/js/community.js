@@ -84,7 +84,7 @@ function shortenStt (i) {
 
 function bButtonFeed (id) {
 	$('.one-good-feed.the'+id+' .one-good-info .hide-on-list').remove();
-	$('.box-feed .one-good-feed.the'+id+' .b-buttons:not(".disabled") .b-button, .box-feed .one-good-feed.the'+id+' .b-button.active, .one-good-feed.the'+id+':not(".dis") .b-button, .box-feed .one-good-feed.the'+id+' .encourage-button').click(function () {
+	$('.box-feed .one-good-feed.the'+id+' .b-buttons:not(".disabled, .dis") .b-button, .box-feed .one-good-feed.the'+id+':not(".disabled, .dis") .b-button.active, .box-feed .one-good-feed.the'+id+' .encourage-button').click(function () {
 //		id = $(this).closest('.one-good-big').attr('id');
 		act = $(this).attr('id');
 		url = MAIN_URL + '/pages/promise.php?i=' + id;
@@ -166,5 +166,6 @@ function loadmore (i) {
 
 $(function () {
 	all();
+	$('.pagination').hide()
 //	pagination();
 });

@@ -53,7 +53,12 @@
 									$gdi = getRecord('promise', "`id` = '{$l['iid']}' ");
 									echo $sm ?>
 									<span class="small">added a <a href="#!promise?i=<? echo $gdi['id'] ?>">promise</a></span>
-									<div id="<? echo $gdi['id'] ?>" class="one-good-feed <? if ($gdi['did'] == 'yes' && $gdi['lock'] =='yes') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['lock'] == 'lie') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $gdi['id'] ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>">
+									<? if ($gdi['money']) {
+										if ($gdi['lock'] != 'yes') echo '<span class="label label-info label-money" title="Money bet">'.$gdi['money'].'</span>';
+										else if ($gdi['did'] == 'yes' && $gdi['true'] == 'true') echo '<span class="label label-success label-money" title="Added to account">+'.$gdi['money'].'</span>';
+										else echo '<span class="label label-danger label-money" title="Sucstract from account">-'.$gdi['money'].'</span>';
+									} ?>
+									<div id="<? echo $gdi['id'] ?>" class="one-good-feed <? if ($gdi['did'] == 'yes' && $gdi['lock'] =='yes') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['lock'] == 'lie') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $gdi['id'] ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>" data-p="promise">
 										<div class="one-good-main">
 											<div class="one-good-content"><? echo tag($gdi['content']) ?></div>
 											<div class="one-good-info">
@@ -73,7 +78,7 @@
 									else if ($gdi['type'] == 'add') echo 'added a <a href="#!request?i='.$gdi['id'].'">favor</a>';
 									else if ($gdi['type'] == 'do') echo 'did a <a href="#!request?i='.$gdi['id'].'">favor</a>' ?>
 									</span>
-									<div id="<? echo $gdi['id'] ?>" class="one-good-feed the-<? echo $gdi['type'] ?> <? if ($gdi['did'] == 'yes' && $gdi['lock'] =='yes') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['lock'] == 'lie') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $gdi['id'] ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>">
+									<div id="<? echo $gdi['id'] ?>" class="one-good-feed the-<? echo $gdi['type'] ?> <? if ($gdi['did'] == 'yes' && $gdi['lock'] =='yes') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['lock'] == 'lie') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $gdi['id'] ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>" data-p="request">
 										<div class="one-good-main">
 											<div class="one-good-content"><? echo tag($gdi['content']) ?></div>
 										</div>

@@ -23,6 +23,9 @@
 				<input class="right" type="submit" value="Submit">
 				<div class="clearfix"></div>
 			</div>
+			<label class="checkbox">
+				<input type="checkbox" name="post-to-fb"/> Post to facebook
+			</label>
 		</div>
 	</form>
 </div>
@@ -51,6 +54,9 @@
 				<input class="right" type="submit" value="Submit">
 				<div class="clearfix"></div>
 			</div>
+			<label class="checkbox">
+				<input type="checkbox" name="post-to-fb"/> Post to facebook
+			</label>
 		</div>
 	</form>
 </div>
@@ -73,6 +79,9 @@
 				<div class="clearfix"></div>
 				<div class="loading" style="float:right;margin:13px 10px 0 0;display:none"><img src="<?php echo $imgdir ?>/ajaxload.gif"/></div>
 			</div>
+			<label class="checkbox">
+				<input type="checkbox" name="post-to-fb"/> Post to facebook
+			</label>
 		</div>
 	</form>
 </div>

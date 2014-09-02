@@ -24,20 +24,22 @@
 		<!-- MAIN APPS JS -->
 		<script src="assets/js/main.js"></script>
 		<script src="assets/plugins/sceditor/minified/jquery.sceditor.js"></script>
+		<script src="assets/plugins/meditor/jquery.meditor.js"></script>
 		
 <script> var emoticonsList = {
 			dropdown: {<? echo emoTextareaDropdown() ?>},
 			more: {<? echo emoTextareaMore() ?>}
 		};
 function sce(a) {
-	$('#' + a).find("textarea").not('.no-toolbar, .non-sce').sceditor({
+	$('#' + a).find('textarea').meditor();
+/*	$('#' + a).find("textarea").not('.no-toolbar, .non-sce').sceditor({
 		emoticons: emoticonsList
 	});
 	$('#' + a).find('.no-toolbar').sceditor({
 		toolbar: '',
 		emoticons: emoticonsList
 	})
-}
+*/}
 </script>
 	</body>
 </html>

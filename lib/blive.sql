@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.6
+-- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 29, 2014 at 10:59 AM
--- Server version: 5.5.38-0ubuntu0.12.04.1
--- PHP Version: 5.3.10-1ubuntu3.13
+-- Host: localhost
+-- Generation Time: Sep 02, 2014 at 10:18 AM
+-- Server version: 5.6.20
+-- PHP Version: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `goodbooks`
+-- Database: `blive`
 --
 
 -- --------------------------------------------------------
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `activity` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `privacy` varchar(255) NOT NULL,
   `available_list` longtext NOT NULL,
@@ -43,9 +43,8 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `img_url` varchar(30000) NOT NULL,
   `time` varchar(500) NOT NULL,
   `timm` varchar(500) NOT NULL,
-  `month` varchar(500) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+  `month` varchar(500) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
 
 --
 -- Dumping data for table `activity`
@@ -90,7 +89,9 @@ INSERT INTO `activity` (`id`, `type`, `privacy`, `available_list`, `highlight`, 
 (49, 'like', '', '', '', '', '', 3, 0, 0, 0, 46, '', '', '1408290207', '', ''),
 (52, 'like', '', '', '', '', '', 3, 0, 0, 0, 48, '', '', '1408290218', '', ''),
 (53, 'new-promise', 'public', '', '', '', '', 3, 0, 3, 0, 18, '', '', '1408290715', '', ''),
-(54, 'new-promise', 'public', '', '', '', '', 3, 0, 3, 0, 19, '', '', '1408290717', '', '');
+(54, 'new-promise', 'public', '', '', '', '', 3, 0, 3, 0, 19, '', '', '1408290717', '', ''),
+(55, 'new-promise', 'public', '', '', '', '', 8, 0, 8, 0, 20, '', '', '1409020644', '', ''),
+(56, 'new-promise', 'public', '', '', '', '', 18, 0, 18, 0, 22, '', '', '1409021017', '', '');
 
 -- --------------------------------------------------------
 
@@ -99,13 +100,12 @@ INSERT INTO `activity` (`id`, `type`, `privacy`, `available_list`, `highlight`, 
 --
 
 CREATE TABLE IF NOT EXISTS `activity_` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `content` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -123,14 +123,13 @@ INSERT INTO `activity_` (`id`, `type`, `uid`, `iid`, `content`, `time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `activity_cmt` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `pid` int(255) NOT NULL,
   `content` longtext NOT NULL,
   `likes` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
 
 --
@@ -201,11 +200,10 @@ INSERT INTO `activity_cmt` (`id`, `uid`, `iid`, `pid`, `content`, `likes`, `time
 --
 
 CREATE TABLE IF NOT EXISTS `activity_like` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -222,7 +220,7 @@ INSERT INTO `activity_like` (`id`, `uid`, `iid`, `time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ask` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `fr_uid` int(255) NOT NULL,
   `as` varchar(255) NOT NULL,
   `uid` int(255) NOT NULL,
@@ -236,8 +234,7 @@ CREATE TABLE IF NOT EXISTS `ask` (
   `believe_not_lock` int(255) NOT NULL,
   `know_lock` int(255) NOT NULL,
   `know_not_lock` int(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -279,14 +276,13 @@ INSERT INTO `ask_answer` (`id`, `iid`, `uid`, `content`, `believe`, `believe_not
 --
 
 CREATE TABLE IF NOT EXISTS `ask_cmt` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `pid` int(255) NOT NULL,
   `content` longtext NOT NULL,
   `likes` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -303,14 +299,13 @@ INSERT INTO `ask_cmt` (`id`, `uid`, `iid`, `pid`, `content`, `likes`, `time`) VA
 --
 
 CREATE TABLE IF NOT EXISTS `chat` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `read` varchar(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `to_uid` longtext NOT NULL,
   `to_gid` int(255) NOT NULL,
   `content` varchar(50000) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
@@ -345,15 +340,14 @@ INSERT INTO `chat` (`id`, `read`, `uid`, `to_uid`, `to_gid`, `content`, `time`) 
 --
 
 CREATE TABLE IF NOT EXISTS `emo` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `order` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `cat` varchar(1000) NOT NULL,
   `name` varchar(1000) NOT NULL,
   `img` varchar(20000) NOT NULL,
   `icon` varchar(20000) NOT NULL,
-  `dot` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `dot` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=83 ;
 
 --
@@ -451,11 +445,10 @@ INSERT INTO `emo` (`id`, `order`, `type`, `cat`, `name`, `img`, `icon`, `dot`) V
 --
 
 CREATE TABLE IF NOT EXISTS `friend` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `accept` varchar(255) NOT NULL,
   `uid` int(255) NOT NULL,
-  `receive_id` int(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `receive_id` int(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -473,7 +466,7 @@ INSERT INTO `friend` (`id`, `accept`, `uid`, `receive_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `good` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `people` longtext NOT NULL COMMENT 'list người phải thực hiện việc tốt',
@@ -483,8 +476,7 @@ CREATE TABLE IF NOT EXISTS `good` (
   `price_type` varchar(255) NOT NULL,
   `did` varchar(255) NOT NULL,
   `time_start` varchar(255) NOT NULL,
-  `time_finish` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time_finish` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -502,9 +494,10 @@ INSERT INTO `good` (`id`, `uid`, `iid`, `people`, `content`, `instruction`, `pri
 --
 
 CREATE TABLE IF NOT EXISTS `help` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
+  `iid` int(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   `likes` longtext NOT NULL,
@@ -512,16 +505,19 @@ CREATE TABLE IF NOT EXISTS `help` (
   `did` varchar(255) NOT NULL COMMENT 'Was it solved?',
   `helped_id` int(255) NOT NULL,
   `tags` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `helpful` longtext NOT NULL,
+  `helpful_not` longtext NOT NULL,
+  `privacy` varchar(255) NOT NULL,
+  `available_list` longtext NOT NULL,
+  `time` varchar(255) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `help`
 --
 
-INSERT INTO `help` (`id`, `uid`, `type`, `title`, `content`, `likes`, `lock`, `did`, `helped_id`, `tags`, `time`) VALUES
-(1, 3, 'need', 'The title. Should it be required?', 'The help content!', '3', '', '', 0, 'tag1, tag2, tag3, tag4', '1408290053');
+INSERT INTO `help` (`id`, `uid`, `type`, `iid`, `title`, `content`, `likes`, `lock`, `did`, `helped_id`, `tags`, `helpful`, `helpful_not`, `privacy`, `available_list`, `time`) VALUES
+(1, 3, 'need', 0, 'The title. Should it be required?', 'The help content!', '3', '', '', 0, 'tag1, tag2, tag3, tag4', '', '', '', '', '1408290053');
 
 -- --------------------------------------------------------
 
@@ -530,14 +526,13 @@ INSERT INTO `help` (`id`, `uid`, `type`, `title`, `content`, `likes`, `lock`, `d
 --
 
 CREATE TABLE IF NOT EXISTS `help_cmt` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `pid` int(255) NOT NULL,
   `content` longtext NOT NULL,
   `likes` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -547,13 +542,16 @@ CREATE TABLE IF NOT EXISTS `help_cmt` (
 --
 
 CREATE TABLE IF NOT EXISTS `members` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `username` varchar(12) NOT NULL,
   `password` varchar(32) NOT NULL,
   `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `avatar` varchar(2000) NOT NULL,
   `gender` varchar(255) NOT NULL,
+  `oauth_uid` varchar(255) NOT NULL,
+  `oauth_provider` varchar(255) NOT NULL,
+  `token` longtext NOT NULL,
   `good_did` varchar(255) NOT NULL,
   `good_todo` varchar(255) NOT NULL,
   `promise_kept` varchar(255) NOT NULL,
@@ -568,21 +566,32 @@ CREATE TABLE IF NOT EXISTS `members` (
   `message` int(255) NOT NULL,
   `mes_new` int(255) NOT NULL,
   `time` varchar(255) NOT NULL,
-  `lastlog_time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `lastlog_time` varchar(255) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `username`, `password`, `email`, `name`, `avatar`, `gender`, `good_did`, `good_todo`, `promise_kept`, `promise_broke`, `gold`, `coin`, `status`, `notification`, `noti_new`, `fiend_request`, `fr_new`, `message`, `mes_new`, `time`, `lastlog_time`) VALUES
-(1, 'admin', 'admin', '', 'Nguyen Minh Tu', 'http://localhost:8080/blive/data/img/7.jpg', '', '', '', '', '', 0, 0, '', 0, 19, 0, 0, 0, 0, '', ''),
-(2, 'abc', 'abc', '', 'Nguyen Minh Tu', 'http://localhost:8080/blive/data/img/1.jpg', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
-(3, 'mia', 'abc', '', 'Nguyen Minh Tu', 'http://localhost:8080/blive/data/img/3.jpg', '', '', '', '', '', 0, 0, '', 0, -18, 0, 0, 0, 0, '', ''),
-(4, 'miamor', 'abc', '', 'Nguyen Minh Tu', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
-(5, 'xyz', 'abc', '', 'Nguyen Minh Tu', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
-(6, 'vyskzi', 'abc', '', 'Nguyen Minh Tu', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', '');
+INSERT INTO `members` (`id`, `username`, `password`, `email`, `name`, `avatar`, `gender`, `oauth_uid`, `oauth_provider`, `token`, `good_did`, `good_todo`, `promise_kept`, `promise_broke`, `gold`, `coin`, `status`, `notification`, `noti_new`, `fiend_request`, `fr_new`, `message`, `mes_new`, `time`, `lastlog_time`) VALUES
+(1, 'admin', 'admin', '', 'Nguyen Minh Tu', 'http://localhost:8080/blive/data/img/7.jpg', '', '', '', '', '', '', '', '', 0, 0, '', 0, 19, 0, 0, 0, 0, '', ''),
+(2, 'abc', 'abc', '', 'Nguyen Minh Tu', 'http://localhost:8080/blive/data/img/1.jpg', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
+(3, 'mia', 'abc', '', 'Nguyen Minh Tu', 'http://localhost:8080/blive/data/img/3.jpg', '', '', '', '', '', '', '', '', 0, 0, '', 0, -18, 0, 0, 0, 0, '', ''),
+(4, 'miamor', 'abc', '', 'Nguyen Minh Tu', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
+(5, 'xyz', 'abc', '', 'Nguyen Minh Tu', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
+(6, 'vyskzi', 'abc', '', 'Nguyen Minh Tu', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
+(7, 'test', 'abc', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
+(8, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327297190784797/picture?width=150&height=150', '', '327297190784797', 'Facebook', '', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '', ''),
+(9, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBACPzTa7BSB2MuDgZBNWqq32Fv1P7b3ZA40S4ZAzYoZBZAGAlPXXk4ytcZBuQ5DLPnhTJY4ClOOZBqcYh5KP0X6uU0vuYnJVjJQRZAsrInvTUpJ4hQxgLZCuS35qhe6mL7fVCvZAt8ameDh6DpcOqCDwsZAtK7dzGOFZBR6dMjZApJ8Ep7rCwWm5OUxFlFqTJ9m40onoHXPqdrA2lb', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020930', ''),
+(10, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAKQkKXvLNzpioAxZAnfXZATNSW82eWNA6m6dQm3XCfyRcgmC384LemCrswfvVs84TR64uDU1rbsm0myL6ZA8R5Y2Kz46flbWm8sOySrY4L4lkmNRBKUati9QkIzx6vWciVjpchZATMeHfgWq4Ttb1yxU8ZBGGpZCJm8fTN9G0RvzmUsOosBG3MsNfNuZCgYZClpMzTCh9pZCC', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020934', ''),
+(11, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBADlh52CZA5iPrOZBZADnZCcS46jsNp0VTfMEBVScvn3yzAZAjfslndEqta4kWj0rpxLa0aEYDMmXhfn8Qq8lW64A7y70WauZBjKVgYgrZBPowAvdhRVl5ZA2NOweFFMkUECt7DpCrxDo2BGrCyd02aqOvDNApD5o63IyDWJqQNR6gqZAAs4kwN89swqpEkMtfayQrDo6h4NgG', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020936', ''),
+(12, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAONadzsA6Ka3aQndr1sPnZCON2oqUfyQLsVGXpkCOC2fwQd3FowUJrZBnC02glhC1nyASlOmsP25E7yeFHceawsmOpr3w6lotiw68HidOK4OvFtPCo33oTXZB5QXboYe1SUZBzbxcW5mDqv2yLCjfJITG4cR9guGfdacTHU3sEarkKDcn15qgpt03OqVIpu5K4nWqALi', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020937', ''),
+(13, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAD75RxEBWpvBaFv2ArZCwwWL1FwolC8KZBGERaapPPPPEADNtDuuUuheUBMwDvxlaFZCh1Jjf5TJu0VhsZC9G2o0cP9uVhEO6JGAOCrsiXfj8sciP6O1hwRQmJHerrKdjZB0e4z9XjqqtWpchac4LbqxZAyY6qrsIdIwEQtiibeNLavtq5bPOZCREhcqF4xCUZCRthBRqcKG', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020937', ''),
+(14, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAIs7ZC13Y6muOI5HbsTCdTIpbbZCUNKkZB6WzPwRtsSKyDWOHhoHVZAd5ZA4fpXMrQDZAv24B45pqvsIQgDpnXQ5sI1VxUcQKZBhACrMrnciTyZBgqveY2zr9VGT4ziF2nW6EUFuHU2NM2570TiP1yThXQyZCSuyEn4ZAyd9ZCsKnXLiHnShEZB1luOc1iybsvyAP1QYAHgPim0b', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020937', ''),
+(15, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAIiFE2EZABdModJegpVDeEl9189ZCchMnMFNhQQvFxZBn1vu1DSOAGAmCrZBE2kMrVQeINfZCoapJNVxFznFA2RaAy5cTYYZCOstJrdPP118CQ3ZAbkWqyjEZAKSWtLQBFyQPg7ZCttzC67qMksULUNygmaPSs2VClBessBNvKXTaSLoqxySfvJboOlGEEVpnIqvasZCuFwND8', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020947', ''),
+(16, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAC7xwZArBxLZBgXxIO2h4vGR8SuPAe5x20x3oBSiI4ZCpgHJwtLA0o4Ih2pB007nK7qKM4EZANENs4z0szRPvRxkBKCDqk5bB0AnfGrqIzMejBBz2KYYBj3fPorHNEVZCSlqtpIJISfkDJJgQdjjyBwiL2zXjqj63nsCZBcnJQzl32ZBHyZBiZAZBTiKzHv3VUIcBPcZAzrOUvh', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020950', ''),
+(17, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBAAyT4pGMsqUALdQtzQTccvVCoosBTZCDE3U6oBMXZCPFYOUPzwuB2Bk4LhycnkWYMf9NhODH1ydC2a0K77JGe8xZACjZCeVMfOfIGLH8hQkgzeyqlD0GslcwyjfyUoZBnRlQVBWO9bYoibyspGRXjXsZCfZC01RXFkkkzlfjQGMUptIVZC3133eLZANDQf5rcDxFhJnt0RGdS', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020951', ''),
+(18, 'MÃ­a LÃ¹n', '', 'miamorwest@yahoo.com', 'MÃ­a LÃ¹n', 'https://graph.facebook.com/327351820779334/picture?width=150&height=150', '', '327351820779334', 'facebook', 'CAAUphKZBTdVMBALTJQurlGykVoeDZCfpRXICANhek4nHWpdta1XP2TxRPORCWFRh5yo37UIi25PBkjia3dKg6Rnlx2LHwnTv96HKGGngqWZAbV5WZBrGZCOs7ZCuySVrHR1jfLFtaBnLdEyImpprVsa9cfItBn2nV02ClTbZCbugbqxPQSjlv6ZAN9cUXDcIaZBr89F0QE9NBGp6m5wWHp19A', '', '', '', '', 0, 0, '', 0, 0, 0, 0, 0, 0, '1409020952', '');
 
 -- --------------------------------------------------------
 
@@ -591,7 +600,7 @@ INSERT INTO `members` (`id`, `username`, `password`, `email`, `name`, `avatar`, 
 --
 
 CREATE TABLE IF NOT EXISTS `notification` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `read` varchar(255) NOT NULL,
   `i` int(255) NOT NULL,
@@ -599,8 +608,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `uid` int(255) NOT NULL,
   `to_uid` int(255) NOT NULL,
   `content` varchar(2000) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=114 ;
 
 --
@@ -667,7 +675,7 @@ INSERT INTO `notification` (`id`, `type`, `read`, `i`, `pi`, `uid`, `to_uid`, `c
 --
 
 CREATE TABLE IF NOT EXISTS `promise` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `content` longtext NOT NULL,
@@ -683,9 +691,8 @@ CREATE TABLE IF NOT EXISTS `promise` (
   `believe_not_lock` int(255) NOT NULL,
   `know_lock` int(255) NOT NULL,
   `know_not_lock` int(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+  `time` varchar(255) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `promise`
@@ -708,7 +715,10 @@ INSERT INTO `promise` (`id`, `uid`, `iid`, `content`, `money`, `money-type`, `pr
 (16, 3, 0, '<p>test more noti :v</p><p>+admin +mia +abc +xyz&nbsp;</p>', 0, 'coin', 'public', '', '', '3', '1', '', 0, 0, 0, 0, '1408191112'),
 (17, 3, 0, 'Something to say!', 0, 'coin', 'public', '', '', '', '3', '', 0, 0, 0, 0, '1408240213'),
 (18, 3, 0, '<p>hey, test js in new theme~</p>', 0, 'coin', 'public', '', 'yes', '3', '3', '', 0, 0, 0, 0, '1408290715'),
-(19, 3, 0, '<p>ok, new js now!</p>', 0, 'coin', 'public', '', '', '', '', '', 0, 0, 0, 0, '1408290717');
+(19, 3, 0, '<p>ok, new js now!</p>', 0, 'coin', 'public', '', '', '', '', '', 0, 0, 0, 0, '1408290717'),
+(20, 8, 0, '<p>promise something with facebook account~!</p>', 0, 'coin', 'public', '', '', '8', '', '', 0, 0, 0, 0, '1409020644'),
+(21, 18, 0, '<p>Post somthing to facebook</p>', 0, 'coin', 'public', '', '', '', '', '', 0, 0, 0, 0, '1409021009'),
+(22, 18, 0, '<p>Post on facebook~~!</p>', 0, 'coin', 'public', '', '', '', '', '', 0, 0, 0, 0, '1409021017');
 
 -- --------------------------------------------------------
 
@@ -717,14 +727,13 @@ INSERT INTO `promise` (`id`, `uid`, `iid`, `content`, `money`, `money-type`, `pr
 --
 
 CREATE TABLE IF NOT EXISTS `promise_cmt` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `pid` int(255) NOT NULL,
   `content` longtext NOT NULL,
   `likes` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
 
 --
@@ -819,7 +828,7 @@ INSERT INTO `promise_cmt` (`id`, `uid`, `iid`, `pid`, `content`, `likes`, `time`
 --
 
 CREATE TABLE IF NOT EXISTS `promise_did` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `suborner` longtext NOT NULL,
@@ -831,8 +840,7 @@ CREATE TABLE IF NOT EXISTS `promise_did` (
   `believe_not` longtext NOT NULL,
   `know_did` longtext NOT NULL,
   `know_didnot` longtext NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
@@ -859,13 +867,218 @@ INSERT INTO `promise_did` (`id`, `iid`, `uid`, `suborner`, `people`, `content`, 
 --
 
 CREATE TABLE IF NOT EXISTS `promise_like` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+`id` int(255) NOT NULL,
   `uid` int(255) NOT NULL,
   `iid` int(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `time` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `activity`
+--
+ALTER TABLE `activity`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `activity_`
+--
+ALTER TABLE `activity_`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `activity_cmt`
+--
+ALTER TABLE `activity_cmt`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `activity_like`
+--
+ALTER TABLE `activity_like`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ask`
+--
+ALTER TABLE `ask`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ask_cmt`
+--
+ALTER TABLE `ask_cmt`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `emo`
+--
+ALTER TABLE `emo`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `friend`
+--
+ALTER TABLE `friend`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `good`
+--
+ALTER TABLE `good`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `help`
+--
+ALTER TABLE `help`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `help_cmt`
+--
+ALTER TABLE `help_cmt`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `members`
+--
+ALTER TABLE `members`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `promise`
+--
+ALTER TABLE `promise`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `promise_cmt`
+--
+ALTER TABLE `promise_cmt`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `promise_did`
+--
+ALTER TABLE `promise_did`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `promise_like`
+--
+ALTER TABLE `promise_like`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
+--
+-- AUTO_INCREMENT for table `activity_`
+--
+ALTER TABLE `activity_`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `activity_cmt`
+--
+ALTER TABLE `activity_cmt`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+--
+-- AUTO_INCREMENT for table `activity_like`
+--
+ALTER TABLE `activity_like`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ask`
+--
+ALTER TABLE `ask`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `ask_cmt`
+--
+ALTER TABLE `ask_cmt`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `emo`
+--
+ALTER TABLE `emo`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
+--
+-- AUTO_INCREMENT for table `friend`
+--
+ALTER TABLE `friend`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `good`
+--
+ALTER TABLE `good`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `help`
+--
+ALTER TABLE `help`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `help_cmt`
+--
+ALTER TABLE `help_cmt`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `members`
+--
+ALTER TABLE `members`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=114;
+--
+-- AUTO_INCREMENT for table `promise`
+--
+ALTER TABLE `promise`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `promise_cmt`
+--
+ALTER TABLE `promise_cmt`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
+--
+-- AUTO_INCREMENT for table `promise_did`
+--
+ALTER TABLE `promise_did`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `promise_like`
+--
+ALTER TABLE `promise_like`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

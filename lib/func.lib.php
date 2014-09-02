@@ -226,19 +226,47 @@ function timeFormat ($timeInt) {
 	$h = $timeAr[3];
 	$i = $timeAr[4];
 	$ms = $curint - $timeInt;
-	if ($ms < 1000) {
-		$agoH = (int)($ms/100);
-		$agoMin = $ms - $agoH * 100;
+	if ($ms == 0) $timeDisplay = 'Just now';
+	else if ($ms < 60) {
+		$agoMin = (int)($ms/1);
+		$timeDisplay = "About $agoMin mins ago";
+	} else if ($ms < 10000) {
+		$agoD = 0;
+		$agoH = (int)($ms/10000);
+		$agoMin = $ms - $agoH * 10000;
+		while ($agoMin >= 60) {
+			$agoMin = $agoMin - 60;
+			$agoH++;
+		}
+		while ($agoH >= 24) {
+			$agoH = $agoH - 24;
+			$agoD++;
+		}
 		if ($agoH > 1) $hr = 'hours';
 		else $hr = 'hour';
-		$timeDisplay = "$agoH $hr $agoMin mins ago";
-	} else if ($ms >= 1000) {
-		$agoH = (int)($ms/1000);
+		if ($agoD == 1) $dy = 'day';
+		else if ($agoD >= 2) $dy = 'days';
+		if ($agoD > 0) $timeDisplay = "$agoD $dy $agoH $hr ago";
+		else $timeDisplay = "$agoH $hr $agoMin mins ago";
+	} else if ($ms >= 10001) {
+		$timeDisplay = "$h:$i $d-$m-$y";
+	} else if ($ms >= 10000) {
+		$agoD = 1;
+		$agoH = (int)($ms/10000);
+		while ($agoMin >= 60) {
+			$agoMin = $agoMin - 60;
+			$agoH++;
+		}
+		while ($agoH >= 24) {
+			$agoH = $agoH - 24;
+			$agoD++;
+		}
 		if ($agoH > 1) $hr = 'hours';
 		else $hr = 'hour';
-		$timeDisplay = "1 day $agoH $hr ago";
-	} else if ($ms >= 2000) $timeDisplay = '2 days ago';
-	else $timeDisplay = "$d-$m-$y $h:$i";
+		if ($agoD > 1) $dy = 'days';
+		else $dy = 'day';
+		$timeDisplay = $agoD." $dy $agoH $hr ago";
+	}// else $timeDisplay = "$h:$i $d-$m-$y";
 	return $timeDisplay;
 }
 
@@ -413,8 +441,8 @@ function rmFromCol ($tb, $rowDefine, $iid, $rowToPush, $pi) {
 
 	function possessive ($uid) {
 		$uIn = getRecord('members^id,gender', "`id` = '$uid' ");
-		if ($uIn['gender'] == 'male') echo 'his';
-		else echo 'her';
+		if ($uIn['gender'] == 'female') echo 'her';
+		else echo 'him';
 		return $possessive;
 	}
 	function vocative ($uid) {
@@ -599,6 +627,34 @@ function cmtFormPost ($tb, $iid) {
 	</form>
 <? }
 
+function helpfulSta ($helpful, $helpfulNot) {
+	if ($helpful) {
+		$gdlHelpfulAr = explode(', ', $helpful);
+		$gdlHelpful = count($gdlHelpfulAr);
+	} else $gdlHelpful = 0;
+	if ($helpfulNot) {
+		$gdlHelpfulNotAr = explode(', ', $helpfulNot);
+		$gdlHelpfulNot = count($gdlHelpfulNotAr);
+	} else $gdlHelpfulNot = 0;
+	if ($gdlHelpful > 0) {
+		for ($i = 0; $i < $gdlHelpful; $i++) {
+			$un = getRecord('members^username', "`id` = '{$gdlHelpfulAr[$i]}' ");
+			$helpfulShow .= '<a href="#!user?u='.$gdlHelpfulAr[$i].'">'.$un['username'].'</a>, ';
+		}
+		$helpfulShow = substr($helpfulShow, 0, -2);
+		echo '<span class="italic">These people find this helpful</span> '.$helpfulShow;
+	}
+	if ($gdlHelpfulNot > 0) {
+		for ($i = 0; $i < $gdlHelpfulNot; $i++) {
+			$un = getRecord('members^username', "`id` = '{$gdlHelpfulNotAr[$i]}' ");
+			$helpfulNotShow .= '<a href="#!user?u='.$gdlHelpfulNotAr[$i].'">'.$un['username'].'</a>, ';
+		}
+		$helpfulNotShow = substr($helpfulNotShow, 0, -2);
+		echo '<span class="italic">These people find this helpful</span> '.$helpfulNotShow;
+	}
+	if ($gdlHelpful == $gdlHelpfulNot && $gdlHelpful == 0) echo '<span class="italic">No one\'s voted this.</span>';
+}
+
 function bButton ($iid) {
 	global $u;
 	$disabled = $dis = false;
@@ -640,13 +696,13 @@ function bButton ($iid) {
 		<div class="b-button encourage-button plus-before left <? if ($gdi['did']) echo 'did disabled'; if (in_array($u, $encourageAr)) echo ' active' ?>" id="encourage" alt="<? echo $gdi['id'] ?>"><b><? echo $encourage ?></b></div>
 <? if ($gdi['did']) { ?>
 		<div class="b-buttons <? if ($dis == true) echo 'dis disabled'; else if ($disabled == true) echo 'disabled' ?>">
-			<div class="b-button believe-button plus-before left <? if (in_array($u, $gdlBelieveAr)) echo 'active' ?>" id="believe" alt="<? echo $gdl['id'] ?>">Believe <b><? echo $gdlBelieve ?></b></div>
-			<div class="b-button believe-not-button minus-before left <? if (in_array($u, $gdlBelieveNotAr)) echo 'active' ?>" id="believe-not" alt="<? echo $gdl['id'] ?>"><? echo $gdlBelieveNot ?></div>
+			<div class="b-button believe-button plus-before left <? if (in_array($u, $gdlBelieveAr)) echo 'active' ?>" id="believe" alt="<? echo $gdl['id'] ?>" title="I believe <? echo possessive($gdi['uid']) ?>">Believe <b><? echo $gdlBelieve ?></b></div>
+			<div class="b-button believe-not-button minus-before left <? if (in_array($u, $gdlBelieveNotAr)) echo 'active' ?>" id="believe-not" alt="<? echo $gdl['id'] ?>" title="No I don't believe <? echo possessive($gdi['uid']) ?>"><? echo $gdlBelieveNot ?></div>
 			<div class="b-button know-button plus-before left <? if (in_array($u, $gdlKnowAr)) echo 'active' ?>" id="know" alt="<? echo $gdl['id'] ?>" title="I know <? echo vocative($gdi['uid']) ?> did">Know <b><? echo $gdlKnow ?></b></div>
 			<div class="b-button know-not-button minus-before left <? if (in_array($u, $gdlKnowNotAr)) echo 'active' ?>" id="know-not" alt="<? echo $gdl['id'] ?>" title="I know <? echo vocative($gdi['uid']) ?> didn't"><? echo $gdlKnowNot ?></div>
 		</div>
-<!--		<div class="clearfix"></div> -->
 <?	if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes') { ?>
+		<div class="clearfix"></div>
 		<div class="votes-sta hide-on-list">
 			This item is locked by <a class="votes-sta-details"><b><? echo $gdi['believe_lock'] + $gdi['believe_not_lock'] + $gdi['know_lock'] + $gdi['know_not_lock'] ?></b> first votes</a>
 			<ul>

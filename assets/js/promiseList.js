@@ -19,7 +19,7 @@
 }*/
 function bButtonList (id) {
 	$('.one-good.the'+id+' .one-good-info .hide-on-list').remove();
-	$('.one-good.the'+id+' .b-buttons:not(".disabled, .dis") .b-button, .one-good.the'+id+' .b-button.active, .one-good.the'+id+' .encourage-button').click(function () {
+	$('.one-good.the'+id+' .b-buttons:not(".disabled, .dis") .b-button, .one-good.the'+id+':not(".disabled, .dis") .b-button.active, .one-good.the'+id+' .encourage-button').click(function () {
 //		id = $(this).closest('.one-good-big').attr('id');
 		act = $(this).attr('id');
 		url = MAIN_URL + '/pages/' + pl_page + '.php?i=' + id;

@@ -25,4 +25,12 @@
 	if ($do == 'lock' && $gdi['uid'] == $u) {
 		changeValue('help', "`id` = '$iid' ", "`lock` = 'yes' ");
 	}
+	if ($do == 'helpful' && $gdi['uid'] != $u) {
+		if (!in_array($u, $gdlHelpfulAr)) pushToCol('help', 'id', $iid, 'helpful');
+		else rmFromCol('help', 'id', $iid, 'helpful');
+	}
+	if ($do == 'helpfulnot' && $gdi['uid'] != $u) {
+		if (!in_array($u, $gdlHelpfulNotAr)) pushToCol('help', 'id', $iid, 'helpful_not');
+		else rmFromCol('help', 'id', $iid, 'helpful_not');
+	}
 } ?>

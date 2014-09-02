@@ -6,7 +6,11 @@
 	else if ($showC == 'request') $mconn = "`type` = 'new-request'";
 } else $mconn = "`type` != 'like'";
 $cond = "(`privacy` = 'public' OR (`privacy` = 'draff' AND `uid` = '$u') OR (`privacy` = 'include' AND `available_list` LIKE '%$u%') OR (`privacy` = 'exclude' AND `available_list` NOT LIKE '%$u%') )";
-if ($mconn) $cond = "$mconn AND $cond";
+if ($_GET['view'] == 'mine') $mconn .= "AND `uid` = '$u' ";
+if ($mconn) $cond = "$mconn AND $cond"; ?>
 
-include 'views/feedListDisplay.php'
-?>
+<div class="switch-view">
+	<a class="switch-link" href="#!feed?view=mine">Mine</a>
+</div>
+
+<? include 'views/feedListDisplay.php' ?>

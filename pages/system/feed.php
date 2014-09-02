@@ -10,14 +10,14 @@ if ( $_GET['do'] == "submitstt" ) {
 	else $nameFile = $decodeName;
 	$up = move_uploaded_file($_FILES['img']['tmp_name'], MAIN_PATH."/data/img/".$nameFile);
 	$url = "data/img/".$nameFile;
-	$privacy = $_POST['privacy'];
+	$privacy = $_POST['p-privacy'];
 	if (!$privacy) $privacy = 'public';
 //	echo $_FILES['img']['tmp_name'].'~~~~~~'.$nameFile;
 //	if ($up) echo 'done';
 //	else echo 'error';
 	if ($content == '<p><br></p>') $content = '';
 	if ($up) mysql_query("insert into `activity` (`type`, `privacy`, `img_url`, `uid`, `to_uid`, `content`, `time`) values ('photo', '$privacy', '$url', '$u', '$u', '$content', '$curint')");
-	else if ($content) mysql_query("insert into `activity` (`type`, `privacy`, `privacy`, `uid`, `to_uid`, `content`, `time`) values ('stt', '$privacy', '$u', '$u', '$content', '$curint')");
+	else if ($content) mysql_query("insert into `activity` (`type`, `privacy`, `uid`, `to_uid`, `content`, `time`) values ('stt', '$privacy', '$u', '$u', '$content', '$curint')");
 }
 
 if ($_GET['do']) {

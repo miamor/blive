@@ -20,17 +20,21 @@ require_once 'lib/config.php' ?>
 		<link rel="stylesheet" href="assets/css/style.css"/>
  		<link rel="stylesheet" href="assets/css/main.css"/>
 		<link rel="stylesheet" href="assets/plugins/sceditor/minified/themes/default.min.css"/>
+		<link rel="stylesheet" href="assets/plugins/meditor/jquery.meditor.css"/>
 		<!-- FONT CSS -->
 		<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
-<? 		echo '<script> var MAIN_URL = "'.MAIN_URL.'"</script>' ?>
+<? 		echo '<script>var MAIN_URL = "'.MAIN_URL.'"</script>';
+		if (!$u && checkURL('about') <= 0 && checkURL('register') <= 0 && checkURL('login') && checkURL('fb') <= 0)
+			echo '<script>window.location.href = "./about.php"</script>'; ?>
 	</head>
  
 	<body class="tooltips">
-	
 		<div class="topbar">
 			<div class="navbar">
 				<a class=""><span class="fa fa-th"></span></a>
-				<li class="active"><a>Home</a></li>
+				<li class="active"><a href="#!">Home</a></li>
+				<li><a href="#!promise">Promises</a></li>
+				<li><a href="#!request">Requests</a></li>
 				<li><a>Resources</a></li>
 			</div>
 			<div class="user-right-bar">
@@ -42,11 +46,11 @@ require_once 'lib/config.php' ?>
 						</a>
 						<ul class="head-dropdown dropdown-menu square primary margin-list-rounded with-triangle">
 							<li class="one-account current-account">
-								<img class="head-info-ava left" src="http://localhost:8080/8dot/assets/img/fm.jpg">
+								<img class="head-info-ava left" src="<? echo $member['avatar'] ?>"/>
 								<div class="account-info">
 									<span style="margin-top:6px" class="right label label-default">Elita</span>
 									<div style="height:31px">
-										<a href="#!user?u=3"><h3 class="text-primary left">abc</h3></a>
+										<a href="#!user?u=<? echo $u ?>"><h3 class="text-primary left"><? echo $member['username'] ?></h3></a>
 										<div class="left" style="margin:-4px 5px"><a class="gensmall" href="#!information"><i class="fa fa-edit"></i></a></div>
 									</div>
 									<div title="Exp: 0%" class="progress progress-sm progress-striped active">
@@ -55,8 +59,8 @@ require_once 'lib/config.php' ?>
 										</div>
 									</div>
 									<div class="exp-coin">
-										<div class="left" style="width:120px"><img style="margin-top:-2px" src="http://localhost:8080/8dot/assets/img/dollar_coin.png"> 0</div>
-										<div class="left"><img style="margin-top:-3px" src="http://localhost:8080/8dot/assets/img/famfamfam/silk/coins.png"> 0</div>
+										<div class="left" style="width:120px"><img style="margin-top:-2px" src="assets/img/dollar_coin.png"> 0</div>
+										<div class="left"><img style="margin-top:-3px" src="assets/img/famfamfam/silk/coins.png"> 0</div>
 										<div class="clearfix"></div>
 									</div>
 								</div>
@@ -77,7 +81,7 @@ require_once 'lib/config.php' ?>
 <div class="page-content">
 		<div class="left-menu-column sidebar-nicescroller" id="left-sidebar">
 			<? include 'pages/views/promiseForm.php' ?>
-			<div class="switch-menu">
+<!--			<div class="switch-menu">
 				<li id="promise" class="active" title="Promise" data-placement="right"><span class="fa fa-cloud"></span></li>
 				<li id="ask" title="Ask" data-placement="right"><span class="fa fa-cloud"></span></li>
 			</div>
@@ -95,6 +99,7 @@ require_once 'lib/config.php' ?>
 				<li id="answered" title="Answered" data-placement="right"><span class="fa fa-tags"></span> Answered <? if ($anAsk > 0) echo '<span class="badge badge-success">'.$anAsk.'</span>' ?></li>
 				<li id="unanswered" class="last" title="Unanswered" data-placement="right"><span class="fa fa-tags"></span> Unanswered <? if ($uAsk > 0) echo '<span class="badge badge-warning">'.$uAsk.'</span>' ?></li>
 			</div>
+-->
 		</div>
 
 		<div class="right-sidebar sidebar-nicescroller">
@@ -111,6 +116,16 @@ require_once 'lib/config.php' ?>
 		</div>
 		
 		<div class="chat-stick"></div>
-		
+
+		<div class="hide small-board-fixed"></div>
+		<div class="hide small-board sb-logout"></div>
+
+		<div class="hide small-board-fixed"></div>
+		<div class="hide small-board sb-like-list"></div>
+
+<!--		<input type="text"/>
+		<input type="submit"/>
+		<a class="btn">Btn</a>
+-->		
 		<div class="main-content sidebar-nicescroller">
 			<div class="overflow-scroll" id="content">

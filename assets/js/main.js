@@ -264,7 +264,6 @@ function flatApp() {
 	$(':checkbox').not('[data-toggle="switch"], .onoffswitch-checkbox').checkbox();
 	$(':radio').radio();
 	choosen();
-	$(".tagsinput").tagsInput();
 	$('.tooltips').tooltip({
 		selector: '*:not(".sceditor-dropdown img, #ui-datepicker-div a, #fancybox-buttons li a, #fancybox-buttons li, .fancybox-overlay li, .fancybox-overlay span, .fancybox-overlay div, .fancybox-overlay a")',
 		container: "body"
@@ -355,6 +354,7 @@ function chat (a) {
 
 
 function cmtPost (id) {
+	showLikeList(id);
 	$('.the' + id).children('.cmt-post-form').children('textarea').sceditor({
 			toolbar: '',
 			emoticons: emoticonsList
@@ -517,9 +517,11 @@ function submitChildCommment (id, i) {
 
 function showLikeList (i) {
 	$(".the"+i+" #like-list").click(function () {
-		page = $(this).closest(".the"+i).attr('data-p');
+		mi = $(this).closest(".the" + i).find('.one-good-feed');
+		page = mi.attr('data-p');
+		id = mi.attr('id');
 		$.ajax({
-			url: MAIN_URL + '/pages/' + page + '.php?i=' + i + '&display=like',
+			url: MAIN_URL + '/pages/' + page + '.php?i=' + id + '&display=like',
 			type: "get",
 			success: function (data) {
 				$('.sb-like-list').html(data);
@@ -580,7 +582,20 @@ $(function () {
 	});
 
 	sce('left-sidebar');
+	$(".tagsinput").tagsInput();
 
+	$('a[href^="#!logout"]').click(function () {
+		$.ajax({
+			url: MAIN_URL + '/pages/logout.php',
+			type: "POST",
+			datatype: 'json',
+			success: function (data) {
+				$('.sb-logout').html(data);
+				smallBoard($('.sb-logout'));
+			}
+		});
+		return false
+	});
 	$('#right-content .one-friend').click(function () {
 		uid = $(this).attr('id');
 		$.ajax({
@@ -604,7 +619,7 @@ $(function () {
 	});
 
 	$('.status-form').submit(function () {
-		var checkSend = true;
+		var checkSend = false;
 		$bigDiv = $(this).closest('.sidebar-nicescroller');
 		page = $(this).attr('data-p');
 		act = $(this).attr('data-a');
