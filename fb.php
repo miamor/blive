@@ -60,12 +60,12 @@ if ( !isset( $session ) || $session === null ) {
 }
 
 if ( isset( $session ) ) {
-//	$_SESSION['fb_token'] = $session->getToken();
-//	$session = new FacebookSession( $session->getToken() );
+	$_SESSION['fb_token'] = $session->getToken();
+	$session = new FacebookSession( $session->getToken() );
   
-  $request = new FacebookRequest( $session, 'GET', '/me' );
-  $response = $request->execute();
-  $graphObject = $response->getGraphObject()->asArray();
+	$request = new FacebookRequest( $session, 'GET', '/me' );
+	$response = $request->execute();
+	$graphObject = $response->getGraphObject()->asArray();
 
 	$userAvatar = 'https://graph.facebook.com/'.$graphObject['id'].'/picture?width=150&height=150';
 	$tokenID = $_SESSION['fb_token'];
@@ -73,10 +73,14 @@ if ( isset( $session ) ) {
 	if ($userAvatar) $avatar = $userAvatar;
 	else $avatar = 'avatar.jpg';
 		$checkLogin = false;
-		if (countRecord('members', "`email` = '{$graphObject['email']}' AND `oauth_uid` = '{$graphObject['id']}' AND `oauth_provider` = 'facebook' AND `token` = '{$tokenID}' ") <= 0) {
+		if (countRecord('members', "`email` = '{$graphObject['email']}' AND `oauth_uid` = '{$graphObject['id']}' AND `oauth_provider` = 'facebook' ") <= 0) {
 			$add = insert('members', "`username`, `avatar`, `gender`, `name`, `email`, `oauth_uid`, `oauth_provider`, `token`, `time`", " '{$graphObject['name']}', '{$avatar}', '{$gender}', '{$graphObject['name']}', '{$graphObject['email']}', '{$graphObject['id']}', 'facebook', '{$tokenID}', '{$curint}' ");
 			if ($add) $checkLogin = true;
-		} $checkLogin = true;
+		} else {
+			echo $tokenID.'~~~~~~';
+			$change = changeValue('members', "`email` = '{$graphObject['email']}' AND `oauth_uid` = '{$graphObject['id']}' AND `oauth_provider` = 'facebook' ", "`token` = '{$tokenID}' ");
+			if ($change) $checkLogin = true;
+		}
 		if ($checkLogin == true) {
 			$member = getRecord('members', "`email` = '{$graphObject['email']}' AND `oauth_uid` = '{$graphObject['id']}' AND `oauth_provider` = 'facebook' AND `token` = '{$tokenID}' ");
 			$_SESSION['user_id'] = $member['id'];

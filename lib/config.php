@@ -32,6 +32,7 @@ define('JQUERY', JS.'/jquery');
 define('PLUGINS', ASSETS.'/plugins');
 define(FLAT_UI, PLUGINS.'/flat-ui');
 $serverUrl = $_SERVER['REQUEST_URI'];
+$libPath = MAIN_PATH.'/lib';
 
 $social_conf = array(
 	'Facebook' => array(
@@ -80,64 +81,11 @@ $mode = _GET('mode');
 $n = _GET('n');
 $cmii = _GET('cmt');
 
-require_once( 'Facebook/HttpClients/FacebookHttpable.php' );
-require_once( 'Facebook/HttpClients/FacebookCurl.php' );
-require_once( 'Facebook/HttpClients/FacebookCurlHttpClient.php' );
-
-require_once( 'Facebook/Entities/AccessToken.php' );
-require_once( 'Facebook/Entities/SignedRequest.php' );
-
-require_once( 'Facebook/FacebookSession.php' );
-require_once( 'Facebook/FacebookRedirectLoginHelper.php' );
-require_once( 'Facebook/FacebookRequest.php' );
-require_once( 'Facebook/FacebookResponse.php' );
-require_once( 'Facebook/FacebookSDKException.php' );
-require_once( 'Facebook/FacebookRequestException.php' );
-require_once( 'Facebook/FacebookOtherException.php' );
-require_once( 'Facebook/FacebookAuthorizationException.php' );
-require_once( 'Facebook/GraphObject.php' );
-require_once( 'Facebook/GraphSessionInfo.php' );
-
-use Facebook\HttpClients\FacebookHttpable;
-use Facebook\HttpClients\FacebookCurl;
-use Facebook\HttpClients\FacebookCurlHttpClient;
-
-use Facebook\Entities\AccessToken;
-use Facebook\Entities\SignedRequest;
-
-use Facebook\FacebookSession;
-use Facebook\FacebookRedirectLoginHelper;
-use Facebook\FacebookRequest;
-use Facebook\FacebookResponse;
-use Facebook\FacebookSDKException;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookOtherException;
-use Facebook\FacebookAuthorizationException;
-use Facebook\GraphObject;
-use Facebook\GraphSessionInfo;
-
-$facebook = FacebookSession::setDefaultApplication($social_conf['Facebook']['id'], $social_conf['Facebook']['secret']);
-
-$helper = new FacebookRedirectLoginHelper(MAIN_URL.'/fb.php');
-
-if (isset($_SESSION) && isset($_SESSION['fb_token'])) {
-	$session = new FacebookSession($_SESSION['fb_token']);
-	try {
-		if (!$session->validate()) $session = null;
-	} catch (Exception $e) {
-		$session = null;
-	}
-}  
-
-if (isset($session)) {
-	$_SESSION['fb_token'] = $session->getToken();
-	$session = new FacebookSession( $session->getToken() );
-}
-
 if ( $_SESSION['user_id'] ) {
 	global $user_id, $u;
 	$user_id = $u = intval($_SESSION['user_id']);
 	$member = getRecord('members', "id = $u");
+	$_SESSION['fb_token'] = $member['token'];
 	$frLists = $getRecord -> GET('friend', "`accept` = 'yes' AND (`uid` = '$u' OR `receive_id` = '$u') ");
 	foreach ($frLists as $frLists) {
 		if ($frLists['uid'] == $u) $frU = $frLists['receive_id'];
