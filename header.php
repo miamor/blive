@@ -21,6 +21,7 @@ require_once 'lib/config.php' ?>
  		<link rel="stylesheet" href="assets/css/main.css"/>
 		<link rel="stylesheet" href="assets/plugins/sceditor/minified/themes/default.min.css"/>
 		<link rel="stylesheet" href="assets/plugins/meditor/jquery.meditor.css"/>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 		<!-- FONT CSS -->
 		<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
 <? 		echo '<script>var MAIN_URL = "'.MAIN_URL.'"</script>';

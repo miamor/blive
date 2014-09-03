@@ -299,17 +299,32 @@ function flatApp() {
 }
 
 function choosen() {
-		"use strict";
-		var configChosen = {
-		  '.chosen-select'           : {},
-		  '.chosen-select-deselect'  : {allow_single_deselect:true},
-		  '.chosen-select-no-single' : {disable_search_threshold:10},
-		  '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-		  '.chosen-select-width'     : {width:"100px"}
-		}
-		for (var selector in configChosen) {
-			$(selector).chosen(configChosen[selector]);
-		}
+	"use strict";
+	var configChosen = {
+		'.chosen-select'           : {},
+		'.chosen-select-deselect'  : {allow_single_deselect:true},
+		'.chosen-select-no-single' : {disable_search_threshold:10},
+		'.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+		'.chosen-select-width'     : {width:"100px"}
+	}
+	for (var selector in configChosen) {
+		$(selector).chosen(configChosen[selector]);
+	}
+}
+
+function findLink (text) {
+	var exp = /.*((https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+	text = text.replace(exp, "<a href=\"$1\">$1</a>");
+	link = text.split(/<a href="|">/)[1];
+	if (link) return link
+	return null
+}
+
+function convertLink (text) {
+	var exp = /.*((https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+	text = text.replace(exp, "<a href=\"$1\">$1</a>");
+	link = text.split(/<a href="|">/)[1];
+	return text
 }
 
 function chatForm () {
@@ -356,6 +371,15 @@ function chat (a) {
 
 function cmtPost (id) {
 	showLikeList(id);
+	$('.the' + id).each(function () {
+		if ($(this).find('.one-good-content').length) {
+			newContent = convertLink($(this).find('.one-good-content').html());
+			$(this).find('.one-good-content').html(newContent);
+		} else {
+			newContent = convertLink($(this).find('.content.stt').html());
+			$(this).find('.content.stt').html(newContent);
+		}
+	});
 /*	$('.the' + id).children('.cmt-post-form').children('textarea').sceditor({
 			toolbar: '',
 			emoticons: emoticonsList
@@ -429,6 +453,10 @@ function votePost (id) {
 
 function ajaxSLikeCmtOne (i, id) {
 //	showLikeList(i);
+	$('.the' + id + ' .one-cmt.cmt-' + i).each(function () {
+		newContent = convertLink($(this).find('.cmt-content').html());
+		$(this).find('.cmt-content').html(newContent)
+	});
 	$('.the' + id + ' .one-cmt.cmt-' + i).find('.like-button#like-cmt').click(function () {
 		$big = $(this).closest('.box-feed, .one-good, .one-good-big');
 		bclas = $big.attr('class').split(' ')[0];
@@ -542,7 +570,7 @@ function showLikeList (i) {
 function ajaxSLikeCmt (id) {
 	$('.the' + id).find('.one-cmt').each(function () {
 		ajaxSLikeCmtOne($(this).attr('id'), id);
-		ajaxSCommentCmtOne($(this).attr('id'), id)
+		ajaxSCommentCmtOne($(this).attr('id'), id);
 	})
 }
 

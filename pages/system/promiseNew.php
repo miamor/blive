@@ -65,7 +65,7 @@ $postToFb = $_POST['post-to-fb'];
 if ($pContent == '<p><br></p>') $pContent = '';
 if ($pContent && countRecord('promise', "`uid` = '$u' AND `content` = '$pContent' ") <= 0) {
 	if (countRecord('promise', "`uid` = '$u' AND `content` = '$pContent' ") <= 0) {
-		$add = insert('promise', "`uid`, `content`, `money`, `money-type`, `privacy`, `thumb-link`, `thumb-link-img`, `thumb-link-title`, `thumb-link-content`, `time`", " '$u', '$pContent', '$pMoney', '$pMoneyType', '$pPrivacy', '$link', '$link_img', '$link_title', '$link_content', '$curint' ");
+		$add = insert('promise', "`uid`, `content`, `money`, `money-type`, `privacy`, `time`", " '$u', '$pContent', '$pMoney', '$pMoneyType', '$pPrivacy', '$curint' ");
 		if ($add) {
 			$newPromise = getRecord('promise^id,uid,content', "`uid` = '$u' AND `content` = '$pContent' ");
 			$content = str_replace(array('&nbsp;', '@'), array(' ', '+'), _content($pContent));
@@ -78,7 +78,7 @@ if ($pContent && countRecord('promise', "`uid` = '$u' AND `content` = '$pContent
 				if ($thisMemU != $u && in_array($thisMemU, $frAr)) sendNoti('mention-in-promise', $newPromise['id'], '', $thisMemU);
 			}
 //			if ($pPrivacy != 'draff') 
-			insert('activity', "`privacy`, `uid`, `to_uid`, `type`, `iid`, `time`", " '{$pPrivacy}', '{$u}', '{$u}', 'new-promise', '{$newPromise['id']}', '{$curint}' ");
+			insert('activity', "`privacy`, `uid`, `to_uid`, `type`, `iid`, `thumb-link`, `thumb-link-img`, `thumb-link-title`, `thumb-link-content`, `time`", " '{$pPrivacy}', '{$u}', '{$u}', 'new-promise', '{$newPromise['id']}', '$link', '$link_img', '$link_title', '$link_content', '{$curint}' ");
 			if ($_SESSION['fb_token'] && $member['token'] && $postToFb) {
 				$response = (new FacebookRequest(
 					$session, 'POST', '/me/feed', array(
