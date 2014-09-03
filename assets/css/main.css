@@ -3,12 +3,12 @@ a{cursor:pointer;color:#ff6699}
 a:hover{color:#F96597}
 label.checkbox, label.radio{line-height:28px!important;padding-top:2px!important}
 input[type="submit"]{outline:none!important;cursor:pointer;color:#fff!important}
-input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="date"], textarea, select, textarea + .sceditor-container:not(.meditor-container), .chosen-choices{outline:none;background:#fff;border:1px solid #f2f2f2;box-shadow:inset 0 0 8px #f8f8f8;padding:10px 14px;border-radius:3px;font-family:Arial;margin:2px 0}
+input[type="text"], input[type="number"], input[type="password"], input[type="email"], input[type="date"], textarea, select, textarea + .sceditor-container, .chosen-choices{outline:none;background:#fff;border:1px solid #f2f2f2;box-shadow:inset 0 0 8px #f8f8f8;padding:10px 14px;border-radius:3px;font-family:Arial;margin:2px 0}
 .chosen-container{margin:2px 0}
 select{padding:9px 14px 9px}
 select:hover{*background:#fcfcfc;border-color:#f0f0f0}
 textarea, textarea + .sceditor-container{padding:6px 10px}
-textarea + .sceditor-container iframe{margin:0}
+textarea + .sceditor-container:not(.meditor-container) iframe{margin:0}
 textarea + .sceditor-container{margin-bottom:5px!important}
 .btn{border:0;padding:11px 14px 13px;line-height:11px!important;font-size:15px;border-radius:3px;*text-transform:uppercase;max-height:36px!important;line-height:14px;transition:.35s;-webkit-transition:.35s;margin-top:-3px}
 .btn:not([class*="btn-"]):not(.btn-primary):not(.btn-success):not(.btn-info):not(.btn-warning):not(.btn-danger):not(.btn-blue):not(.btn-d):not(.btn-none){background-color:#ff6699}
@@ -212,7 +212,7 @@ a.see-more{margin-left:3px}
 .cmt-post-form{margin:2px 0;padding-top:7px!important}
 .one-cmt .avatar-circle{margin-right:7px!important}
 .one-cmt, .static-post, .view-all-cmt{margin:2px 0;background:#fbfbfb;padding:0 6px}
-.cmt-content{*min-height:20px}
+.cmt-content{min-height:20px}
 .one-cmt .avatar-circle{width:35px;height:35px;margin:2px 5px 5px 1px}
 .one-cmt .cmt-user-name{margin-right:5px}
 .cmt-bottom{line-height:19px;margin-top:3px}

@@ -3,7 +3,7 @@
 		<div class="clearfix"></div>
 	</div>
 
-		<script src="<?php echo JQUERY ?>/jquery-1.7.2.min.js"></script>
+		<script src="<?php echo JQUERY ?>/jquery-1.11.0.min.js"></script>
 		<script src="<?php echo JQUERY ?>/jquery-ui-1.10.4.js"></script>
 		<!-- SCROLL JS -->
 		<script src="assets/plugins/nicescroll/jquery.nicescroll.js"></script>
@@ -31,7 +31,7 @@
 			more: {<? echo emoTextareaMore() ?>}
 		};
 function sce(a) {
-	$('#' + a).find('textarea').meditor();
+	$('#' + a).find('textarea').not('.cmt-post-form textarea, .non-sce').meditor()
 /*	$('#' + a).find("textarea").not('.no-toolbar, .non-sce').sceditor({
 		emoticons: emoticonsList
 	});

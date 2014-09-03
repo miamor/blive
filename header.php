@@ -19,7 +19,7 @@ require_once 'lib/config.php' ?>
 		<!-- MAIN CSS (REQUIRED ALL PAGE)-->
 		<link rel="stylesheet" href="assets/css/style.css"/>
  		<link rel="stylesheet" href="assets/css/main.css"/>
-<!--		<link rel="stylesheet" href="assets/plugins/sceditor/minified/themes/default.min.css"/> -->
+		<link rel="stylesheet" href="assets/plugins/sceditor/minified/themes/default.min.css"/>
 		<link rel="stylesheet" href="assets/plugins/meditor/jquery.meditor.css"/>
 		<!-- FONT CSS -->
 		<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">

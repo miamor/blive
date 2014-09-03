@@ -206,6 +206,7 @@ function scrollToContent (file, v) {
 //	else loadMain(file, v);
 	if (v.length > 0) f_url = 'pages/' + file + '.php?' + v;
 	else f_url = 'pages/' + file + '.php';
+	$('#content').next('.loading-screen').remove();
 	$('#content').hide().after('<div class="loading-screen"><div class="spinner"> <div></div><div></div><div></div> </div></div>');
 	$.ajax({
 		url: MAIN_URL + '/' + f_url,
@@ -355,10 +356,16 @@ function chat (a) {
 
 function cmtPost (id) {
 	showLikeList(id);
-	$('.the' + id).children('.cmt-post-form').children('textarea').sceditor({
+/*	$('.the' + id).children('.cmt-post-form').children('textarea').sceditor({
 			toolbar: '',
 			emoticons: emoticonsList
 	}).next('.sceditor-container').find('iframe').contents().bind("keydown", function (e) {
+		if (e.keyCode == 13 && !e.shiftKey) {
+			e.preventDefault();
+			$('.the' + id).children('.cmt-post-form').submit();
+		}
+	});
+*/	$('.the' + id).children('.cmt-post-form').children('textarea').meditor().next('.sceditor-container').find('iframe').contents().bind("keydown", function (e) {
 		if (e.keyCode == 13 && !e.shiftKey) {
 			e.preventDefault();
 			$('.the' + id).children('.cmt-post-form').submit();
@@ -454,10 +461,11 @@ function ajaxSCommentCmtOne (i, id) {
 		liketext = $cmt.find('#like-cmt .text').text();
 		if (!$cmt.find('#cmt' + i + '-' + id).length) $cmt.find('.child-comments-list').after('<form class="cmt-cmt-form" id="cmt' + i + '-' + id + '"><img class="avatar-circle left" src="' + $big.find('.cmt-post-form > .avatar-circle').attr('src') + '"><textarea name="cmt-content" class="no-toolbar left" style="height:45px"></textarea></form>');
 		$cmtCmt = $cmt.find('#cmt' + i + '-' + id);
-		$cmtCmt.find('textarea').sceditor({
+/*		$cmtCmt.find('textarea').sceditor({
 			toolbar: '',
 			emoticons: emoticonsList
 		});
+*/		$cmtCmt.find('textarea').meditor();
 		submitChildCommment(id, i);
 	});
 	$('.the' + id + ' .one-cmt.cmt-' + i).find('.child-comments-list').each(function () {
@@ -632,6 +640,8 @@ $(function () {
 				mtip('.form-alerts', 'warning', '', 'Please fill in the required fields.')
 			} else checkSend = true;
 		});
+		$('#content').hide().after('<div class="loading-screen"><div class="spinner"> <div></div><div></div><div></div> </div></div>');
+		$(this).find('input[type="submit"]').attr('disabled', true);
 		if (checkSend == true) {
 			formData = new FormData($(this)[0]);
 			$.ajax({
@@ -646,6 +656,7 @@ $(function () {
 					$bigDiv.find('.the-form textarea').each(function () {
 						$(this).next('.sceditor-container').find('iframe').contents().find('body').html('')
 					});
+					$bigDiv.find('input[type="submit"]').attr('disabled', false);
 					firstScroll()
 				},
 				error: function (xhr) {

@@ -5,7 +5,8 @@
 	else if ($showC == 'promise') $mconn = "`type` = 'new-promise'";
 	else if ($showC == 'request') $mconn = "`type` = 'new-request'";
 } else $mconn = "`type` != 'like'";
-$cond = "(`privacy` = 'public' OR (`privacy` = 'draff' AND `uid` = '$u') OR (`privacy` = 'include' AND `available_list` LIKE '%$u%') OR (`privacy` = 'exclude' AND `available_list` NOT LIKE '%$u%') )";
+$frArStr = implode(',', $frAr).','.$u;
+$cond = "`uid` IN ($frArStr) AND (`privacy` = 'public' OR (`privacy` = 'draff' AND `uid` = '$u') OR (`privacy` = 'include' AND `available_list` LIKE '%$u%') OR (`privacy` = 'exclude' AND `available_list` NOT LIKE '%$u%') )";
 if ($_GET['view'] == 'mine') $mconn .= "AND `uid` = '$u' ";
 if ($mconn) $cond = "$mconn AND $cond"; ?>
 

@@ -82,15 +82,13 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 			</div>
 		<? } ?>
 			
- <? 		$title=urlencode('Dressfinity');
-			$urlShare = urlencode(MAIN_URL.'/promise.php?i='.$iid);
-			$image=urlencode('http://livemarketnews.com/dressfinity/skin/frontend/default/default/images/logo.jpg'); ?>
-                <a onClick="window.open('http://www.facebook.com/sharer/sharer.php?app_id=<? echo $social_conf['Facebook']['id'] ?>&sdk=joey&u=<? echo $urlShare ?>&display=popup&ref=plugin', 'sharer', 'toolbar=0,status=0,width=548,height=325')" target="_parent" href="javascript: void(0)">
-                    Share our Facebook page!
-                </a>
-
 
 			<div class="one-good-info">
+ <? 		$urlShare = urlencode(MAIN_URL.'/promise.php?i='.$iid); ?>
+			<a onClick="window.open('http://www.facebook.com/sharer/sharer.php?app_id=<? echo $social_conf['Facebook']['id'] ?>&sdk=joey&u=<? echo $urlShare ?>&display=popup&ref=plugin', 'sharer', 'toolbar=0,status=0,width=548,height=325')" target="_parent" href="javascript: void(0)">
+				Share on Facebook
+			</a>
+
 				<div class="one-good-buttons"><? bButton($gdi['id']) ?></div>
 				<div class="clearfix"></div>
 <?	if ($checkDid > 0 && $gdi['lock'] != 'yes' && $gdi['uid'] == $u) {

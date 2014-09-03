@@ -28,7 +28,7 @@
 				$avat = $laymem['avatar'];
 				$laymm = getRecord('members', "`id`='$to_id'");
 				$to_name = $laymm['username'];
-			if ($l['uid'] == $u || (countRecord('friend', "(`uid` = '$u' AND `receive_id` = '{$l['uid']}') OR (`receive_id` = '$u' AND `uid` = '{$l['uid']}')") > 0)) {
+//			if ($l['uid'] == $u || (countRecord('friend', "(`uid` = '$u' AND `receive_id` = '{$l['uid']}') OR (`receive_id` = '$u' AND `uid` = '{$l['uid']}')") > 0)) {
 				if ($l['type'] == 'become-friend') echo '<div class="statu long-line"><a class="fol_thum" href="#!user?u='.$up_id.'"><img src="'.$avat.'" class="thumbnai"/> <b>'.$up_name.'</b></a> and 
 					<a class="m-type '.$laymem['group'].'" href="#!user?u='.$to_id.'"><b>'.$to_name.'</b></a> became friends.</div>';
 				else {
@@ -109,7 +109,7 @@
 						else cmtFormPost('activity', $lid);
 					echo "</div>";
 				}
-			}
+//			}
 		}
 
 	?>

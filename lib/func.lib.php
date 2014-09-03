@@ -374,7 +374,7 @@ function emoTextareaMore () {
 }
 
 function check ($string, $word) {
-	return strlen(strstr($string, $word));
+	return strlen(strstr($string, $word)); // Find $word in $string
 }
 
 function checkURL ($word) {

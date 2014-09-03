@@ -86,6 +86,7 @@ if ( $_SESSION['user_id'] ) {
 	$user_id = $u = intval($_SESSION['user_id']);
 	$member = getRecord('members', "id = $u");
 	$_SESSION['fb_token'] = $member['token'];
+//	echo $_SESSION['fb_token'].'<br/>'.$member['token'];
 	$frLists = $getRecord -> GET('friend', "`accept` = 'yes' AND (`uid` = '$u' OR `receive_id` = '$u') ");
 	foreach ($frLists as $frLists) {
 		if ($frLists['uid'] == $u) $frU = $frLists['receive_id'];
