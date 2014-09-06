@@ -75,6 +75,21 @@ function generateRandomString ($length) {
 	return $randomString;
 }
 
+function setLang ($lang) {
+	global $libPath;
+	$langF = $libPath.'/lang/'.$lang.'.php';
+//	echo $langF.'~~~~~~~~'.file_get_contents($langF);
+	if (file_exists($langF)) include $langF;
+	else {
+		echo '<div class="alerts alert-error">This language is not available yet. Sorry for this inconvinient.</div>';
+		include $libPath.'/lang/en.php';
+	}
+//	return file_get_contents($langF);
+/*	switch ($lang) {
+		case 'en' 	:	return file_get_contents($folder);
+	}
+*/}
+
 function friendList ($status) {
 	global $u;
 	$getRecord = new getRecord();
@@ -439,24 +454,6 @@ function rmFromCol ($tb, $rowDefine, $iid, $rowToPush, $pi) {
 	return $change = changeValue($tb, "`$rowDefine` = '$iid'", "`$rowToPush` = '$rowStr'");
 }
 
-	function possessive ($uid) {
-		$uIn = getRecord('members^id,gender', "`id` = '$uid' ");
-		if ($uIn['gender'] == 'female') echo 'her';
-		else echo 'him';
-		return $possessive;
-	}
-	function vocative ($uid) {
-		$uIn = getRecord('members^id,gender', "`id` = '$uid' ");
-		if ($uIn['gender'] == 'male') echo 'he';
-		else echo 'she';
-		return $possessive;
-	}
-	function pronoun ($uid) {
-		$uIn = getRecord('members^id,gender', "`id` = '$uid' ");
-		if ($uIn['gender'] == 'male') echo 'him';
-		else echo 'her';
-		return $possessive;
-	}
 
 /*class gender {
 }
@@ -516,7 +513,7 @@ function likeStatic ($tb, $iid) {
 					$oLikeA2 = $otherLikesFr[2];
 					echo 'You, '.$oLikeA0.', '.$oLikeA1.', '.$oLikeA2.' and <a class="sb-open" id="like-list" alt="'.$iid.'">'.$otherLikes.' others</a> liked this';
 				}
-			} else echo 'You and <a class="sb-open" id="like-list" alt="'.$iid.'">'.count($otherLikes).' others</a> liked this';
+			} else echo 'You and <a class="sb-open" id="like-list" alt="'.$iid.'">'.$otherLikes.' others</a> liked this';
 		} else {
 			for ($j = 0; $j <= $likes; $j++) {
 				$oLikeId = $likeAr[$j];
@@ -566,7 +563,7 @@ function likeStatic ($tb, $iid) {
 }
 
 function toolPost ($tb, $iid) {
-	global $u, $member;
+	global $u, $member, $lang;
 	$getRecord = new getRecord();
 	$rowIn = getRecord($tb, "id = $iid");
 	if ($rowIn['likes']) {
@@ -577,10 +574,10 @@ function toolPost ($tb, $iid) {
 	$socmt = countRecord($tb.'_cmt', "`iid` = '$iid' AND `pid` = 0");
 	$soshare = countRecord('activity', "`type` = 'share' AND `img_url` = '$iid'");
 	echo '<div class="tool" id="tool">';
-		if (!in_array($u, $likeAr)) echo '<a class="like-button" id="like-post">Like</a>';
-		else echo '<a class="like-button" id="like-post">Unlike</a>';
-		echo '<a class="comment-button" id="comment-post">Comment</a>
-			<a class="share-button" id="share-post">Share</a>';
+		if (!in_array($u, $likeAr)) echo '<a class="like-button" id="like-post">'.$lang['like'].'</a>';
+		else echo '<a class="like-button" id="like-post">'.$lang['unlike'].'</a>';
+		echo '<a class="comment-button" id="comment-post">'.$lang['comment'].'</a>
+			<a class="share-button" id="share-post">'.$lang['share'].'</a>';
 /*		echo "<a class='lik' id='like_$iid' alt='$up_id'>Like</a>";
 		else echo "<a class='unlike' id='unlike_$iid' alt='$up_id'>Unlike</a>";
 		echo "</span><a class='cmt' id='cmt_$iid'>Comment</a>
@@ -656,7 +653,7 @@ function helpfulSta ($helpful, $helpfulNot) {
 }
 
 function bButton ($iid) {
-	global $u;
+	global $u, $lang;
 	$disabled = $dis = false;
 	$gdi = getRecord('promise^encourage,did,`lock`,believe_lock,believe_not_lock,know_lock,know_not_lock,uid', "id = $iid");
 	$gdid = getRecord('promise_did^believe,believe_not,know_did,know_didnot', "iid = $iid");
@@ -692,14 +689,14 @@ function bButton ($iid) {
 		if ($gdi['uid'] == $u || in_array($u, $gdlBelieveAr) || in_array($u, $gdlBelieveNotAr) || in_array($u, $gdlKnowAr) || in_array($u, $gdlKnowNotAr)) $disabled = true;
 	}
 	$totalVotes = $gdlBelieve + $gdlBelieveNot + $gdlKnow + $gdlKnowNot ?>
-		<div class="right hide-on-list"><a class="view-all-vote">View all votes</a></div>
+		<div class="right hide-on-list"><a class="view-all-vote"><? echo $lang['view-all-vote'] ?></a></div>
 		<div class="b-button encourage-button plus-before left <? if ($gdi['did']) echo 'did disabled'; if (in_array($u, $encourageAr)) echo ' active' ?>" id="encourage" alt="<? echo $gdi['id'] ?>"><b><? echo $encourage ?></b></div>
 <? if ($gdi['did']) { ?>
 		<div class="b-buttons <? if ($dis == true) echo 'dis disabled'; else if ($disabled == true) echo 'disabled' ?>">
-			<div class="b-button believe-button plus-before left <? if (in_array($u, $gdlBelieveAr)) echo 'active' ?>" id="believe" alt="<? echo $gdl['id'] ?>" title="I believe <? echo possessive($gdi['uid']) ?>">Believe <b><? echo $gdlBelieve ?></b></div>
-			<div class="b-button believe-not-button minus-before left <? if (in_array($u, $gdlBelieveNotAr)) echo 'active' ?>" id="believe-not" alt="<? echo $gdl['id'] ?>" title="No I don't believe <? echo possessive($gdi['uid']) ?>"><? echo $gdlBelieveNot ?></div>
-			<div class="b-button know-button plus-before left <? if (in_array($u, $gdlKnowAr)) echo 'active' ?>" id="know" alt="<? echo $gdl['id'] ?>" title="I know <? echo vocative($gdi['uid']) ?> did">Know <b><? echo $gdlKnow ?></b></div>
-			<div class="b-button know-not-button minus-before left <? if (in_array($u, $gdlKnowNotAr)) echo 'active' ?>" id="know-not" alt="<? echo $gdl['id'] ?>" title="I know <? echo vocative($gdi['uid']) ?> didn't"><? echo $gdlKnowNot ?></div>
+			<div class="b-button believe-button plus-before left <? if (in_array($u, $gdlBelieveAr)) echo 'active' ?>" id="believe" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['believe-title'] ?>"><? echo $lang['believe-button'] ?> <b><? echo $gdlBelieve ?></b></div>
+			<div class="b-button believe-not-button minus-before left <? if (in_array($u, $gdlBelieveNotAr)) echo 'active' ?>" id="believe-not" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['believe-not-title'] ?>"><? echo $gdlBelieveNot ?></div>
+			<div class="b-button know-button plus-before left <? if (in_array($u, $gdlKnowAr)) echo 'active' ?>" id="know" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['know-title'] ?>"><? echo $lang['know-button'] ?> <b><? echo $gdlKnow ?></b></div>
+			<div class="b-button know-not-button minus-before left <? if (in_array($u, $gdlKnowNotAr)) echo 'active' ?>" id="know-not" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['know-not-title'] ?>"><? echo $gdlKnowNot ?></div>
 		</div>
 <?	if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes') { ?>
 		<div class="clearfix"></div>

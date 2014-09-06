@@ -14,6 +14,11 @@
 				} else echo '<!--[type][error] [content][Oops! Something went wrong. Please contact the administrators for help.]-->';
 			} else echo '<!--[type][error] [content][You\'ve already sent a request of help.]-->';
 		} else echo '<!--[type][error] [content][Please fill in your form.]-->';
+	} else if ($do == 'like') {
+		if (!$cmii) {
+			if (!in_array($u, $gdlLikesAr)) pushToCol('help', 'id', $iid, 'likes');
+			else rmFromCol('help', 'id', $iid, 'likes');
+		}
 	}
 	if ($do == 'public') {
 		changeValue('help', "`id` = '$iid' ", "`privacy` = 'public' ");
@@ -25,11 +30,11 @@
 	if ($do == 'lock' && $gdi['uid'] == $u) {
 		changeValue('help', "`id` = '$iid' ", "`lock` = 'yes' ");
 	}
-	if ($do == 'helpful' && $gdi['uid'] != $u) {
+	if ($do == 'helpful' && $gdi['uid'] != $u && !in_array($u, $gdlHelpfulNotAr)) {
 		if (!in_array($u, $gdlHelpfulAr)) pushToCol('help', 'id', $iid, 'helpful');
 		else rmFromCol('help', 'id', $iid, 'helpful');
 	}
-	if ($do == 'helpfulnot' && $gdi['uid'] != $u) {
+	if ($do == 'helpfulnot' && $gdi['uid'] != $u && !in_array($u, $gdlHelpfulAr)) {
 		if (!in_array($u, $gdlHelpfulNotAr)) pushToCol('help', 'id', $iid, 'helpful_not');
 		else rmFromCol('help', 'id', $iid, 'helpful_not');
 	}

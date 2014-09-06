@@ -21,6 +21,9 @@ require_once 'lib/config.php' ?>
  		<link rel="stylesheet" href="assets/css/main.css"/>
 		<link rel="stylesheet" href="assets/plugins/sceditor/minified/themes/default.min.css"/>
 		<link rel="stylesheet" href="assets/plugins/meditor/jquery.meditor.css"/>
+		<link rel="stylesheet" href="assets/plugins/owl-carousel/owl.carousel.min.css">
+		<link rel="stylesheet" href="assets/plugins/owl-carousel/owl.theme.min.css">
+		<link rel="stylesheet" href="assets/plugins/owl-carousel/owl.transitions.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 		<!-- FONT CSS -->
 		<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
@@ -37,6 +40,29 @@ require_once 'lib/config.php' ?>
 				<li><a href="#!promise">Promises</a></li>
 				<li><a href="#!request">Requests</a></li>
 				<li><a>Resources</a></li>
+			</div>
+			<div class="noti-right-bar right">
+				<ul class="nav-user navbar-left">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">
+							<? if ($notiNums > 0) echo '<span class="badge badge-primary icon-count">'.$notiNums.'</span>' ?>
+							<i class="fa fa-globe" style="font-size:17px"></i>
+						</a>
+						<ul class="dropdown-menu pull-right square with-triangle">
+							<li>
+								<div class="nav-dropdown-heading">
+									Notifications
+								</div>
+								<div class="nav-dropdown-content scroll-nav-dropdown">
+									<ul class="notification-load">
+										<? include 'pages/views/notification.php' ?>
+									</ul>
+								</div>
+								<button class="btn btn-primary btn-square btn-block">See all notifications</button>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 			<div class="user-right-bar">
 				<ul class="nav-user navbar-right">
@@ -80,7 +106,7 @@ require_once 'lib/config.php' ?>
 		</div>
 
 <div class="page-content">
-		<div class="left-menu-column sidebar-nicescroller" id="left-sidebar">
+		<div class="left-menu-column" id="left-sidebar">
 			<? include 'pages/views/promiseForm.php' ?>
 <!--			<div class="switch-menu">
 				<li id="promise" class="active" title="Promise" data-placement="right"><span class="fa fa-cloud"></span></li>
@@ -118,15 +144,13 @@ require_once 'lib/config.php' ?>
 		
 		<div class="chat-stick"></div>
 
-		<div class="hide small-board-fixed"></div>
 		<div class="hide small-board sb-logout"></div>
-
-		<div class="hide small-board-fixed"></div>
 		<div class="hide small-board sb-like-list"></div>
+		<div class="hide small-board sb-stt-likelist"></div>
 
 <!--		<input type="text"/>
 		<input type="submit"/>
 		<a class="btn">Btn</a>
 -->		
-		<div class="main-content sidebar-nicescroller">
+		<div class="main-content">
 			<div class="overflow-scroll" id="content">

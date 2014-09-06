@@ -1,26 +1,5 @@
 main = $(window);
 
-
-function ajaxLoadsS() {
-    $('#stt_photo').live('change', function () {
-        var img = $(this).val();
-        $("#test").html('Loading...');
-        $("#test").html(img)
-    })
-}
-
-function showS() {
-	$(".statuss .nums").click(function () {
-		$(this).parents("#tool").next('.like_list').children('#likelist').toggle()
-	})
-}
-
-function showM(a) {
-	$(a+" .nums").click(function () {
-//		$(this).parents("#tool").next('.like_list').children('#likelist').toggle()
-	})
-}
-
 function ajaxS () {
 	$('.statu').each(function () {
 		ajaxSLikeCmt($(this).attr('id'));
@@ -28,19 +7,8 @@ function ajaxS () {
 		cmtPost($(this).attr('id'));
 		votePost($(this).attr('id'));
 		shortenStt($(this).attr('id'))
-//		showLikeList($(this).attr('id'))
 	});
 }
-
-/*function ajaxSs (big) {
-	$(big).find('.statu').each(function () {
-		ajaxSLikeCmt($(this).attr('id'));
-		if ($(this).find('.one-good-feed').length) bButtonFeed($(this).find('.one-good-feed').attr('id'));
-		cmtPost($(this).attr('id'));
-		votePost($(this).attr('id'));
-		shortenStt($(this).attr('id'))
-	})
-}*/
 
 function shortenStt (i) {
 	$('.statu.the' + i).not('.one').each(function () {
@@ -100,30 +68,9 @@ function bButtonFeed (id) {
 		})
 	})
 }
-/*function bButtonFeed (id) {
-	$('.box-feed .one-good-feed.the'+id+' .b-buttons:not(".disabled") .b-button, .box-feed .one-good-feed.the'+id+' .b-button.active, .box-feed .one-good-feed.the'+id+' .encourage-button').click(function () {
-		act = $(this).attr('id');
-		url = MAIN_URL + '/pages/promise.php?i=' + id;
-		$.ajax({
-			url: url + '&do=' + act,
-			type: 'post',
-			datatype: 'json',
-			success: function (data) {
-				$('.one-good-feed.the'+id+' .one-good-info').load(url + ' .one-good-big.the'+id+' .one-good-info > div:not(".one-good-time")', function () {
-					bButtonFeed(id);
-				});
-				$('#left-content .one-good-big.the'+id+' .one-good-buttons').load(url + ' .one-good-big.the'+id+' .one-good-buttons > div', function () {
-					bButton(id, 'left-content');
-				})
-			}
-		})
-	})
-}*/
 
 function all () {
 	ajaxS();
-//	sce();
-//	flatApp();
 	if (window.location.href.indexOf('undividepage') == -1) loadmore(0);
 }
 
@@ -135,15 +82,15 @@ function loadmore (i) {
 			if (!$('#more #load-more'+i).length) $('#more').append('<div class="load-more load-more'+i+'" style="display:none" id="load-more'+i+'"></div>');
 			url = $('.statuss > .pagination .page:eq('+i+')').attr('href');
 			$('#load-more'+i+':hidden').show().html('<div class="spinner loading-status"><div></div><div></div><div></div></div>').hide();
-//			<center>Loading... <img class="loading-status" src="'+IMG+'/alw_loading.png"/></center>
 			$('#load-more'+i+':hidden').load(url + ' .statuss .statu', function () {
+/*				alert('#load-more'+i);
 				$('#load-more'+i).find('.no-toolbar').sceditor({
 					toolbar: '',
 					emoticons: emoticonsList
 				});
+				$('#load-more'+i).find('.normal-stt-tool').children('.cmt-post-form').children('textarea').meditor();
 				$('#load-more'+i).find('input[type="submit"]').addClass('right btn btn-info btn-perspective-hover');
-//				ajaxSs('#load-more'+i);
-				$('#load-more'+i).find('.statu').each(function () {
+*/				$('#load-more'+i).find('.statu').each(function () {
 					ajaxSLikeCmt($(this).attr('id'));
 					if ($(this).find('.one-good-feed').length) bButtonFeed($(this).find('.one-good-feed').attr('id'));
 					cmtPost($(this).attr('id'));
@@ -156,7 +103,6 @@ function loadmore (i) {
 				}
 			});
 			if ($('#load-more'+i).find('.loading-status').length) {
-//				$('#load-more'+i).html('<div class="statu follow">No more data to show.</div>')
 				$('#load-more'+i).html('')
 			}
 			$('#load-more'+i+':hidden').fadeIn(800)
@@ -167,5 +113,4 @@ function loadmore (i) {
 $(function () {
 	all();
 	$('.pagination').hide()
-//	pagination();
 });

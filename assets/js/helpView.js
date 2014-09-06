@@ -3,7 +3,7 @@ function oneGoodBig (id) {
 		ajaxSLikeCmt($(this).attr('id'));
 		cmtPost($(this).attr('id'));
 		votePost($(this).attr('id'));
-		showLikeList($(this).attr('id'))
+//		showLikeList($(this).attr('id'))
 	})
 }
 
@@ -12,6 +12,7 @@ function voteRequest () {
 		id = $(this).closest('.one-good-big').attr('id');
 		url = MAIN_URL + '/pages/request.php?i=' + id;
 		act = $(this).attr('id');
+		alert(url + '&do=' + act);
 		$.ajax({
 			url: url + '&do=' + act,
 			type: 'post',
@@ -40,11 +41,12 @@ $(function () {
 		if ($('.me-help').is(':hidden')) $('.me-help').slideDown(200);
 		else $('.me-help').slideUp(200)
 	});
+	$('.help-content-textarea').meditor();
 	$('.form-help').submit(function () {
 		id = $(this).closest('.one-good-big').attr('id');
 		url = MAIN_URL + '/pages/request.php?i=' + id;
 		$(this).find('textarea').each(function () {
-			Content = $(this).next('.sceditor-container').find('iframe').contents().find('body').html();
+			Content = $(this).next('.sceditor-container').find('.meditor-iframe').html();
 			$(this).val(Content);
 		});
 		formData = $(this).serialize();
@@ -59,7 +61,7 @@ $(function () {
 				mtip('.me-help', alertsType, '', alertsContent);
 				if (alertsType == 'success') $('.me-help, .button-help').remove();
 				$('.form-help').find('textarea').each(function () {
-					$(this).val('').next('.sceditor-container').find('iframe').contents().find('body').html('')
+					$(this).val('').next('.sceditor-container').find('.meditor-iframe').html('')
 				});
 				$('.helper-list').slideUp(200, function () {
 					$(this).load(url + ' .helper-list > div', function () {
@@ -80,7 +82,6 @@ $(function () {
 				type: 'post',
 				datatype: 'json',
 				success: function (data) {
-//					loadLeft(pl_page, 'i=' + id)
 					firstScroll()
 				}
 			});

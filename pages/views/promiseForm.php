@@ -23,8 +23,8 @@
 				<input class="right" type="submit" value="Submit">
 				<div class="clearfix"></div>
 			</div>
-			<label class="checkbox">
-				<input type="checkbox" name="post-to-fb"/> Post to facebook
+			<label class="checkbox" <? if (!$member['token']) echo 'title="You need to login/sync your blive account with your facebook account to use this feature"' ?>>
+				<input type="checkbox" <? if (!$member['token']) echo 'disabled' ?> name="post-to-fb"/> Post to facebook
 			</label>
 		</div>
 	</form>
@@ -54,8 +54,8 @@
 				<input class="right" type="submit" value="Submit">
 				<div class="clearfix"></div>
 			</div>
-			<label class="checkbox">
-				<input type="checkbox" name="post-to-fb"/> Post to facebook
+			<label class="checkbox" <? if (!$member['token']) echo 'title="You need to login/sync your blive account with your facebook account to use this feature"' ?>>
+				<input type="checkbox" <? if (!$member['token']) echo 'disabled' ?> name="post-to-fb"/> Post to facebook
 			</label>
 		</div>
 	</form>
@@ -66,24 +66,27 @@
 		<textarea name="status" id="update_stt" class="no-toolbar" placeholder="What on your mind"></textarea>
 		<div class="form-custom">
 			<div class="custom">
+				<div id="submitphoto">
+					<div id="filediv">
+						<input name="img[]" type="file" accept="image/*" class="btn-upload-img" id="stt_photo"/>
+					</div>
+					<input type="button" id="add_more" class="upload btn hide" value="+"/>
+					<div class="clearfix"></div>
+				</div>
 				<select name="p-privacy" class="p-privacy left">
 					<option value="public">Public</option>
 					<option value="draff">Draff</option>
 				</select>
-				<div id="submitphoto" class="left">
-					<div class="btn btn-none btn-file submit_img fa fa-camera">
-						<input type="file" accept="image/*" id="stt_photo" name="img"/>
-					</div>
-				</div>
 				<input class="right" type="submit" name="ok_upload" id="oku" value="Submit">
 				<div class="clearfix"></div>
 				<div class="loading" style="float:right;margin:13px 10px 0 0;display:none"><img src="<?php echo $imgdir ?>/ajaxload.gif"/></div>
 			</div>
-			<label class="checkbox">
-				<input type="checkbox" name="post-to-fb"/> Post to facebook
+			<label class="checkbox" <? if (!$member['token']) echo 'title="You need to login/sync your blive account with your facebook account to use this feature"' ?>>
+				<input type="checkbox" <? if (!$member['token']) echo 'disabled' ?> name="post-to-fb"/> Post to facebook
 			</label>
 		</div>
 	</form>
 </div>
+
 
 <div class="form-alerts"></div>

@@ -9,7 +9,7 @@ else { ?>
 		<meta name="description" content="8dot, effective eLearning site">
 		<meta name="keywords" content="8dot,eLearning,social">
 		<meta name="author" content="Miamor West">
-		<title>8dot</title>
+		<title>Keep your words</title>
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo IMG ?>/8dot.png"/>
 
 		<!-- BOOTSTRAP CSS (REQUIRED ALL PAGE)-->
@@ -37,7 +37,7 @@ else { ?>
 	catch (Exception $e) {
 		echo "Ooophs, we got an error: " . $e->getMessage();
 	}
-	$provider = ""; 
+	$provider = "";
 	if (isset( $_GET["logout"])) {
 		$provider = $_GET["logout"];
 		$adapter = $hybridauth->getAdapter( $provider );
@@ -78,7 +78,7 @@ else { ?>
 	);  
 }</script>
 		<!-- JQUERY (REQUIRED ALL PAGE)-->
-		<script src="<?php echo JQUERY ?>/jquery-1.7.2.min.js"></script>
+		<script src="<?php echo JQUERY ?>/jquery-1.11.0.min.js"></script>
 		<script src="<?php echo JQUERY ?>/jquery-ui-1.10.4.js"></script>
 		<!-- LOGIN JS -->
 		<script src="<?php echo JS ?>/login.js"></script>

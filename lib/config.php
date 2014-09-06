@@ -81,12 +81,16 @@ $mode = _GET('mode');
 $n = _GET('n');
 $cmii = _GET('cmt');
 
+// setLang('en');
+$lang = 'en';
+$langF = $libPath.'/lang/'.$lang.'.php';
+if (file_exists($langF)) include $langF;
+
 if ( $_SESSION['user_id'] ) {
 	global $user_id, $u;
 	$user_id = $u = intval($_SESSION['user_id']);
 	$member = getRecord('members', "id = $u");
 	$_SESSION['fb_token'] = $member['token'];
-//	echo $_SESSION['fb_token'].'<br/>'.$member['token'];
 	$frLists = $getRecord -> GET('friend', "`accept` = 'yes' AND (`uid` = '$u' OR `receive_id` = '$u') ");
 	foreach ($frLists as $frLists) {
 		if ($frLists['uid'] == $u) $frU = $frLists['receive_id'];
@@ -115,7 +119,7 @@ if ( $_SESSION['user_id'] ) {
 	$username = $member['username'];
 	$coins = $member['coin'];
 	$rep = $member['reputation'];
-	$aWords = countRecord('promise', "`uid` = '$u' ");
+/*	$aWords = countRecord('promise', "`uid` = '$u' ");
 	$sWords = countRecord('promise', "`uid` = '$u' AND `privacy` != 'draff' AND `lock` = 'yes' AND `did` = 'yes' ");
 	$fWords = countRecord('promise', "`uid` = '$u' AND `privacy` != 'draff' AND `did` = 'no' ");
 	$oWords = countRecord('promise', "`uid` = '$u' AND `privacy` != 'draff' AND `lock` != 'yes' ");
@@ -125,6 +129,6 @@ if ( $_SESSION['user_id'] ) {
 	$aAsk = countRecord('ask', "`uid` = '$u' ");
 	$anAsk = countRecord('ask', "`uid` = '$u' AND `did` = 'yes' ");
 	$uAsk = countRecord('ask', "`uid` = '$u' AND `did` != 'yes' ");
-	$notiList = $getRecord -> GET("notification", "`to_uid` = '$u' AND `type` != 'friend_request' AND `type` != 'follow' AND `type` != 'accept_friend_request' ", '%10');
-	$notiNum = count($notiList);
+*/	$notiList = $getRecord -> GET("notification", "`to_uid` = '$u' AND `type` != 'friend_request' AND `type` != 'follow' AND `type` != 'accept_friend_request' ", '%10');
+	$notiNums = count($notiList);
 } ?>

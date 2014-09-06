@@ -1,20 +1,13 @@
-<!-- <? echo $gdi['content'] ?> -->
-
-<? if ($gdi['uid'] == $u) echo '<!--{left-content}-->' ?>
-
-<? 	$encourageAr = explode(', ', $gdi['encourage']);
-	$gdlBelieveAr = explode(', ', $gdid['believe']);
-	$gdlBelieveNotAr = explode(', ', $gdid['believe_not']);
-	$gdlKnowAr = explode(', ', $gdid['know_did']);
-	$gdlKnowNotAr = explode(', ', $gdid['know_didnot']);
-	$gdlLikesAr = explode(', ', $gdi['likes']);
-	$compare = array_diff($sAr, $gdlKnowAr);
-	$reqr = round(count($sAr)/2);
-$pAr = explode(', ', $gdid['people']);
-$sAr = explode(', ', $gdid['suborner']) ?>
-
-<div class="one-good-big statu one <? if ($gdi['did'] == 'yes' && $gdi['lock'] =='yes') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['lock'] == 'lie') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $iid ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>" data-p="promise" id="<? echo $iid ?>">
-	<div class="one-good-main"><span>
+<div class="one-good-big one <? if ($gdi['did'] == 'yes' && $gdi['true'] =='true') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['true'] == 'false') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $iid ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>" data-p="promise" id="<? echo $iid ?>">
+	<div class="one-good-main col-sm-8 promise-col sidebar-nicescroller"><span>
+			<? if (!$gdid && $gdi['money'] > 0) echo '<div class="right a-money plus-money label label-info">'.$gdi['money'].' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
+			else if ($gdid && $gdi['lock'] == 'yes' && $gdi['money'] > 0) {
+				if ($gdi['did'] == 'yes') {
+					if ($gdi['true'] == 'true') echo '<div class="right a-money plus-money label label-success">+'.$gdi['money'].' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
+					else echo '<div class="right a-money substract-money label label-danger">-'.$gdi['money'].' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
+				} else if ($gdi['did'] == 'no') echo '<div class="right a-money substract-money label label-danger">-'.round($gdi['money']/3).' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
+			}
+			 ?>
 			<div class="left one-good-avatar">
 				<img title="<? echo $auth['username'] ?>" class="avatar-circle" src="<? echo $auth['avatar'] ?>"/>
 				<a class="bold" href="#!user?u=<? echo $gdi['uid'] ?>"><? echo $auth['username'] ?></a>
@@ -22,17 +15,12 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 			<div class="one-good-content">
 				<? echo tag($gdi['content']) ?>
 			</div>
-	<? 	if (!$gdid) {
-		echo '<div class="right a-money plus-money label label-info">'.$gdi['money'].' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
-		} else { ?>
-			<div class="one-good-content did-it did-content">
-		<?	if ($gdi['lock'] == 'yes' && $gdi['money'] > 0) {
-				if ($gdi['did'] == 'yes') echo '<div class="right a-money plus-money label label-success">+'.$gdi['money'].' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
-				else if ($gdi['did'] == 'no') echo '<div class="right a-money substract-money label label-danger">-'.$gdi['money'].' <img src="'.IMG.'/'.$gdi['money-type'].'.png"/></div>';
-			}
-			if ($gdi['did'] == 'yes') echo '<b class="success-sign left">I did it!</b>';
+	<? 	if ($gdid) { ?>
+			<div class="one-good-content-did did-it did-content">
+		<?	if ($gdi['did'] == 'yes') echo '<b class="success-sign left">I did it!</b>';
 			else if ($gdi['did'] == 'no') echo '<b class="failure-sign left">I failed!</b>';
 			echo tag($gdid['content']) ?>
+			<div class="clearfix"></div>
 			<? if ($gdid['suborner']) {
 				echo '<div class="suborner-list">';
 				echo '<span class="small success-text dt">* These people know it!</span>';
@@ -44,12 +32,12 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 				}
 				if (in_array($u, $sAr)) { ?>
 				<div class="confirm-know-it gensmall <? if (in_array($u, $gdlKnowAr)) echo 'hide' ?>">
-					<b><? echo $auth['username'] ?></b> asked you to confirm <? echo possessive($auth['id']) ?> words. Help <? echo pronoun($auth['id']) ?> by clicking <b>+Know</b> (if you're sure <? echo vocative($auth['id']) ?> did it, otherwise clicking <b>-Know</b>
+					<b><? echo $auth['username'] ?></b> asked you to confirm <? echo possessive($auth['id']) ?> words. Help <? echo pronoun($auth['id']) ?> by clicking <b>+Know</b> (if you're sure <? echo vocative($auth['id']) ?> did it, otherwise clicking <b>-Know</b>)
 				</div>
 			<? }
 				echo '</div>';
 			} ?>
-				<div class="people-list">
+				<div class="people-list"><span>
 			<? if ($gdid['people']) {
 				if ($gdi['lock'] == 'yes') echo '<div class="small italic">* These following people will have to make a word to complete with the minimum bet is <b>'.$gdi['money'].'</b>.</div>';
 				else if ($gdi['uid'] == $u) echo '<div class="small italic">* This list is now available for you only and will be public after this is closed.</div>';
@@ -60,7 +48,7 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 						echo '<a class="one-per" href="#!user?u='.$up.'">+'.$upi['username'].'</a>';
 					}
 				}
-			} else if ($gdi['did'] == 'yes' && $gdi['true'] == 'true') { ?>
+			} else if ($gdi['did'] == 'yes' && $gdi['true'] == 'true' && $gdi['uid'] == $u) { ?>
 				<a class="btn button-generate right" title="Generate a list of friends to make promise">Generate list</a>
 				<div class="italic generate-list">
 					Congratulation! You now can require some of your friends to make words with the minium bet is <b class="label label-info"><? echo $gdi['money'] ?></b>.
@@ -78,27 +66,31 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 				</div>
 				<div class="clearfix"></div>
 			<? } ?>
-				</div>
+				</span></div>
 			</div>
 		<? } ?>
 			
 
-			<div class="one-good-info">
- <? 		$urlShare = urlencode(MAIN_URL.'/promise.php?i='.$iid); ?>
-			<a onClick="window.open('http://www.facebook.com/sharer/sharer.php?app_id=<? echo $social_conf['Facebook']['id'] ?>&sdk=joey&u=<? echo $urlShare ?>&display=popup&ref=plugin', 'sharer', 'toolbar=0,status=0,width=548,height=325')" target="_parent" href="javascript: void(0)">
-				Share on Facebook
-			</a>
+		<div class="one-good-info">
+			<div class="hide small-board sb-share-board">
+				<h3>Socializing</h3>
+				<? $urlShare = urlencode(MAIN_URL.'/promise.php?i='.$iid); ?>
+				<a class="btn btn-facebook" onClick="window.open('http://www.facebook.com/sharer/sharer.php?app_id=<? echo $social_conf['Facebook']['id'] ?>&sdk=joey&u=<? echo $urlShare ?>&display=popup&ref=plugin', 'sharer', 'toolbar=0,status=0,width=548,height=325')" target="_parent" href="javascript: void(0)">
+					Share on Facebook
+				</a>
+			</div>
 
 				<div class="one-good-buttons"><? bButton($gdi['id']) ?></div>
 				<div class="clearfix"></div>
-<?	if ($checkDid > 0 && $gdi['lock'] != 'yes' && $gdi['uid'] == $u) {
-		if (count($compare) <= $reqr) { ?>
 		<div class="votes-and-lock hide-on-list gensmall">
-			<a class="btn btn-danger lock-it left" style="margin:-2px 10px 0 0" data-content="By locking this item, everyone who voted before will not be able to change their votes anymore (This won't effect to those who vote after this is locked) Remember, this can't be undone" data-href="#!promise?i=<? echo $iid ?>&do=lock"><span class="fa fa-lock"></span> Lock</a>
+<?	if ($checkDid > 0 && $gdi['lock'] != 'yes') {
+		if (($gdid['know_did'] || $gdid['know_didnot']) && count($compare) > 0 && count($compare) <= $reqr && $gdi['uid'] == $u) { ?>
+			<a class="btn btn-danger btn-lock lock-it left" style="margin:-2px 10px 0 0" data-content="By locking this item, everyone who voted before will not be able to change their votes anymore (This won't effect to those who vote after this is locked) Remember, this can't be undone" data-href="#!promise?i=<? echo $iid ?>&do=lock"><span class="fa fa-lock"></span> Lock</a>
 			<div class="italic">You now can lock it manually. Or it'll be automaticlly locked when all suborners confirm.</div>
-		</div>
-<?		} else echo '<a class="btn btn-danger disabled left" style="margin:6px 10px 0 0"><span class="fa fa-lock"></span> Lock</a> <div class="italic">You need more than half of suborners confirm your work to lock it manually. Or it\'ll be automaticlly locked when all suborners confirm.</div>';
+<?		} else if (($gdid['know_did'] || $gdid['know_didnot']) && count($compare) == 0) echo '<a class="need-to-lock-now"></a>';
+		else if ($gdi['uid'] == $u) echo '<a class="btn btn-danger btn-lock disabled left" style="margin:6px 10px 0 0"><span class="fa fa-lock"></span> Lock</a> <div class="italic">You need more than half of suborners confirm your work to lock it manually. Or it\'ll be automaticlly locked when all suborners confirm.</div>';
 	} ?>
+		</div>
 				<div class="clearfix"></div>
 			</div>
 
@@ -133,7 +125,7 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 						</select>
 					</div>
 					<span class="gensmall">Wanna share something about?</span>
-					<textarea name="did-content" class="did-content no-toolbar left" style="height:80px"></textarea>
+					<textarea name="did-content" class="did-content-textarea no-toolbar left" style="height:80px"></textarea>
 					<input type="submit" value="Submit" class="right form-button"/>
 					<div class="clearfix"></div>
 				</form>
@@ -145,18 +137,19 @@ $sAr = explode(', ', $gdid['suborner']) ?>
 			</div>
 		<? } ?>
 
-	<div class="gensmall one-good-code">#p<? echo $iid ?></div>
-
-<?	toolPost('promise', $iid); ?>
+		<div class="gensmall one-good-code">#p<? echo $iid ?></div>
 	</span></div>
 
-<?	echo '<div class="static-post">';
-		likeStatic($pag, $iid);
-	echo '</div>';
-	echo '<div class="cmts-post">';
-		cmtListPost($pag, $iid);
-	echo '</div>';
-	cmtFormPost($pag, $iid); ?>
+	<div class="normal-stt-tool col-sm-4 sidebar-nicescroller">
+<?		toolPost('promise', $iid);
+		echo '<div class="static-post">';
+			likeStatic($pag, $iid);
+		echo '</div>';
+		echo '<div class="cmts-post">';
+			cmtListPost($pag, $iid);
+		echo '</div>';
+		cmtFormPost($pag, $iid); ?>
+	</div>
 </div>
 
 <style>#tool{margin-top:5px!important}</style>

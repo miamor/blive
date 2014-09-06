@@ -35,6 +35,14 @@ if ($_GET['do']) {
 		changeValue('promise', "`id` = '$iid' ", "`privacy` = 'draff' ");
 		changeValue('activity', "`type` = 'new-promise' AND `iid` = '$iid' ", "`privacy` = 'draff' ");
 	}
+		if ($gdid['believe']) $pBelieve = count(explode(', ', $gdid['believe']));
+		else $pBelieve = 0;
+		if ($gdid['believe_not']) $pBelieveNot = count(explode(', ', $gdid['believe_not']));
+		else $pBelieveNot = 0;
+		if ($gdid['know']) $pKnow = count(explode(', ', $gdid['know_did']));
+		else $pKnow = 0;
+		if ($gdid['know_not']) $pKnowNot = count(explode(', ', $gdid['know_didnot']));
+		else $pKnowNot = 0;
 	if ($do == 'encourage') {
 		if (!in_array($u, $encourageAr)) pushToCol('promise', 'id', $iid, 'encourage');
 		else rmFromCol('promise', 'id', $iid, 'encourage');
@@ -47,7 +55,15 @@ if ($_GET['do']) {
 	} else if ($do == 'know') {
 		if (!in_array($u, $gdlKnowAr)) pushToCol('promise_did', 'iid', $iid, 'know_did');
 		else rmFromCol('promise_did', 'iid', $iid, 'know_did');
-	} else if ($do == 'know-not') {
+/*		if (count($sAr) > 0 && $totalConfirmed == count($sAr)) {
+			$change = changeValue('promise', "`id` = '$iid' ", "`lock` = 'yes', `believe_lock` = '$pBelieve', `believe_not_lock` = '$pBelieveNot', `know_lock` = '$pKnow', `know_not_lock` = '$pKnowNot' ");
+			if ($change) {
+				if (count($compare) <= $reqr) changeValue('promise', "`id` = '$iid' ", "`true` = 'true' ");
+				else changeValue('promise', "`id` = '$iid' ", "`true` = 'false' ");
+				sendNoti('your-promise-lock', $iid, '', $gdi['uid']);
+			}
+		}
+*/	} else if ($do == 'know-not') {
 		if (!in_array($u, $gdlKnowNotAr)) pushToCol('promise_did', 'iid', $iid, 'know_didnot');
 		else rmFromCol('promise_did', 'iid', $iid, 'know_didnot');
 	} else if ($do == 'like') {
@@ -56,22 +72,16 @@ if ($_GET['do']) {
 			else rmFromCol('promise', 'id', $iid, 'likes');
 		}
 	} else if ($do == 'lock') {
-		if ($gdid['believe']) $pBelieve = count(explode(', ', $gdid['believe']));
-		else $pBelieve = 0;
-		if ($gdid['believe_not']) $pBelieveNot = count(explode(', ', $gdid['believe_not']));
-		else $pBelieveNot = 0;
-		if ($gdid['know']) $pKnow = count(explode(', ', $gdid['know_did']));
-		else $pKnow = 0;
-		if ($gdid['know_not']) $pKnowNot = count(explode(', ', $gdid['know_didnot']));
-		else $pKnowNot = 0;
 		changeValue('promise', "`id` = '$iid' ", "`lock` = 'yes', `believe_lock` = '$pBelieve', `believe_not_lock` = '$pBelieveNot', `know_lock` = '$pKnow', `know_not_lock` = '$pKnowNot' ");
 //		changeValue('promise', "`id` = '$iid' ", "`lock` = 'yes', `believe_lock` = '{$gdid['believe']}', `believe_not_lock` = '{$gdid['believe_not']}', `know_lock` = '{$gdid['know_did']}', `know_not_lock` = '{$gdid['know_didnot']}' ");
 		if (count($compare) <= $reqr) changeValue('promise', "`id` = '$iid' ", "`true` = 'true' ");
 		else changeValue('promise', "`id` = '$iid' ", "`true` = 'false' ");
 	} else if ($do == 'submitlist') {
-		foreach ($_POST['select-people'] as $per)
+		foreach ($_POST['select-people'] as $per) {
 			$peopleAr[] = $per;
+			sendNoti('to-create-promise', $iid, '', $per);
+		}
 		$peopleStr = implode(', ', $peopleAr);
-		if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes' && $gdid['true'] == 'true') changeValue('promise', "`id` = '$iid' ", "`people` = '$peopleStr' ");
+		if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes' && $gdi['true'] == 'true') changeValue('promise_did', "`iid` = '$iid' ", "`people` = '$peopleStr' ");
 	}
 } ?>

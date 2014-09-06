@@ -5,7 +5,7 @@ $(function () {
 		id = $form.closest('.box-feed, .one-good, .one-good-big').attr('id');
 		cmi = $form.attr('alt');
 		$form.find('textarea').each(function () {
-			val = $(this).next('.sceditor-container').find('iframe').contents().find('body').html();
+			val = $(this).next('.sceditor-container').find('.meditor-iframe').html();
 			$(this).val(val);
 		});
 		formData = $form.serialize();
@@ -18,7 +18,7 @@ $(function () {
 			data: formData,
 			datatype: 'json',
 			success: function (data) {
-				$form.next('.sceditor-container').find('iframe').contents().find('body').html('');
+				$form.next('.sceditor-container').find('.meditor-iframe').html('');
 				$form.prev('.cmts-post').load(MAIN_URL + '/pages/' + page + '.php?i=' + id + ' .cmts-post > div')
 			}
 		});

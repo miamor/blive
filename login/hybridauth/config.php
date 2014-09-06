@@ -1,6 +1,6 @@
 <?php
 // define('MAIN_URL', 'http://localhost/blive');
-include '../lib/config.php';
+// include '../lib/config.php';
 /**
 * HybridAuth
 * http://hybridauth.sourceforge.net | http://github.com/hybridauth/hybridauth

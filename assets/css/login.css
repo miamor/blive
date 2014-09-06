@@ -6,6 +6,6 @@ body{background:#f8f8f8}
 h2{padding-left:0}
 .form-bottom{background:#fafafa;margin:15px -20px -15px;padding:10px 20px;border-radius:0 0 3px 3px}
 .forgot-password{margin-top:5px;display:block;float:left}
-.login-button{width:30%;padding:11px 14px;max-height:37px!important}
+.login-button{width:30%;*padding:11px 14px}
 .copyright a:hover{text-decoration:underline}
 .c-links a{margin:0 3px}

@@ -9,7 +9,7 @@ if (!$key) {
 } else {
 	$q = str_replace("+", "", $key);
 	$q = str_replace('@', '', $q);
-	$q = str_replace(" ", "", $q);
+//	$q = str_replace(" ", "", $q);
 	$get = null;
 	foreach ($frArN as $frN) {
 //		echo $q.'~~'.substr($frN, 0, strlen($q)).'~~'.check($frN, substr($q, 0, strlen($q)));

@@ -22,11 +22,12 @@ body{
 *	font-family: 'Lato', Calibri, Arial, sans-serif;
 	font-family: "Lato", Arial, verdana, Geneva;
 	background: #fafafa;
+*	background: #fff;
 	margin: 0;
 	padding: 0;
 	line-height: 24px;
-	color: #666;
-*	color: #656D78;
+*	color: #454545;
+	color: #656D78;
 	overflow-x: hidden;
 	height: 100%;
 *   	letter-spacing:1px;

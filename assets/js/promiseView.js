@@ -1,4 +1,3 @@
-
 function confirmDid (e) {
 	if (e == 'yes') {
 		confirmSwitchHTML = '<a id="no" class="no did-it btn btn-none" onclick="confirmDid(\'no\')"><span class="failure-sign"> I failed</span></a>';
@@ -53,12 +52,27 @@ function bButton (id) {
 			type: 'post',
 			datatype: 'json',
 			success: function (data) {
-				if (act == '.know-button') $('.confirm-know-it').toggle(100)
+				if (act == 'know') $('.confirm-know-it').toggle(100);
 				$('.one-good-big.the'+id+' .one-good-buttons').load(url + ' .one-good-big.the'+id+' .one-good-buttons > div', function () {
 					bButton(id)
+				});
+				$('.one-good-big.the'+id+' .votes-and-lock').load(url + ' .one-good-big.the'+id+' .votes-and-lock > a', function () {
+					if ($('.one-good-big.the'+id).find('.need-to-lock-now').length) lockGood(id)
 				})
 			}
 		})
+	})
+}
+
+function lockGood (id) {
+	url = MAIN_URL + '/pages/' + pl_page + '.php?i=' + id;
+	$.ajax({
+		url: url + '&do=lock',
+		type: 'post',
+		datatype: 'json',
+		success: function (data) {
+			firstScroll()
+		}
 	})
 }
 
@@ -95,19 +109,30 @@ $(function () {
 			})
 		else $('.form-lock').slideUp(200)
 	});
+	$('.form-lock').submit(function () {
+		id = $(this).closest('.one-good-big, .one-good-feed').attr('id');
+		url = MAIN_URL + '/pages/' + pl_page + '.php?i=' + id;
+		$.ajax({
+			url: url + '&do=submitlist',
+			type: 'post',
+			data: $('.form-lock').serialize(),
+			datatype: 'json',
+			success: function (data) {
+				$('.people-list').slideUp().load(url + ' .people-list > span', function () {
+					$(this).slideDown(120)
+				})
+			},
+			error: function (xhr) {
+				mtip('.form-lock', 'error', '', 'Something went wrong when trying to creating this list. Please contact the administrators for more details and help.')
+			}
+		});
+		return false
+	});
 	$('.lock-it').confirmation({
 		placement: 'right',
 		onConfirm: function () {
 			id = $(this).closest('.one-good-big, .one-good-feed').attr('id');
-			url = MAIN_URL + '/pages/' + pl_page + '.php?i=' + id;
-			$.ajax({
-				url: url + '&do=lock',
-				type: 'post',
-				datatype: 'json',
-				success: function (data) {
-					firstScroll()
-				}
-			});
+			lockGood(id);
 			return false
 		}
 	});
@@ -125,11 +150,12 @@ $(function () {
 			})
 	});
 //	$('#left-content').prev('.top-section').find('.toggle-form').before('<a class="fa fa-reply back-to-list" href="javascript:history.go(-1)"></a>');
+	$('.did-content-textarea').meditor();
 	$('.confirm-textarea').submit(function () {
 		id = $(this).closest('.one-good-big').attr('id');
 		url = MAIN_URL + '/pages/' + pl_page + '.php?i=' + id;
-		$('.did-content').each(function () {
-			didContent = $(this).next('.sceditor-container').find('iframe').contents().find('body').html();
+		$('.did-content-textarea').each(function () {
+			didContent = $(this).next('.sceditor-container').find('.meditor-iframe').html();
 			$(this).val(didContent);
 		});
 		formData = $(this).serialize();

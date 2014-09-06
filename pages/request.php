@@ -2,7 +2,9 @@
 $pag = 'help';
 if ($mode == 'new') include 'system/helpNew.php';
 if ($iid) {
+	echo '<!--{board}-->';
 	$gdi = getRecord('help', "`id` = '$iid' ");
+	echo '<!-- '.$gdi['content'].' -->';
 	$gdiLikes = explode(', ', $gdi['likes']);
 	$auth = getRecord('members^username,avatar,gender', "id = {$gdi['uid']}");
 	$checkDid = countRecord('help', "`type` = 'do' AND `iid` = '$iid' ");
@@ -23,7 +25,14 @@ if ($iid) {
 		for ($k = 0; $k < count($gdiLikes); $k++) {
 			$ul = $gdiLikes[$k];
 			$lp = getRecord('members^username,avatar', "`id` = '$ul' ");
-			echo '<div class="one-people"><a href="#!user?u='.$ul.'"><img class="left avatar-circle sm-thum" src="'.$lp['avatar'].'"/> '.$lp['username'].'</a></div>';
+			echo '<div class="one-people"><a href="#!user?u='.$ul.'"><img class="left avatar-circle sm-thum" src="'.$lp['avatar'].'"/> '.$lp['username'].'</a>';
+			echo '<div class="right">';
+			if (in_array($ul, $frAr)) echo '<span class="btn btn-small btn-info">Friends</span>';
+			else if (in_array($ul, $frRequestsTo)) echo '<span class="btn btn-small btn-success">Accept</span>';
+			else if (in_array($ul, $frSAr)) echo '<span class="btn btn-small btn-default">Friend request sent</span>';
+			else if ($ul != $u) echo '<span class="btn btn-small btn-primary">Add friend</span>';
+			echo '</div>';
+			echo '</div>';
 		}
 	} else if ($_GET['show'] == 'votes') include 'views/helpVotes.php';
 	else {
@@ -34,7 +43,7 @@ if ($iid) {
 			$sAr = explode(', ', $gdid['suborner']);
 			include 'system/helpView.php';
 			include 'views/helpView.php';
-		} else echo '<div class="alerts alert-warning">You\'re attempting to access a non-exist promise or this promise\'s owner has set this to private.</div>';
+		} else echo '<div class="alerts alert-warning">You\'re attempting to access a non-exist request or this promise\'s owner has set this to private.</div>';
 	}
 } else {
 	$show = $_GET['show'];
@@ -52,7 +61,7 @@ if ($iid) {
 	include 'views/helpList.php';
 } ?>
 
-<script>$('.page-content').attr('data-p', 'help')</script>
+<script>$('.page-content').attr('data-p', 'request')</script>
 <? if (!$iid) { ?>
 <style>.box-feed{padding:15px 20px 10px;margin:10px 0 20px 15px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px;clear:both;position:relative}</style>
 <? } ?>

@@ -1,5 +1,5 @@
 <? foreach ($notiList as $notiList) {
-	$sendInfo = getRecord("members", "`id` = '{$notiList['uid']}'") ?>
+	$sendInfo = getRecord("members^username,avatar", "`id` = '{$notiList['uid']}'") ?>
 	<li class="<?php if ($notiList['read'] != 'read') echo 'unread' ?>"><div class="dropdown-noti">
 <? if ($notiList['type'] == 'like-my-stt' || $notiList['type'] == 'likes-activity') {
 	$imgnoti = silk.'/thumb_up.png';
@@ -53,9 +53,7 @@
 			<a class="bold" href="#!user?u=<?php echo $notiList['uid'] ?>">
 				<?php echo $sendInfo['username'] ?>
 			</a>
-			<b>mentioned</b> you in <? if ($sendInfo['gender'] == 'male') echo 'his'; else echo 'her' ?> <strong>
-			<a href="#!promise?i=<? echo $notiList['i'] ?>">promise</a>
-			</strong>
+			<b>asked</b> you to create new promise (from <strong><a href="#!promise?i=<? echo $notiList['i'] ?>">this</a></strong>)
 			<? echo ': "<span class="quote-stt">'.$quote.'</span>" ' ?>
 <? } else if ($notiList['type'] == 'encourage-promise') {
 	$imgnoti = silk.'/thumb_up.png';
@@ -67,6 +65,14 @@
 			</a>
 			<b>encouraged</b> you in your
 			<strong><a href="#!promise?i=<? echo $notiList['i'] ?>">words</a></strong>
+			<? echo ': "<span class="quote-stt">'.$quote.'</span>" ' ?>
+<? } else if ($notiList['type'] == 'know_did-promise_did') {
+	$imgnoti = silk.'/thumb_up.png';
+	$quoteStt = getRecord('promise^id,content', "`id` = '{$notiList['i']}'");
+	$quote = tag($quoteStt['content']) ?>
+			<img class="absolute-left-content img-circle" src="<? echo $sendInfo['avatar'] ?>"/>
+			<a class="bold" href="#!user?u=<?php echo $notiList['uid'] ?>"><?php echo $sendInfo['username'] ?></a>
+			<b>confirmed TRUE</b> for your <strong><a href="#!promise?i=<? echo $notiList['i'] ?>">words</a></strong>
 			<? echo ': "<span class="quote-stt">'.$quote.'</span>" ' ?>
 <? } else if ($notiList['type'] == 'likes-promise') {
 	$imgnoti = silk.'/thumb_up.png';
