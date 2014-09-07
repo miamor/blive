@@ -8,25 +8,22 @@ function oneGoodBig (id) {
 }
 
 function voteRequest () {
-	$('.helpful-btn a').click(function () {
+	$('.helpful-vote a').click(function () {
 		id = $(this).closest('.one-good-big').attr('id');
 		url = MAIN_URL + '/pages/request.php?i=' + id;
 		act = $(this).attr('id');
-		alert(url + '&do=' + act);
 		$.ajax({
 			url: url + '&do=' + act,
 			type: 'post',
 			success: function (data) {
-				$('.helpful-vote').fadeOut(200, function () {
-					$(this).load(url + ' .helpful-vote > a', function () {
-						$(this).fadeIn(200);
-						voteRequest()
-					})
+				$('.helpful-vote').load(url + ' .helpful-vote > span', function () {
+					$(this).fadeIn(100);
+					voteRequest()
 				});
 				$('.helpful-static').slideUp(200, function () {
 					$(this).load(url + ' .helpful-static > span', function () {
 						$(this).slideDown(200, function () {
-							mtip('.helpful-static', 'success', '', 'Thanks for your feedbacks.')
+							mtip('.one-good-info.helpful', 'success', '', 'Thanks for your feedbacks.')
 						})
 					})
 				})
@@ -35,8 +32,28 @@ function voteRequest () {
 	})
 }
 
+function voteRequestChild (id, sid) {
+	$('.helper-one#hep' + sid).find('.button-choose-best').click(function () {
+		url = MAIN_URL + '/pages/request.php?i=' + id;
+		$.ajax({
+			url: url + '&do=requestsolved&s=' + sid,
+			type: 'post',
+			success: function (data) {
+				$('.helper-one#hep' + sid).fadeOut(150, function () {
+					$(this).load(url + ' .helper-list > .helper-one#hep' + sid, function () {
+						$(this).slideDown(120)
+					})
+				})
+			}
+		});
+	})
+}
+
 $(function () {
 	voteRequest();
+	$('.helper-list .helper-one').each(function () {
+		voteRequestChild($(this).closest('.one-good-big').attr('id'), $(this).attr('alt'))
+	});
 	$('.button-help').click(function () {
 		if ($('.me-help').is(':hidden')) $('.me-help').slideDown(200);
 		else $('.me-help').slideUp(200)
@@ -56,18 +73,22 @@ $(function () {
 			data: formData,
 			datatype: 'json',
 			success: function (data) {
-				alertsContent = data.split(/[content][|]/)[1];
-				alertsType = data.split(/[type][|]/)[1];
-				mtip('.me-help', alertsType, '', alertsContent);
-				if (alertsType == 'success') $('.me-help, .button-help').remove();
-				$('.form-help').find('textarea').each(function () {
-					$(this).val('').next('.sceditor-container').find('.meditor-iframe').html('')
-				});
-				$('.helper-list').slideUp(200, function () {
-					$(this).load(url + ' .helper-list > div', function () {
-						$(this).slideDown(100)
+				alertsContent = data.split(/\[content\]|\[\/content]/)[1];
+				alertsType = data.split(/\[type\]|\[\/type\]/)[1];
+				if (alertsType && alertsContent) mtip('.me-help', alertsType, '', alertsContent);
+				if (alertsType == 'success') {
+					$('.me-help').slideUp(200, function () {
+						$(this).remove()
+					});
+					$('.button-help').fadeOut(150, function () {
+						$(this).remove()
 					})
-				})
+					$('.helper-list').slideUp(200, function () {
+						$(this).load(url + ' .helper-list > div', function () {
+							$(this).slideDown(100)
+						})
+					})
+				}
 			}
 		});
 		return false

@@ -23,7 +23,7 @@
 				<input class="right" type="submit" value="Submit">
 				<div class="clearfix"></div>
 			</div>
-			<label class="checkbox" <? if (!$member['token']) echo 'title="You need to login/sync your blive account with your facebook account to use this feature"' ?>>
+			<label class="checkbox" title="<? if (!$member['token']) echo 'You need to login/sync your blive account with your facebook account to use this feature'; else echo 'This might take a while' ?>">
 				<input type="checkbox" <? if (!$member['token']) echo 'disabled' ?> name="post-to-fb"/> Post to facebook
 			</label>
 		</div>
@@ -54,7 +54,7 @@
 				<input class="right" type="submit" value="Submit">
 				<div class="clearfix"></div>
 			</div>
-			<label class="checkbox" <? if (!$member['token']) echo 'title="You need to login/sync your blive account with your facebook account to use this feature"' ?>>
+			<label class="checkbox" title="<? if (!$member['token']) echo 'You need to login/sync your blive account with your facebook account to use this feature'; else echo 'This might take a while' ?>">
 				<input type="checkbox" <? if (!$member['token']) echo 'disabled' ?> name="post-to-fb"/> Post to facebook
 			</label>
 		</div>
@@ -81,7 +81,7 @@
 				<div class="clearfix"></div>
 				<div class="loading" style="float:right;margin:13px 10px 0 0;display:none"><img src="<?php echo $imgdir ?>/ajaxload.gif"/></div>
 			</div>
-			<label class="checkbox" <? if (!$member['token']) echo 'title="You need to login/sync your blive account with your facebook account to use this feature"' ?>>
+			<label class="checkbox" title="<? if (!$member['token']) echo 'You need to login/sync your blive account with your facebook account to use this feature'; else echo 'This might take a while' ?>">
 				<input type="checkbox" <? if (!$member['token']) echo 'disabled' ?> name="post-to-fb"/> Post to facebook
 			</label>
 		</div>

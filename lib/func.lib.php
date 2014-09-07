@@ -149,17 +149,22 @@ function substractNumField ($uid, $coin, $field) {
 function addCoin ($u, $coin) {
 	addNumField($u, $coin, 'coin');
 }
-
-function substractCoin ($u, $coin) {
+function subtractCoin ($u, $coin) {
 	substractNumField($u, $coin, 'coin');
 }
 
-function addRep ($u, $coin) {
-	addNumField($u, $coin, 'reputation');
+function addBet ($u, $coin) {
+	addNumField($u, $coin, 'bet');
+}
+function subtractBet ($u, $coin) {
+	substractNumField($u, $coin, 'bet');
 }
 
-function substractRep ($u, $coin) {
-	substractNumField($u, $coin, 'reputation');
+function addGold ($u, $coin) {
+	addNumField($u, $coin, 'gold');
+}
+function subtractGold ($u, $coin) {
+	substractNumField($u, $coin, 'gold');
 }
 
 function addfriend ($u, $to, $time) {
@@ -647,7 +652,7 @@ function helpfulSta ($helpful, $helpfulNot) {
 			$helpfulNotShow .= '<a href="#!user?u='.$gdlHelpfulNotAr[$i].'">'.$un['username'].'</a>, ';
 		}
 		$helpfulNotShow = substr($helpfulNotShow, 0, -2);
-		echo '<span class="italic">These people find this helpful</span> '.$helpfulNotShow;
+		echo '<span class="italic">These people find this <span class="bold">not</span> helpful</span> '.$helpfulNotShow;
 	}
 	if ($gdlHelpful == $gdlHelpfulNot && $gdlHelpful == 0) echo '<span class="italic">No one\'s voted this.</span>';
 }
@@ -691,14 +696,23 @@ function bButton ($iid) {
 	$totalVotes = $gdlBelieve + $gdlBelieveNot + $gdlKnow + $gdlKnowNot ?>
 		<div class="right hide-on-list"><a class="view-all-vote"><? echo $lang['view-all-vote'] ?></a></div>
 		<div class="b-button encourage-button plus-before left <? if ($gdi['did']) echo 'did disabled'; if (in_array($u, $encourageAr)) echo ' active' ?>" id="encourage" alt="<? echo $gdi['id'] ?>"><b><? echo $encourage ?></b></div>
-<? if ($gdi['did']) { ?>
+<? if ($gdi['did']) {
+	if ($gdi['uid'] != $u) { ?>
 		<div class="b-buttons <? if ($dis == true) echo 'dis disabled'; else if ($disabled == true) echo 'disabled' ?>">
 			<div class="b-button believe-button plus-before left <? if (in_array($u, $gdlBelieveAr)) echo 'active' ?>" id="believe" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['believe-title'] ?>"><? echo $lang['believe-button'] ?> <b><? echo $gdlBelieve ?></b></div>
 			<div class="b-button believe-not-button minus-before left <? if (in_array($u, $gdlBelieveNotAr)) echo 'active' ?>" id="believe-not" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['believe-not-title'] ?>"><? echo $gdlBelieveNot ?></div>
 			<div class="b-button know-button plus-before left <? if (in_array($u, $gdlKnowAr)) echo 'active' ?>" id="know" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['know-title'] ?>"><? echo $lang['know-button'] ?> <b><? echo $gdlKnow ?></b></div>
 			<div class="b-button know-not-button minus-before left <? if (in_array($u, $gdlKnowNotAr)) echo 'active' ?>" id="know-not" alt="<? echo $gdl['id'] ?>" title="<? echo $lang['know-not-title'] ?>"><? echo $gdlKnowNot ?></div>
 		</div>
-<?	if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes') { ?>
+<?	} else { ?>
+		<div class="b-buttons <? if ($dis == true) echo 'dis disabled'; else if ($disabled == true) echo 'disabled' ?>">
+			<div class="b-button believe-button plus-before left" id="believe" alt="<? echo $gdl['id'] ?>"><? echo $lang['believe-button'] ?> <b><? echo $gdlBelieve ?></b></div>
+			<div class="b-button believe-not-button minus-before left" id="believe-not" alt="<? echo $gdl['id'] ?>"><? echo $gdlBelieveNot ?></div>
+			<div class="b-button know-button plus-before left" id="know" alt="<? echo $gdl['id'] ?>"><? echo $lang['know-button'] ?> <b><? echo $gdlKnow ?></b></div>
+			<div class="b-button know-not-button minus-before left" id="know-not" alt="<? echo $gdl['id'] ?>"><? echo $gdlKnowNot ?></div>
+		</div>
+<?	}
+	if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes') { ?>
 		<div class="clearfix"></div>
 		<div class="votes-sta hide-on-list">
 			This item is locked by <a class="votes-sta-details"><b><? echo $gdi['believe_lock'] + $gdi['believe_not_lock'] + $gdi['know_lock'] + $gdi['know_not_lock'] ?></b> first votes</a>

@@ -15,6 +15,10 @@
 	} else $peopleStr = $subornerStr = '';
 	if ($didop) {
 		changeValue('promise', "`id` = '$iid'", "`did` = '$didop', `lock` = '$lock' ");
+		if ($didop == 'no') {
+			subtractBet($u, $gdi['money']);
+			subtractCoin($u, round($gdi['money'])/3);
+		}
 //		$add = insert('promise_did', "`uid`, `iid`, `content`, `people`, `suborner`, `lock_option`, `lock_num`, `time`", "'$u', '$iid', '$didcontent', '$peopleStr', '$subornerStr', '$lockOption', '$numToLock', '$curint'");
 		$add = insert('promise_did', "`uid`, `iid`, `content`, `suborner`, `lock_option`, `lock_num`, `time`", "'$u', '$iid', '$didcontent', '$subornerStr', '$lockOption', '$numToLock', '$curint'");
 		if ($add) {
@@ -74,14 +78,33 @@ if ($_GET['do']) {
 	} else if ($do == 'lock') {
 		changeValue('promise', "`id` = '$iid' ", "`lock` = 'yes', `believe_lock` = '$pBelieve', `believe_not_lock` = '$pBelieveNot', `know_lock` = '$pKnow', `know_not_lock` = '$pKnowNot' ");
 //		changeValue('promise', "`id` = '$iid' ", "`lock` = 'yes', `believe_lock` = '{$gdid['believe']}', `believe_not_lock` = '{$gdid['believe_not']}', `know_lock` = '{$gdid['know_did']}', `know_not_lock` = '{$gdid['know_didnot']}' ");
-		if (count($compare) <= $reqr) changeValue('promise', "`id` = '$iid' ", "`true` = 'true' ");
-		else changeValue('promise', "`id` = '$iid' ", "`true` = 'false' ");
+		subtractBet($gdi['uid'], $gdi['money']);
+		if (count($sAr) > 0) {
+			if (count($compare) <= $reqr) {
+				$setTrue = changeValue('promise', "`id` = '$iid' ", "`true` = 'true' ");
+				if ($setTrue) addCoin($gdi['uid'], $gdi['money']);
+			} else {
+				$setFalse = changeValue('promise', "`id` = '$iid' ", "`true` = 'false' ");
+				if ($setFalse) subtractCoin($gdi['uid'], $gdi['money']);
+			}
+		} else {
+			$confirmedTrue = $pBelieve + $pKnow;
+			$confirmedFalse = $pBelieveNot + $pKnowNot;
+			if ($confirmedTrue > $confirmedFalse) {
+				$setTrue = changeValue('promise', "`id` = '$iid' ", "`true` = 'true' ");
+				if ($setTrue) addCoin($gdi['uid'], round($gdi['money'] * 2/3));
+			} else {
+				$setFalse = changeValue('promise', "`id` = '$iid' ", "`true` = 'false' ");
+				if ($setFalse) subtractCoin($gdi['uid'], $gdi['money']);
+			}
+		}
 	} else if ($do == 'submitlist') {
 		foreach ($_POST['select-people'] as $per) {
 			$peopleAr[] = $per;
 			sendNoti('to-create-promise', $iid, '', $per);
 		}
 		$peopleStr = implode(', ', $peopleAr);
-		if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes' && $gdi['true'] == 'true') changeValue('promise_did', "`iid` = '$iid' ", "`people` = '$peopleStr' ");
+		if ($gdi['lock'] == 'yes' && $gdi['did'] == 'yes' && $gdi['true'] == 'true')
+			changeValue('promise_did', "`iid` = '$iid' ", "`people` = '$peopleStr' ");
 	}
 } ?>

@@ -22,20 +22,19 @@
 		if ($gdi['uid'] != $u) { ?>
 			<div class="one-tool">
 				<span class="button-vote-group helpful-vote helpful-btn <? if (in_array($u, $gdlHelpfulAr) || in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>">
-					<a class="button-vote vote-up button-helpful <? if (in_array($u, $gdlHelpfulAr)) echo 'active' ?>" id="helpful_not"><span class="fa fa-thumbs-up"></span></a>
-					<a class="button-vote vote-down button-helpful-not <? if (in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>" id="helpful"><span class="fa fa-thumbs-down"></span></a>
+					<a class="button-vote vote-up button-helpful <? if (in_array($u, $gdlHelpfulAr)) echo 'active' ?>" id="helpful"><span class="fa fa-thumbs-up"></span></a>
+					<a class="button-vote vote-down button-helpful-not <? if (in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>" id="helpfulnot"><span class="fa fa-thumbs-down"></span></a>
 				</span>
-				<a class="button-vote button-star-request-add"><span class="fa fa-star-o"></span></a>
 			</div>
 <? 		} ?>
 <? 	} else {
 		if ($gdi['uid'] != $u) { ?>
-			<div class="one-tool">
-				<span class="button-vote-group helpful-vote helpful-btn">
-					<a class="button-vote vote-down button-helpful" id="helpful"><span class="fa fa-thumbs-down"></span></a>
-					<a class="button-vote vote-up button-helpful-not" id="helpfulnot"><span class="fa fa-thumbs-up"></span></a>
+			<div class="helpful-vote one-tool">
+				<span class="button-vote-group helpful-btn <? if (in_array($u, $gdlHelpfulAr) || in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>">
+					<a class="button-vote vote-up button-helpful <? if (in_array($u, $gdlHelpfulAr)) echo 'active' ?>" id="helpful"><span class="fa fa-thumbs-up"></span></a>
+					<a class="button-vote vote-down button-helpful-not <? if (in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>" id="helpfulnot"><span class="fa fa-thumbs-down"></span></a>
 				</span>
-				<a class="button-vote button-star-request-need"><span class="fa fa-star-o"></span></a>
+				<span><a class="button-vote button-star-request-add <? if (in_array($u, $gdlSameAr)) echo 'active' ?>" id="sameproblem"><span class="fa fa-star-o"></span></a></span>
 			</div>
 <?		}
 	} ?>
@@ -56,9 +55,9 @@
 		$aurl = getRecord('members^username,avatar', "`id` = '{$rl['uid']}' ") ?>
 			<div class="suggest-one">
 				<img class="avatar-circle left" src="<? echo $aurl['avatar'] ?>"/>
-				<a href="#!request?i=<? echo $rl['id'] ?>">
-					<span class="helper-username helper-title s-title"><? echo tag($rl['content']) ?></span>
-				</a>
+				<span class="helper-username helper-title s-title" title="<? echo $rl['content'] ?>">
+					<a href="#!request?i=<? echo $rl['id'] ?>"><? echo tag($rl['content']) ?></a>
+				</span>&nbsp;<div class="block-line"/>
 				<span class="gensmall">by <a href="#!user?u=<? echo $rl['uid'] ?>"><? echo $aurl['username'] ?></a></span>
 				<div class="clearfix"></div>
 			</div>
@@ -80,17 +79,17 @@
 				</form>
 			</div>
 <? 	} ?>
-	<div class="main-help-col no-padding no-margin">
+	<div class="main-help-col no-padding no-margin arrow-big-div">
 		<? if ($gdi['type'] == 'need' && $checkMyDid <= 0 && $gdi['uid'] != $u) echo '<a class="btn right button-help">Help</a>' ?>
 	<!--	<h4 class="h3-helper left"><b>3</b> following people offered to help!</h4> -->
-		<? if ($gdi['type'] == 'need') echo '<h4 class="h3-helper"><b>'.$checkDid.'</b> following people offered to help!</h4>';
-		else echo '<h4 class="h3-helper"><b>'.$checkDid.'</b> following people asked for help</h4>' ?>
+		<? if ($gdi['type'] == 'need') echo '<h4 class="h3-helper arrow-bottom"><b>'.$checkDid.'</b> following people offered to help!</h4>';
+		else echo '<h4 class="h3-helper arrow-bottom"><b>'.$checkDid.'</b> following people asked for help!</h4>' ?>
 		<div class="clearfix"></div>
-		<div class="helper-list">
+		<div class="helper-list arrow-div">
 <? 	if ($checkDid > 0) {
 		foreach ($gdid as $hep) {
 			$ahp = getRecord('members^username,avatar', "`id` = '{$hep['uid']}' ") ?>
-			<div class="helper-one">
+			<div class="helper-one" alt="<? echo $hep['id'] ?>" id="hep<? echo $hep['id'] ?>">
 				<div class="right helper-tool">
 					<span class="button-vote-group">
 						<a class="button-vote vote-down"><span class="fa fa-thumbs-down"></span></a>

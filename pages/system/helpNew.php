@@ -2,6 +2,11 @@
 $pPrivacy = $_POST['p-privacy'];
 $pType = $_POST['p-type'];
 $pTags = str_replace(',', ', ', $_POST['tags']);
+$link = $_POST['thumb-link'];
+$link_img = $_POST['thumb-link-img'];
+$link_title = $_POST['thumb-link-title'];
+$link_content = $_POST['thumb-link-content'];
+$postToFb = $_POST['post-to-fb'];
 if ($pContent == '<p><br></p>') $pContent = '';
 if (countRecord('help', "`uid` = '$u' AND `content` = '$pContent' ") <= 0) {
 	if (countRecord('help', "`uid` = '$u' AND `content` = '$pContent' ") <= 0) {
@@ -18,6 +23,10 @@ if (countRecord('help', "`uid` = '$u' AND `content` = '$pContent' ") <= 0) {
 				if ($thisMemU != $u && in_array($thisMemU, $frAr)) sendNoti('mention-in-request', $newPromise['id'], '', $thisMemU);
 			}
 			insert('activity', "`privacy`, `uid`, `to_uid`, `type`, `iid`, `time`", "'$pPrivacy', '$u', '$u', 'new-request', '{$newPromise['id']}', '$curint'");
+			if ($member['token'] && $postToFb) {
+				$pageTO = 'request';
+				include 'system/postToFb.php';
+			}
 		}
 	}
 } ?>

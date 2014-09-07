@@ -1,4 +1,4 @@
-<!-- Community -->
+<!-- Keep your words -->
 
 <div class='m_mainn'>
 
@@ -44,8 +44,8 @@ foreach ($feedList as $l) {
 		} else echo "<a class='fol_thum' href='#!user?u=$up_id'><img src='$avat' class='thumbnai thumbs'/>
 				<div class='bold'>$up_name</div></a>";
 		$sm = '<a href="#!user?u='.$up_id.'"><b>'.$up_name.'</b></a> ';
-		if ($l['type'] == 'photo' && strlen($l['content']) <= 0) {
-			if (count($img_url) > 1) echo $sm.'<span class="small">added some <a href="#!feed?i='.$l['id'].'">photos</a></span>';
+		if ($l['type'] == 'photo' /*&& strlen($l['content']) <= 0*/) {
+			if (count($img_url) > 1) echo $sm.'<span class="small">added <a href="#!feed?i='.$l['id'].'">'.count($img_url).' photos</a></span>';
 			else echo $sm.'<span class="small">added a <a href="#!feed?i='.$l['id'].'">photo</a></span>';
 		} else if ($l['type'] == 'new-promise') {
 			$gdi = getRecord('promise', "`id` = '{$l['iid']}' ");

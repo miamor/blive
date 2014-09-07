@@ -15,7 +15,7 @@ textarea + .sceditor-container{margin-bottom:5px!important}
 .btn{border:0;padding:12px 14px 13px;line-height:11px!important;font-size:15px;border-radius:3px;*text-transform:uppercase;line-height:14px;transition:.35s;-webkit-transition:.35s;outline:none!important}
 .btn:not(.btn-upload-img){max-height:36px}
 .btn-small{font-size:11px!important;padding:5px 10px 7px}
-.label{padding:4px 6px}
+.label{padding:3px 6px}
 .btn:not([class*="btn-"]):not(.btn-primary):not(.btn-success):not(.btn-info):not(.btn-warning):not(.btn-danger):not(.btn-blue):not(.btn-d):not(.btn-none){background-color:#37bc9b}
 .btn:not([class*="btn-"]):not(.btn-primary):not(.btn-success):not(.btn-info):not(.btn-warning):not(.btn-danger):not(.btn-blue):not(.btn-d):not(.btn-none):hover{background-color:#33a68a}
 .btn:not(.btn-default):not(.btn-none), .btn:not(.btn-default):not(.btn-none) a{color:#fff!important}
@@ -65,7 +65,8 @@ a.see-more{margin-left:3px}
 .input-group-btn .btn-file{height:36px;line-height:22px}
 .thumb{width:35px;height:35px;margin:1px 8px 0px 0}
 .s-title p{display:inline}
-.s-title{position:relative;max-width:83%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.s-title{position:relative;*width:20%;max-width:83%;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:inline-block}
+.block-line{position:relative;display:block;width:100%;margin-bottom:-3px}
 
 .topbar{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;z-index:999;box-shadow:4px 4px 0 0 rgba(255, 255, 255, .5)}
 .topbar .navbar{height:60px;font-size:14px}
@@ -91,8 +92,8 @@ a.see-more{margin-left:3px}
 .page-content{margin:90px 4% 100px 4%;position:relative;/*box-shadow:0 1px 3px 0 rgba(0,0,0,.1);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box*/}
 /*.left-menu-column{position:absolute;top:0;left:0;bottom:0;width:200px;background:#fafafa;padding:20px;float:left;border-radius:3px 0 0 3px;}
 */.left-menu-column{position:absolute;top:0;left:0;bottom:0;width:calc(29% - 5px);padding:20px 0}
-.main-content{margin:0 0% 0 calc(29% + 20px);clear:both;position:relative}
-.right-sidebar{display:none;position:fixed;top:54px;bottom:-6px;right:-10px;padding:5px;*width:0;width:calc(18% + 15px);width:-webkit-calc(18% + 15px);background:#fff;box-shadow:inset 0 0 10px #f8f8f8;border-left:1px solid #f1f1f1;z-index:100}
+.main-content{margin:0 18% 0 calc(29% + 20px);clear:both;position:relative}
+.right-sidebar{*display:none;position:fixed!important;top:54px;bottom:-6px;right:-10px;padding:5px;*width:0;width:calc(18% + 15px);width:-webkit-calc(18% + 15px);background:#fff;box-shadow:inset 0 0 10px #f8f8f8;border-left:1px solid #f1f1f1;z-index:100}
 .one-friend{background:transparent!important;cursor:pointer}
 .label-money{margin-left:10px}
 .contennt, .statu{padding:15px 20px;background:#fff;border:1px solid #f1f1f1;box-shadow:inset 0 0 10px #f8f8f8;border-radius:3px}
@@ -100,6 +101,8 @@ a.see-more{margin-left:3px}
 .switch-status-update{text-align:center}
 .switch-status-update .fa{font-size:26px;cursor:pointer;margin:0 5px;color:#aaa;float:left;width:43px}
 .switch-status-update .fa:hover, .switch-status-update .active{color:#37bc9b;font-weight:600;font-size:38px;margin-top:-6px}
+.icon-count{position: absolute;top:12px;right:0;padding:3px 6px}
+.nav-user .dropdown-toggle .fa:before{font-size:25px}
 
 
 .one-good{position:relative;/*padding:3px 15px 5px;border:1px solid #f4f4f4;border-width:1px 0 0;*padding-left:19px*/}
@@ -145,11 +148,13 @@ a.see-more{margin-left:3px}
 .helpers{margin:35px -28px 0 -36px}
 .h3-helper{padding-left:10px}
 .button-help{margin-top:-2px}
-.helper-list{background:#fafafa;border:1px solid #f1f1f1;margin-top:5px}
-.helper-one{padding:16px 20px}
+/*.helper-list{background:#fafafa;*border:1px solid #f1f1f1;margin-top:5px}
+*/.helper-list{margin-top:-7px!important}
+.helper-one{padding:12px 20px;border-bottom:1px dashed #f4f4f4}
+.helper-one:nth-child(2n){background:#fff}
 .helper-one .avatar-circle{margin:3px 10px 3px 0}
 .helper-username{font-size:14px}
-.button-vote{text-decoration:none!important;border-radius:3px;padding:3px 10px 5px;transition:.25s;-webkit-transition:.25s;*float:left;height:24px}
+.button-vote{text-decoration:none!important;border-radius:3px;padding:3px 8px 5px 10px;transition:.25s;-webkit-transition:.25s;*float:left;height:24px}
 .button-vote, .button-vote a, .button-vote span, .button-vote i, .button-vote b{line-height:21px}
 .button-vote:hover, .button-vote.active{background:#37bc9b;color:#fff}
 .text-hidden{font-size:0}
@@ -157,7 +162,7 @@ a.see-more{margin-left:3px}
 .button-vote:hover{padding-bottom:5px}
 .button-vote .fa{margin:2px 2px -2px 0}
 .button-vote-group{padding:2px 0 5px;border-radius:3px;margin-right:10px;*background:#fbfbfb}
-.button-vote-group .button-vote{margin-right:-3px;padding:2px 6px 5px 9px!important}
+.button-vote-group .button-vote{margin-right:-3px;padding:2px 6px 5px 9px!important;border-radius:0}
 .button-vote-group:hover, .button-vote-group.active{background:#fafafa}
 .button-vote-group .button-vote:first-child{border-radius:3px 0 0 3px}
 .button-vote-group .button-vote:last-child{border-radius:0 3px 3px 0}
@@ -170,7 +175,7 @@ a.see-more{margin-left:3px}
 .arrow-big-div .arrow-div{background:#fff;margin-top:-6px;position:relative;z-index:3}
 .suggest-list{padding:0 10px}
 .suggest-one{position:relative;padding:10px 0;line-height:16px;border-bottom:1px dashed #f4f4f4}
-.suggest-one .avatar-circle{margin:2px 8px 2px 0;width:30px;height:30px}
+.suggest-one .avatar-circle{margin:1px 8px 2px 0;width:30px;height:30px}
 .form-help{background:#fff;margin-left:8px;padding:15px}
 .me-help{margin-bottom:8px}
 .form-help textarea{height:100px}
@@ -470,7 +475,7 @@ textarea.chat-text{height:75px!important;border-radius:0;box-shadow:none}
 .b-button.disabled:not(.active), .b-buttons.disabled .b-button:not(.active), .b-button.disabled:not(.active):after, .b-buttons.disabled .b-button:not(.active):after, .b-button.disabled:not(.active):before, .b-buttons.disabled .b-button:not(.active):before{border-color:#f7f7f7!important;box-shadow:0 2px 2px -2px #f2f2f2!important;background:#fff!important;color:#666!important}
 .b-button.disabled:not(.active), .b-buttons.disabled .b-button:not(.active){padding:1px 7px 1px 13px;height:20px;line-height:15px;margin-bottom:0}
 .b-button:hover, .b-button.active{height:19px;padding:2px 7px 0 13px;line-height:12px;box-shadow: 0px 1px 0px #CA4F39;margin-bottom:1px}
-.encourage-button.active, .encourage-button:hover{height:19px!important;padding:1px 7px 0 14px!important;line-height:14px!important}
+.encourage-button.active, .encourage-button:hover{height:19px!important;padding:1px 6px 0 14px!important;line-height:14px!important}
 .encourage-button.did, .encourage-button.did:hover{box-shadow:0px 1px 0px /*#389D83*/#35997F!important}
 .encourage-button.did, .encourage-button.did:before, .encourage-button.did:after,
 .encourage-button.did:hover, .encourage-button.did:hover:before, .encourage-button.did:hover:after{background:#37BC9B!important;border-color:#37BC9B!important;color:#fff!important}

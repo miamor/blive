@@ -129,11 +129,11 @@ require_once 'lib/config.php' ?>
 -->
 		</div>
 
-		<div class="right-sidebar sidebar-nicescroller">
+		<div class="right-sidebar">
 			<div class="top-section">
 				<span class="s-title"><span class="fa fa-chevron-left toggle-chat-area"></span> <span class="toggle-form">Chat</span></span>
 			</div>
-			<div class="overflow-scroll" id="right-content">
+			<div class="overflow-scroll sidebar-nicescroller" id="right-content">
 				<div class="friend-list">
 					<? include 'pages/views/friendList.php' ?>
 				</div>

@@ -39,6 +39,7 @@ if ($iid) {
 		if ($gdi && $gdi['type'] != 'do' && ($gdi['privacy'] != 'draff' || $gdi['uid'] == $u)) {
 			$gdlHelpfulAr = explode(', ', $gdi['helpful']);
 			$gdlHelpfulNotAr = explode(', ', $gdi['helpful_not']);
+			$gdlSameAr = explode(', ', $gdi['same']);
 			$pAr = explode(', ', $gdid['people']);
 			$sAr = explode(', ', $gdid['suborner']);
 			include 'system/helpView.php';
