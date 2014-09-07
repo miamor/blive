@@ -70,15 +70,28 @@ foreach ($feedList as $l) {
 <?		} else if ($l['type'] == 'new-request') {
 			$gdi = getRecord('help', "`id` = '{$l['iid']}' ");
 			if ($gdi['type'] != 'do') {
+				if ($gdi['iid']) $gdip = getRecord('help^id,uid,content', "`id` = '{$gdi['iid']}' ");
+				$gdipAu = getRecord('members', "`id` = '{$gdip['uid']}' ");
 				echo $sm ?>
 				<span class="small">
-					<? if ($gdi['type'] == 'need') echo 'needed a <a href="#!request?i='.$gdi['id'].'">help</a>';
-						else if ($gdi['type'] == 'add') echo 'added a <a href="#!request?i='.$gdi['id'].'">favor</a>';
-						else if ($gdi['type'] == 'do') echo 'did a <a href="#!request?i='.$gdi['id'].'">favor</a>' ?>
+				<? if (!$gdi['iid']) {
+					if ($gdi['type'] == 'need') echo 'needed a <a href="#!request?i='.$gdi['id'].'">help</a>';
+					else if ($gdi['type'] == 'add') echo 'added a <a href="#!request?i='.$gdi['id'].'">favor</a>';
+					else if ($gdi['type'] == 'do') echo 'did a <a href="#!request?i='.$gdi['id'].'">favor</a>';
+				} else {
+					if ($gdi['type'] == 'need') echo 'needed a <a href="#!request?i='.$gdip['id'].'">help</a>';
+					else if ($gdi['type'] == 'add') echo 'added a <a href="#!request?i='.$gdip['id'].'">favor</a>';
+					else if ($gdi['type'] == 'do') echo 'did a <a href="#!request?i='.$gdip['id'].'">favor</a>';
+					echo ' like <a href="#!user?u='.$gdip['uid'].'">'.$gdipAu['username'].'</a>';
+				} ?>
 				</span>
 				<div id="<? echo $gdi['id'] ?>" class="one-good-feed the-<? echo $gdi['type'] ?> <? if ($gdi['did'] == 'yes' && $gdi['lock'] =='yes') echo 'the-lock'; else if ($gdi['did'] == 'yes' && $gdi['lock'] == 'lie') echo 'the-lie'; else if ($gdi['did'] == 'yes') echo 'the-did'; else if ($gdi['did'] == 'no') echo 'the-fail' ?> the<? echo $gdi['id'] ?> <? if ($gdi['did'] == 'yes') echo 'did-it'; else if ($gdi['did'] == 'no') echo 'fail-it' ?>" data-p="request">
 					<div class="one-good-main">
-						<div class="one-good-content"><? echo tag($gdi['content']) ?></div>
+						<? if ($gdi['iid']) { ?>
+							<div class="one-good-content"><? echo tag($gdip['content']) ?></div>
+						<? } else { ?>
+							<div class="one-good-content"><? echo tag($gdi['content']) ?></div>
+						<? } ?>
 					</div>
 					<div class="one-good-info tags-small">
 						<? echo tagsList($gdi['tags']) ?>
@@ -109,6 +122,7 @@ foreach ($feedList as $l) {
 			} else echo '<div class="img_preview"><a href="#!feed?i='.$l['id'].'"><img src="'.$l['img_url'].'"/></a></div>';
 		}
 
+	if (!$gdi['iid']) {
 		echo '<div class="normal-stt-tool">';
 			if ($l['type'] == 'new-promise') toolPost('promise', $gdi['id']);
 			else if ($l['type'] == 'new-request') toolPost('help', $gdi['id']);
@@ -127,6 +141,7 @@ foreach ($feedList as $l) {
 			else cmtFormPost('activity', $lid);
 	//		echo "</div>";
 		echo '</div>';
+	}
 	echo '</div>';
 	}
 } ?>

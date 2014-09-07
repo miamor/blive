@@ -174,7 +174,7 @@ a.see-more{margin-left:3px}
 .arrow-bottom:after{content:'';position:absolute;z-index:1;bottom:-5px;left:30px;width:8px;height:8px;background:#37bc9b;transform:rotate(45deg);-webkit-transform:rotate(45deg)}
 .arrow-big-div .arrow-div{background:#fff;margin-top:-6px;position:relative;z-index:3}
 .suggest-list{padding:0 10px}
-.suggest-one{position:relative;padding:10px 0;line-height:16px;border-bottom:1px dashed #f4f4f4}
+.suggest-one{position:relative;padding:10px 0;line-height:16px;border-bottom:1px dashed #f1f1f1}
 .suggest-one .avatar-circle{margin:1px 8px 2px 0;width:30px;height:30px}
 .form-help{background:#fff;margin-left:8px;padding:15px}
 .me-help{margin-bottom:8px}
@@ -489,7 +489,7 @@ textarea.chat-text{height:75px!important;border-radius:0;box-shadow:none}
 .sb-content{position:relative;z-index:1;padding:10px 20px}
 .sb-open, .sb-close{cursor:pointer} .sb-close{position: absolute;z-index:20;right:0!important;top:0!important;padding:10px 20px 0;*background:#fbfbfb;font-family:Mono;font-size:13px;color:#bbb}
 .logo-brand .fa-circle:before{position: absolute;color:#fff;font-size:14px;margin:-10px 0 -20px -30px;line-height:15px}
-.one-people{border-bottom:1px dashed #f4f4f4;padding: 5px}
+.one-people{border-bottom:1px dashed #f1f1f1;padding: 5px}
 /* ==========================================================
  * Board content
  * =========================================================*/

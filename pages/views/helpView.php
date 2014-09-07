@@ -25,6 +25,7 @@
 					<a class="button-vote vote-up button-helpful <? if (in_array($u, $gdlHelpfulAr)) echo 'active' ?>" id="helpful"><span class="fa fa-thumbs-up"></span></a>
 					<a class="button-vote vote-down button-helpful-not <? if (in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>" id="helpfulnot"><span class="fa fa-thumbs-down"></span></a>
 				</span>
+				<span><a class="button-vote button-star-request-add <? if (in_array($u, $gdlSameAr)) echo 'active' ?>" id="helpedmyproblem"><span class="fa fa-star-o"></span></a></span>
 			</div>
 <? 		} ?>
 <? 	} else {
@@ -34,7 +35,7 @@
 					<a class="button-vote vote-up button-helpful <? if (in_array($u, $gdlHelpfulAr)) echo 'active' ?>" id="helpful"><span class="fa fa-thumbs-up"></span></a>
 					<a class="button-vote vote-down button-helpful-not <? if (in_array($u, $gdlHelpfulNotAr)) echo 'active' ?>" id="helpfulnot"><span class="fa fa-thumbs-down"></span></a>
 				</span>
-				<span><a class="button-vote button-star-request-add <? if (in_array($u, $gdlSameAr)) echo 'active' ?>" id="sameproblem"><span class="fa fa-star-o"></span></a></span>
+				<span><a class="button-vote button-star-request-need <? if (in_array($u, $gdlSameAr)) echo 'active' ?>" id="sameproblem"><span class="fa fa-star-o"></span></a></span>
 			</div>
 <?		}
 	} ?>

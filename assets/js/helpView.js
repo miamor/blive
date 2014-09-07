@@ -23,7 +23,7 @@ function voteRequest () {
 				$('.helpful-static').slideUp(200, function () {
 					$(this).load(url + ' .helpful-static > span', function () {
 						$(this).slideDown(200, function () {
-							mtip('.one-good-info.helpful', 'success', '', 'Thanks for your feedbacks.')
+							if (act == 'helpful' || act == 'helpfulnot') mtip('.one-good-info.helpful', 'success', '', 'Thanks for your feedbacks.')
 						})
 					})
 				})

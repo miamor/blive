@@ -43,10 +43,15 @@
 	if ($do == 'sameproblem' && $gdi['uid'] != $u) {
 		if (!in_array($u, $gdlSameAr)) {
 			pushToCol('help', 'id', $iid, 'same');
-			insert('help', "`type`, `uid`, `iid`", " 'need', '$u', '$iid' ");
+			insert('help', "`type`, `uid`, `iid`, `time`", " 'need', '$u', '$iid', '$curint' ");
+			$myp = getRecord('help^id', "`type` = 'need' AND `uid` = '$u' AND `iid` = '$iid' ");
+//			activityAdd('new-request', $myp['id']);
+			insert('activity', "`type`, `privacy`, `uid`, `to_uid`, `iid`, `time`", " 'new-request', 'public', '$u', '$u', '{$myp['id']}', '$curint' ");
 		} else {
 			rmFromCol('help', 'id', $iid, 'same');
-			delete('help', "`type` = 'need' AND `uid` = '$u' AND `iid` = '$iid' ");
+			$myp = getRecord('help^id', "`type` = 'need' AND `uid` = '$u' AND `iid` = '$iid' ");
+			delete('help', "`id` = '{$myp['id']}' ");
+			delete('activity', "`type` = 'new-request' AND `uid` = '$u' AND `iid` = '{$myp['id']}' ");
 		}
 	}
 	if ($do == 'requestsolved') {
